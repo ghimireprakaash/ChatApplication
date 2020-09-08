@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorBlack">#302F2F</color>
+    <color name="colorWhite">#ffffff</color>
+
+    <color name="colorLightPurple">#7D3FD8</color>
+
+    <color name="colorGrey">#535151</color>
+
+    <!-- Custom Color for Enabled and Disabled button    -->
+    <color name="colorEnabledButton">#7D3FD8</color>
+    <color name="colorDisabledButton">#605F5F</color>
+</resources>

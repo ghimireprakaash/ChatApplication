@@ -1,0 +1,36 @@
+<resources>
+    <!-- Splash Screen theme. -->
+    <style name="AppTheme.Start1"
+        parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+
+    </style>
+
+    <style name="AppTheme.Start2"
+        parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.Home"
+        parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
