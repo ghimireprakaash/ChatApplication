@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.chatapp.application.BottomNavigation.ChatFragment;
-import com.chatapp.application.BottomNavigation.GroupChatFragment;
+import com.chatapp.application.BottomNavigation.ContactListsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.groupChat:
-                    selectedFragment = new GroupChatFragment();
+                    selectedFragment = new ContactListsFragment();
                     break;
             }
 

@@ -7,7 +7,4 @@
     <item android:state_enabled="false"
         android:drawable="@drawable/custom_disabled_button"/>
 
-<!--    &lt;!&ndash; Default State &ndash;&gt;-->
-<!--    <item android:drawable="@drawable/custom_disabled_button"/>-->
-
 </selector>

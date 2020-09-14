@@ -102,6 +102,8 @@
         android:background="@drawable/custom_default_button"
         android:text="@string/continueButton"
         android:textColor="@color/colorWhite"
+        android:textAllCaps="false"
+        android:textSize="14sp"
         android:focusable="true"
         android:clickable="true"
         android:onClick="OnPressedContinue"

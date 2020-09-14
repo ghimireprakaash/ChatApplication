@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ChatApp</string>
 
-    //Start Activity strings...
+    //Start Activity string values...
     <string name="welcomeText">Welcome</string>
     <string name="firstScreenSecondText">Try this new Chat App</string>
     <string name="firstScreenThirdText">By tapping \"Continue\" \n
@@ -9,16 +9,27 @@
     <string name="continueButton">Continue</string>
 
 
-    //Second Activity strings after on clicked...
+    //Second Activity string values after on clicked...
     <string name="phNumber">Enter your phone number</string>
     <string name="secondText1">Make sure you enter correct number based on your region so that a code can be sent to you.</string>
     <string name="PhoneNumber">Phone Number</string>
 
 
-    //OTP Activity strings...
-    <string name="otpScreenText">A code will be sent to you soon that you can\n use to activate your account.</string>
+
+    //DialogFragment string values
+    <string name="IsThisYourPhNumber">Is this your phone number?</string>
+    <string name="respectiveContactNumber">Phone Number</string>
+    <string name="codeSent">A code will be sent to this number\nand will activate automatically.</string>
+    <string name="editOption">EDIT</string>
+    <string name="yesOption">YES</string>
+
+
+    //OTP Activity string values...
+    <string name="otpScreenText">A code will be sent to you soon, that you can\n use to activate your account.</string>
     <string name="phone_number_code">Code</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="code">Code: </string>
+
+    <string name="activateText">Activating</string>
+    <string name="pleaseWaitText">Please wait"\…</string>
 
 </resources>

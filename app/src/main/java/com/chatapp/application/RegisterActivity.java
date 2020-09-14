@@ -2,14 +2,17 @@ package com.chatapp.application;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Patterns;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.chatapp.application.DTO.DialogFragment;
 import com.hbb20.CountryCodePicker;
 
 public class RegisterActivity extends AppCompatActivity {
+    String regex = "^[0-9]{10,13}$";
+
     CountryCodePicker ccp;
     EditText editTextCarrierNumber;
     Button continueBtn;
@@ -25,6 +28,12 @@ public class RegisterActivity extends AppCompatActivity {
         editTextCarrierNumber = findViewById(R.id.phNumberEditText);
         continueBtn = findViewById(R.id.continueButton);
 
+
+        //for button enable and disable
+        editTextCarrierNumber.addTextChangedListener(textChangeListener);
+
+
+
         //Attach CarrierNumber editText to CCP
         ccp.registerCarrierNumberEditText(editTextCarrierNumber);
 
@@ -36,6 +45,29 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    //TextChange Listener listens to either button should be disabled or enabled
+    private TextWatcher textChangeListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String editTextPhoneNumberField = editTextCarrierNumber.getText().toString().trim();
+
+            continueBtn.setEnabled(!editTextPhoneNumberField.isEmpty());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
+
+
+    //OnCountry selected
     public void OnCountryCodePicker(View view) {
         ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
@@ -48,34 +80,29 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+
+
+    //On Pressed Continue Button after number is filled and country selected
     public void OnPressedContinue(View view) {
+        String code = ccp.getSelectedCountryCode();
 
-        continueBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String phNumber = editTextCarrierNumber.getText().toString().trim();
+        String phNumber = editTextCarrierNumber.getText().toString().trim();
 
-                if (phNumber.isEmpty()){
-                    Log.i("click", "Button Disabled");
-                    continueBtn.setEnabled(false);
+        if (phNumber.length() < 10 || phNumber.length() > 13 || phNumber.matches(regex)){
 
-                } else{
-                      continueBtn.setEnabled(true);
-                }
+            editTextCarrierNumber.setError("Valid phone number is required.");
 
-                if (phNumber.length() < 10 || phNumber.length() > 13 || Patterns.PHONE.matcher(phNumber).matches()){
+        } else {
+            String fullPhoneNumberWithCountryCode = "+" + code + phNumber;
 
-                    editTextCarrierNumber.setError("Valid phone number is required.");
+            bundle.putString("phNumberWithCountryCode", fullPhoneNumberWithCountryCode);
 
-                }
+            bundle.putString("phNumber", phNumber);
 
+            final DialogFragment dialogFragment = new DialogFragment();
+            dialogFragment.setArguments(bundle);
+            dialogFragment.show(getSupportFragmentManager(), "Dialog Fragment");
 
-                bundle.putString("phNumber", phNumber);
-
-                DialogFragment dialogFragment = new DialogFragment();
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getSupportFragmentManager(), "Dialog Fragment");
-            }
-        });
+        }
     }
 }

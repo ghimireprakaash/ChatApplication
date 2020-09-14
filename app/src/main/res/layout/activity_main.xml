@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:background="?android:attr/windowBackground"
-        app:elevation="5dp"
+        app:elevation="8dp"
         app:itemIconTint="@color/colorLightPurple"
         app:itemTextColor="@color/colorBlack"
         app:layout_constraintStart_toStartOf="parent"
