@@ -15,7 +15,6 @@
     <string name="PhoneNumber">Phone Number</string>
 
 
-
     //DialogFragment string values
     <string name="IsThisYourPhNumber">Is this your phone number?</string>
     <string name="respectiveContactNumber">Phone Number</string>

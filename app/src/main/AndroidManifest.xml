@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chatapp.application">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".BottomNavigation.MoreFragment"></activity>
         <activity
             android:name=".StartActivity"
             android:theme="@style/AppTheme.Start1">
@@ -24,16 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".RegisterActivity"
-            android:theme="@style/AppTheme.Start2"/>
-
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.Start2" />
         <activity
             android:name=".OTPActivity"
             android:theme="@style/AppTheme.Home" />
-
         <activity android:name=".MainActivity" />
-
     </application>
 
 </manifest>
