@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OTPActivity">
+    tools:context=".activity.OTPActivity">
 
 <!--    <TextView-->
 <!--        android:id="@+id/otpScreenText"-->
@@ -57,7 +57,7 @@
 <!--        android:id="@+id/sign_up"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/custom_default_button"-->
+<!--        android:background="@drawable/button_state_on_changed"-->
 <!--        android:text="Continue"-->
 <!--        android:textColor="@color/colorWhite"-->
 <!--        android:textAllCaps="false"-->

@@ -1,14 +1,6 @@
 <resources>
     <!-- Splash Screen theme. -->
-    <style name="AppTheme.Start1"
-        parent="Theme.AppCompat.Light.NoActionBar">
-
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorPrimaryDark">@color/colorWhite</item>
-
-    </style>
-
-    <style name="AppTheme.Start2"
+    <style name="AppTheme.StartStyle"
         parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimary">@color/colorWhite</item>

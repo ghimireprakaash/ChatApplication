@@ -1,4 +1,4 @@
-package com.chatapp.application.CustomLoadingDialog;
+package com.chatapp.application.customloadingdialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -1,9 +1,11 @@
-package com.chatapp.application;
+package com.chatapp.application.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import com.chatapp.application.R;
+import com.chatapp.application.bottomnavigation.ChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -13,6 +15,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
     }
 
     public void OnPressedContinue(View view) {
@@ -28,7 +31,7 @@ public class StartActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null){
-            startActivity(new Intent(StartActivity.this, MainActivity.class));
+            startActivity(new Intent(StartActivity.this, ChatActivity.class));
             finish();
         }
     }

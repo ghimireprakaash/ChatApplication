@@ -14,23 +14,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BottomNavigation.MoreFragment"></activity>
+
         <activity
-            android:name=".StartActivity"
-            android:theme="@style/AppTheme.Start1">
+            android:name=".activity.StartActivity"
+            android:theme="@style/AppTheme.StartStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.RegisterActivity"/>
+
         <activity
-            android:name=".RegisterActivity"
-            android:theme="@style/AppTheme.Start2" />
-        <activity
-            android:name=".OTPActivity"
+            android:name=".activity.OTPActivity"
             android:theme="@style/AppTheme.Home" />
-        <activity android:name=".MainActivity" />
+
+        <activity android:name=".activity.MainActivity"/>
+
+        <activity android:name=".bottomnavigation.ChatActivity" />
+        <activity android:name=".bottomnavigation.ContactListsActivity" />
+        <activity
+            android:name=".bottomnavigation.MoreActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity android:name=".profile.ProfileUpdate" />
     </application>
 
 </manifest>

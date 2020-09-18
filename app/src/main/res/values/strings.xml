@@ -28,7 +28,16 @@
     <string name="phone_number_code">Code</string>
     <string name="code">Code: </string>
 
-    <string name="activateText">Activating</string>
-    <string name="pleaseWaitText">Please wait"\…</string>
+
+    //Dialog box string values
+    <string name="activateText">Activating, Please wait"\…</string>
+
+
+    //string values for Profile
+    <string name="profileName">Profile Name</string>
+    <string name="profileDOB">Date of birth</string>
+    <string name="userContactNumber">Contact Number</string>
+    <string name="userDOB">DOB</string>
+    <string name="buttonSet">Set</string>
 
 </resources>

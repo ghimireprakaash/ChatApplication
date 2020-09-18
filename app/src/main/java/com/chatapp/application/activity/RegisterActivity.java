@@ -1,13 +1,15 @@
-package com.chatapp.application;
+package com.chatapp.application.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import com.chatapp.application.DTO.DialogFragment;
+import com.chatapp.application.R;
+import com.chatapp.application.dto.DialogFragment;
 import com.hbb20.CountryCodePicker;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -22,6 +24,9 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_register);
 
         ccp = findViewById(R.id.countryCodePicker);
@@ -88,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         String phNumber = editTextCarrierNumber.getText().toString().trim();
 
-        if (phNumber.length() < 10 || phNumber.length() > 13 || phNumber.matches(regex)){
+        if (phNumber.length() < 10 || phNumber.length() > 14 || phNumber.matches(regex)){
 
             editTextCarrierNumber.setError("Valid phone number is required.");
 
@@ -104,5 +109,13 @@ public class RegisterActivity extends AppCompatActivity {
             dialogFragment.show(getSupportFragmentManager(), "Dialog Fragment");
 
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 }

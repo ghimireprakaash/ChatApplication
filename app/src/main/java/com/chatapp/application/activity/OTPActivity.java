@@ -1,4 +1,4 @@
-package com.chatapp.application;
+package com.chatapp.application.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.chatapp.application.CustomLoadingDialog.CustomLoadingDialog;
+import com.chatapp.application.R;
+import com.chatapp.application.customloadingdialog.CustomLoadingDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -16,6 +16,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -25,10 +27,10 @@ public class OTPActivity extends AppCompatActivity {
     String numberVerification;
     PhoneAuthProvider.ForceResendingToken resendToken;
 
-//    EditText phNumberCode;
-//    Button sign_up;
 
     FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,8 @@ public class OTPActivity extends AppCompatActivity {
         //declaring firebase auth instance
         firebaseAuth = FirebaseAuth.getInstance();
 
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-//        phNumberCode = findViewById(R.id.phNumberCode);
-//        sign_up = findViewById(R.id.sign_up);
 
 
         final String phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
@@ -48,18 +49,17 @@ public class OTPActivity extends AppCompatActivity {
 
 
         final CustomLoadingDialog loadingDialog = new CustomLoadingDialog(OTPActivity.this);
-
+        loadingDialog.startLoadingDialog();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingDialog.startLoadingDialog();
-
                 sendPhoneNumberVerificationCode(phoneNumber);
 
                 loadingDialog.dismissDialog();
             }
-        }, 4000);
+        }, 6500);
+
 
 //        sign_up.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -134,10 +134,15 @@ public class OTPActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()){
+                            String getUserId = firebaseAuth.getCurrentUser().getUid();
+                            databaseReference.child("Users").child(getUserId).setValue("");
+
+
                             Intent intent = new Intent(OTPActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                             startActivity(intent);
+                            finish();
 
                         } else {
                         Toast.makeText(OTPActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();

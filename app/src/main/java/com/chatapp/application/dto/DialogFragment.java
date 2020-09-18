@@ -1,4 +1,4 @@
-package com.chatapp.application.DTO;
+package com.chatapp.application.dto;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.chatapp.application.OTPActivity;
+import com.chatapp.application.activity.OTPActivity;
 import com.chatapp.application.R;
 
 public class DialogFragment extends androidx.fragment.app.DialogFragment {
