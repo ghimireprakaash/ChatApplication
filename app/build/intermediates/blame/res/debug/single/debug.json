@@ -1,0 +1,326 @@
+[
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_more_horiz_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\more_horiz_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_settings_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\settings_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_more_horiz_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\more_horiz_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_edit_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\edit_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_chat_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\chat_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_custom_disabled_button.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\custom_disabled_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_more.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_more.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_chat_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\chat_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_chat_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\chat_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\menu_bottom_navigation_items.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\menu\\bottom_navigation_items.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_check_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\check_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_more_horiz_24.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\more_horiz_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_settings_24.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\settings_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_check_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\check_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_fragment.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\dialog_fragment.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_contact_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\contact_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_settings_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\settings_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_chat.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_chat.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_more_horiz_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\more_horiz_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_edit_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\edit_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_more_horiz_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\more_horiz_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_start.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_start.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_otp.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_otp.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_chat_24.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\chat_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_settings_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\settings_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_register.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_register.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_profile.jpg.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\profile.jpg"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_contact_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\contact_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_contact_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\contact_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_profile.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_more_horiz_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\more_horiz_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_chat_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\chat_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_edit_24.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\edit_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_contact_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\contact_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_custom_loading_dialog.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\custom_loading_dialog.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_contact_lists.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_contact_lists.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_check_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\check_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_check_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\check_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_settings_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\settings_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_more_horiz_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\more_horiz_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_set_button.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\set_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_custom_enabled_button.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\custom_enabled_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_profile_update.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\activity_profile_update.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_check_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\check_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_settings_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\settings_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_chat_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\chat_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_edit_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\edit_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_check_24.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\check_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_edit_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\edit_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_contact_24.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\contact_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_launcher_background.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_edit_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\edit_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_contact_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\contact_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_chat_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\chat_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_custom_start_button.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\custom_start_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_check_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\check_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_contact_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\contact_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_edit_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\edit_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_settings_24.png.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\settings_24.png"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\color_nav_items_color.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\color\\nav_items_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_button_state_on_changed.xml.flat",
+        "source": "C:\\Users\\PrakAash\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\button_state_on_changed.xml"
+    }
+]

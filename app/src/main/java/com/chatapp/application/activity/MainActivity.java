@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView setupProfileImage;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String currentUserID;
+
 
     //Declaring Firebase instances
     private FirebaseAuth firebaseAuth;
@@ -49,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
-        currentUserID = firebaseAuth.getCurrentUser().getUid();
+        currentUserID = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         init();
+
 
 
 
@@ -80,9 +83,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        verifyUserExistence();
+        verifyUserExistence();
 
 
+
+
+        //On click button set, it setups the user information
         btnSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+    //User Profile Setup
     private void profileSetup() {
         String profileName = setupProfileName.getText().toString();
         String profileDOB = setupProfileDOB.getText().toString();
@@ -104,10 +113,14 @@ public class MainActivity extends AppCompatActivity {
             setupProfileDOB.requestFocus();
 
         } else {
+
+            String getCurrentUserPhoneNumber = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
+
             HashMap<String, String> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("username", profileName);
             profileMap.put("dob", profileDOB);
+            profileMap.put("contact", getCurrentUserPhoneNumber);
 
             databaseReference.child("Users").child(currentUserID).setValue(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -128,9 +141,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
-
     }
 
+
+
+
+    // Initializing fields
     private void init() {
         setupProfileImage = findViewById(R.id.setupProfileImage);
         setupProfileName = findViewById(R.id.setupProfileName);
@@ -144,25 +160,37 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Verifies if the user is existed
-//    private void verifyUserExistence() {
-//        String checkCurrentUserID;
-//        checkCurrentUserID = firebaseAuth.getCurrentUser().getUid();
-//
-//        databaseReference.child(checkCurrentUserID).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if ((snapshot.child("username").exists())){
-//                 //If user exists this condition is applied
-//                } else {
-//                    init();
-//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+    private void verifyUserExistence() {
+        databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if ((snapshot.exists()) && (snapshot.hasChild("userimage")) && (snapshot.hasChild("username"))){
+
+
+                    String getUserName = snapshot.child("username").getValue().toString();
+                    String getUserDOB = snapshot.child("dob").getValue().toString();
+
+
+                    setupProfileName.setText(getUserName);
+                    setupProfileDOB.setText(getUserDOB);
+
+                } else if ((snapshot.exists()) && (snapshot.hasChild("username"))){
+
+                    String getUserName = snapshot.child("username").getValue().toString();
+                    String getUserDOB = snapshot.child("dob").getValue().toString();
+
+                    setupProfileName.setText(getUserName);
+                    setupProfileDOB.setText(getUserDOB);
+
+                } else {
+                    //Do Nothing
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }
