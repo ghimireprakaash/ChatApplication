@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\8c169b16c396874661c58a96c46930eb\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e8170964da10c0aa08ef4ff1142fca13\material-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\ea0a2745b98c05ce7c1e173cdaaff595\jetified-ccp-2.4.0\AndroidManifest.xml:2:1-11:12
@@ -67,20 +67,20 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\PrakAash\.gra
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\b77454809810e03ad1b0b8586694d509\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\59b723f090061559cc5b6f12f2aff3bc\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [io.michaelrocks:libphonenumber-android:8.10.14] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\b25c324d69acb7a61124883b925a2a57\jetified-libphonenumber-android-8.10.14\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
 	package
 		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:3:5-38
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-45:12
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:11-69
@@ -125,7 +125,7 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] C:
 	android:name
 		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:7:22-76
 application
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:9:5-43:19
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:9:5-36:19
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\8c169b16c396874661c58a96c46930eb\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\8c169b16c396874661c58a96c46930eb\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e8170964da10c0aa08ef4ff1142fca13\material-1.1.0\AndroidManifest.xml:22:5-20
@@ -207,37 +207,27 @@ ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidM
 	android:name
 		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:24:27-74
 activity#com.chatapp.application.activity.RegisterActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:28:9-62
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:27:9-63
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:28:19-60
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:27:19-60
 activity#com.chatapp.application.activity.OTPActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:30:9-32:52
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:28:9-30:52
 	android:theme
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:32:13-49
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:30:13-49
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:31:13-49
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:29:13-49
+activity#com.chatapp.application.activity.ProfileSetupActivity
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:31:9-67
+	android:name
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:31:19-64
 activity#com.chatapp.application.activity.MainActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:34:9-58
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:33:9-58
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:34:19-56
-activity#com.chatapp.application.bottomnavigation.ChatActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:36:9-67
-	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:36:19-64
-activity#com.chatapp.application.bottomnavigation.ContactListsActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:37:9-75
-	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:37:19-72
-activity#com.chatapp.application.bottomnavigation.MoreActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:38:9-40:72
-	android:theme
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:40:13-69
-	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:39:13-58
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:33:19-56
 activity#com.chatapp.application.profile.ProfileUpdate
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:42:9-59
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:35:9-59
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:42:19-56
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:35:19-56
 uses-sdk
 INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml

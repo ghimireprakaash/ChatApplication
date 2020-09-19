@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import com.chatapp.application.R;
-import com.chatapp.application.bottomnavigation.ChatActivity;
+import com.chatapp.application.fragments.ChatFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -31,7 +31,7 @@ public class StartActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null){
-            startActivity(new Intent(StartActivity.this, ChatActivity.class));
+            startActivity(new Intent(StartActivity.this, MainActivity.class));
             finish();
         }
     }

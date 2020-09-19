@@ -24,20 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.RegisterActivity"/>
-
+        <activity android:name=".activity.RegisterActivity" />
         <activity
             android:name=".activity.OTPActivity"
             android:theme="@style/AppTheme.Home" />
+        <activity android:name=".activity.ProfileSetupActivity" />
 
         <activity android:name=".activity.MainActivity"/>
-
-        <activity android:name=".bottomnavigation.ChatActivity" />
-        <activity android:name=".bottomnavigation.ContactListsActivity" />
-        <activity
-            android:name=".bottomnavigation.MoreActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity android:name=".profile.ProfileUpdate" />
     </application>

@@ -6,63 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/setupProfileImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/profile"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@color/colorLightDarkWhite"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="20dp"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <EditText
-        android:id="@+id/setupProfileName"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:title="ChatApp"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/profileName"
-        android:autofillHints="ProfileName"
-        android:textSize="17sp"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/setupProfileImage"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"/>
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"/>
 
-    <EditText
-        android:id="@+id/setupProfileDOB"
-        android:layout_width="match_parent"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/profileDOB"
-        android:autofillHints="DateOfBirth"
-        android:textSize="17sp"
-        android:inputType="none"
-        android:focusable="false"
-        app:layout_constraintTop_toBottomOf="@+id/setupProfileName"
+        android:padding="5dp"
+        android:background="?android:attr/windowBackground"
+        app:elevation="8dp"
+        app:itemIconTint="@color/nav_items_color"
+        app:itemTextColor="@color/nav_items_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"/>
-
-    <Button
-        android:id="@+id/buttonSet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/buttonSet"
-        android:textSize="17sp"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/set_button"
-        app:layout_constraintTop_toBottomOf="@+id/setupProfileDOB"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_items"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

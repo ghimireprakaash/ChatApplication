@@ -39,12 +39,8 @@
         <activity
             android:name="com.chatapp.application.activity.OTPActivity"
             android:theme="@style/AppTheme.Home" />
+        <activity android:name="com.chatapp.application.activity.ProfileSetupActivity" />
         <activity android:name="com.chatapp.application.activity.MainActivity" />
-        <activity android:name="com.chatapp.application.bottomnavigation.ChatActivity" />
-        <activity android:name="com.chatapp.application.bottomnavigation.ContactListsActivity" />
-        <activity
-            android:name="com.chatapp.application.bottomnavigation.MoreActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name="com.chatapp.application.profile.ProfileUpdate" />
         <activity
             android:name="com.google.firebase.auth.internal.FederatedSignInActivity"

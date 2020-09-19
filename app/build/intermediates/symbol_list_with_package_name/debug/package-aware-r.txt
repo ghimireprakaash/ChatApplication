@@ -1867,7 +1867,8 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
-drawable more_horiz_24
+drawable info_30
+drawable menu_24
 drawable mtrl_dialog_background
 drawable mtrl_dropdown_arrow
 drawable mtrl_ic_arrow_drop_down
@@ -1892,7 +1893,7 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable profile
 drawable set_button
-drawable settings_24
+drawable settings_30
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -1909,7 +1910,6 @@ id CTRL
 id CZECH
 id Card1
 id Card2
-id Card3
 id DANISH
 id DUTCH
 id ENGLISH
@@ -1979,6 +1979,7 @@ id UZBEK
 id VIETNAMESE
 id VOICEMAIL
 id VOIP
+id aboutText
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -2290,7 +2291,7 @@ id search_src_text
 id search_voice_btn
 id select_dialog_listview
 id selected
-id settingsIcon
+id settingsText
 id setupProfileDOB
 id setupProfileImage
 id setupProfileName
@@ -2450,11 +2451,9 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_chat
-layout activity_contact_lists
 layout activity_main
-layout activity_more
 layout activity_otp
+layout activity_profile_setup
 layout activity_profile_update
 layout activity_register
 layout activity_start
@@ -2477,6 +2476,9 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout dialog_fragment
 layout fastscroll__default_bubble
+layout fragment_chat
+layout fragment_contact_lists
+layout fragment_more_option
 layout layout_code_picker
 layout layout_full_width_code_picker
 layout layout_picker_dialog
@@ -2612,6 +2614,7 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string about
 string activateText
 string app_name
 string appbar_scrolling_view_behavior
@@ -2620,6 +2623,7 @@ string buttonSet
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
+string chats
 string chip_text
 string clear_text_end_icon_content_description
 string code
@@ -2642,6 +2646,7 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string contacts
 string continueButton
 string default_web_client_id
 string editOption
@@ -2660,6 +2665,7 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
+string more
 string mtrl_badge_numberless_content_description
 string mtrl_chip_close_icon_content_description
 string mtrl_exceed_max_badge_number_suffix
@@ -2711,6 +2717,7 @@ string search_hint
 string search_menu_title
 string secondText1
 string select_country
+string settings
 string status_bar_notification_info_overflow
 string userContactNumber
 string userDOB
