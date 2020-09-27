@@ -32,6 +32,10 @@ public class OTPActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
 
+    CustomLoadingDialog loadingDialog;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,20 +49,12 @@ public class OTPActivity extends AppCompatActivity {
 
 
         final String phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
+        sendPhoneNumberVerificationCode(phoneNumber);
 
 
 
-        final CustomLoadingDialog loadingDialog = new CustomLoadingDialog(OTPActivity.this);
+        loadingDialog = new CustomLoadingDialog(OTPActivity.this);
         loadingDialog.startLoadingDialog();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                sendPhoneNumberVerificationCode(phoneNumber);
-
-                loadingDialog.dismissDialog();
-            }
-        }, 6500);
 
 
 //        sign_up.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +100,10 @@ public class OTPActivity extends AppCompatActivity {
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
 //                Log.w(TAG, "onVerificationFailed", e);
-            Toast.makeText(OTPActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+
+            loadingDialog.dismissDialog();
+
+            Toast.makeText(OTPActivity.this, "Verification failed - "+ e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -116,6 +115,9 @@ public class OTPActivity extends AppCompatActivity {
             //Save verification ID and resending token so we can use them later
             numberVerification = verificationId;
             resendToken = token;
+
+
+            loadingDialog.dismissDialog();
         }
     };
 
@@ -134,8 +136,12 @@ public class OTPActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()){
+                            loadingDialog.dismissDialog();
+
+
                             String getUserId = firebaseAuth.getCurrentUser().getUid();
                             databaseReference.child("Users").child(getUserId).setValue("");
+
 
 
                             Intent intent = new Intent(OTPActivity.this, ProfileSetupActivity.class);
