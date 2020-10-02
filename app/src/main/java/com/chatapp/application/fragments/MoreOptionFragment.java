@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class MoreOptionFragment extends Fragment {
     private TextView editOption;
@@ -47,9 +48,7 @@ public class MoreOptionFragment extends Fragment {
 
 
         //Getting Current user id
-        getCurrentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
+        getCurrentUserID = firebaseAuth.getCurrentUser().getUid();
 
 
         //Initializing fields
@@ -67,8 +66,6 @@ public class MoreOptionFragment extends Fragment {
 
 
 
-
-
         editOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,19 +78,20 @@ public class MoreOptionFragment extends Fragment {
 
 
 
-
     //Retrieving Current User Information
     private void retrieveUserInfo() {
         databaseReference.child("Users").child(getCurrentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ((snapshot.exists()) && (snapshot.hasChild("userimage")) && (snapshot.hasChild("username"))){
+                if ((snapshot.exists()) && (snapshot.hasChild("userProfileImage")) && (snapshot.hasChild("username"))){
 
-                    String getUserProfileImage = snapshot.child("userimage").getValue().toString();
+                    String getUserProfileImage = snapshot.child("userProfileImage").getValue().toString();
                     String getUserName = snapshot.child("username").getValue().toString();
                     String getUserContactNumber = snapshot.child("contact").getValue().toString();
                     String getUserDOB = snapshot.child("dob").getValue().toString();
 
+
+                    Picasso.get().load(getUserProfileImage).into(userProfileImage);
                     userProfileName.setText(getUserName);
                     userProfileContact.setText(getUserContactNumber);
                     userDOB.setText(getUserDOB);

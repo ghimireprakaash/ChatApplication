@@ -14,7 +14,7 @@ public class CustomLoadingDialog {
         activity = myActivity;
     }
 
-    public void startLoadingDialog(){
+    public boolean startLoadingDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -23,6 +23,8 @@ public class CustomLoadingDialog {
 
         dialog = builder.create();
         dialog.show();
+
+        return true;
     }
 
     public void dismissDialog(){

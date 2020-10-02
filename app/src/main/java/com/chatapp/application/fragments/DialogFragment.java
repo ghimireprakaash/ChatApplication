@@ -1,4 +1,4 @@
-package com.chatapp.application.dto;
+package com.chatapp.application.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;

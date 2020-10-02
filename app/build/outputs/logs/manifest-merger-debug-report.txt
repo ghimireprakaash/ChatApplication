@@ -1,12 +1,13 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\8c169b16c396874661c58a96c46930eb\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e8170964da10c0aa08ef4ff1142fca13\material-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\ea0a2745b98c05ce7c1e173cdaaff595\jetified-ccp-2.4.0\AndroidManifest.xml:2:1-11:12
+MERGED from [com.theartofdev.edmodo:android-image-cropper:2.8.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e4646426cdddc65da733a3ef52a53a76\jetified-android-image-cropper-2.8.0\AndroidManifest.xml:2:1-11:12
 MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\a39fc0a8c7496fd19cd8f1b3f6a822ed\jetified-fastscroll-0.2.5\AndroidManifest.xml:2:1-13:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\2623c5ec6fa92d68e711128d15e9038d\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\aab5293454cabe85272e9de04d494d57\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -16,6 +17,7 @@ MERGED from [com.google.firebase:firebase-auth:19.3.2] C:\Users\PrakAash\.gradle
 MERGED from [com.google.firebase:firebase-database:19.4.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\a52d7fe66f1048ab85caa0af2712135b\jetified-firebase-database-19.4.0\AndroidManifest.xml:15:1-38:12
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\aac464be750fe7e42c6e3ef59b1c2d74\jetified-firebase-storage-19.2.0\AndroidManifest.xml:15:1-39:12
 MERGED from [de.hdodenhof:circleimageview:3.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\55cdd1cb5f873838de5123a4dae796cb\jetified-circleimageview-3.1.0\AndroidManifest.xml:2:1-11:12
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:2:1-14:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\226817fd352d0debd037c03d8ec9b5c1\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\705071dba30571a9226503cb1f0dac80\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\305c2898fe2457e82c9da2257c2bc0a1\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
@@ -56,6 +58,7 @@ MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\Pr
 MERGED from [androidx.core:core:1.3.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\980630e158f38ced2d00e440ae193d30\core-1.3.1\AndroidManifest.xml:17:1-26:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\bf3e5eb0de5dbaf7174c5a9a34f69c5a\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\626cd0cdd86577b53b05b9ceb0f9a7ca\jetified-firebase-components-16.0.0\AndroidManifest.xml:15:1-23:12
+MERGED from [androidx.exifinterface:exifinterface:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\34d8e6fccc0ab5b895e5ef716d51459c\exifinterface-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\324b5866ad2c13339651997b434b41f3\versionedparcelable-1.1.0\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\6ca55331635d9ca1071738b385928a75\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\d5fd7fbc692311a845217063332ce16c\print-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -67,20 +70,20 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\PrakAash\.gra
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\b77454809810e03ad1b0b8586694d509\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\59b723f090061559cc5b6f12f2aff3bc\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [io.michaelrocks:libphonenumber-android:8.10.14] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\b25c324d69acb7a61124883b925a2a57\jetified-libphonenumber-android-8.10.14\AndroidManifest.xml:2:1-11:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
-INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
 	package
 		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:3:5-38
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-38:12
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:1-47:12
 		INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:2:11-69
@@ -124,8 +127,16 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] C:
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.5.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\cd1ec5d99f4fdc26521eac46eeaab1a6\jetified-play-services-measurement-sdk-api-17.5.0\AndroidManifest.xml:24:5-79
 	android:name
 		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:9:5-80
+	android:name
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:10:22-77
 application
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:9:5-36:19
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:13:5-45:19
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\8c169b16c396874661c58a96c46930eb\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\8c169b16c396874661c58a96c46930eb\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e8170964da10c0aa08ef4ff1142fca13\material-1.1.0\AndroidManifest.xml:22:5-20
@@ -142,6 +153,8 @@ MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.gra
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\aac464be750fe7e42c6e3ef59b1c2d74\jetified-firebase-storage-19.2.0\AndroidManifest.xml:29:5-37:19
 MERGED from [de.hdodenhof:circleimageview:3.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\55cdd1cb5f873838de5123a4dae796cb\jetified-circleimageview-3.1.0\AndroidManifest.xml:9:5-20
 MERGED from [de.hdodenhof:circleimageview:3.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\55cdd1cb5f873838de5123a4dae796cb\jetified-circleimageview-3.1.0\AndroidManifest.xml:9:5-20
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:7:5-12:19
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:7:5-12:19
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\002708d22968cd54df02d5dfedd6cae2\jetified-firebase-auth-interop-19.0.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\002708d22968cd54df02d5dfedd6cae2\jetified-firebase-auth-interop-19.0.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\73f874509465423414ab7604a318e1cc\jetified-play-services-base-17.1.0\AndroidManifest.xml:22:5-27:19
@@ -177,57 +190,63 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\Pr
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.3.1] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\980630e158f38ced2d00e440ae193d30\core-1.3.1\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:19:9-35
 	android:label
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:13:9-41
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:17:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:11:9-41
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:15:9-41
 	android:roundIcon
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:14:9-54
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:18:9-54
 	android:icon
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:12:9-43
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:16:9-43
 	android:allowBackup
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:10:9-35
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:14:9-35
 	android:theme
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:16:9-40
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:20:9-40
 activity#com.chatapp.application.activity.StartActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:18:9-26:20
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:22:9-30:20
 	android:theme
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:20:13-55
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:24:13-55
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:19:13-51
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:23:13-51
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:21:13-25:29
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:25:13-29:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:22:17-69
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:26:17-69
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:22:25-66
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:26:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:24:17-77
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:28:17-77
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:24:27-74
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:28:27-74
 activity#com.chatapp.application.activity.RegisterActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:27:9-63
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:31:9-63
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:27:19-60
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:31:19-60
 activity#com.chatapp.application.activity.OTPActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:28:9-30:52
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:32:9-34:52
 	android:theme
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:30:13-49
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:34:13-49
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:29:13-49
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:33:13-49
 activity#com.chatapp.application.activity.ProfileSetupActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:31:9-67
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:36:9-67
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:31:19-64
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:36:19-64
+activity#com.theartofdev.edmodo.cropper.CropImageActivity
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:38:9-39:58
+	android:theme
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:39:13-56
+	android:name
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:38:19-82
 activity#com.chatapp.application.activity.MainActivity
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:33:9-58
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:42:9-58
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:33:19-56
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:42:19-56
 activity#com.chatapp.application.profile.ProfileUpdate
-ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:35:9-59
+ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:44:9-59
 	android:name
-		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:35:19-56
+		ADDED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml:44:19-56
 uses-sdk
 INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\PrakAash\AndroidStudioProjects\ChatApp\app\src\main\AndroidManifest.xml
@@ -238,6 +257,8 @@ MERGED from [com.google.android.material:material:1.1.0] C:\Users\PrakAash\.grad
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e8170964da10c0aa08ef4ff1142fca13\material-1.1.0\AndroidManifest.xml:20:5-44
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\ea0a2745b98c05ce7c1e173cdaaff595\jetified-ccp-2.4.0\AndroidManifest.xml:7:5-9:41
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\ea0a2745b98c05ce7c1e173cdaaff595\jetified-ccp-2.4.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.theartofdev.edmodo:android-image-cropper:2.8.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e4646426cdddc65da733a3ef52a53a76\jetified-android-image-cropper-2.8.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.theartofdev.edmodo:android-image-cropper:2.8.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\e4646426cdddc65da733a3ef52a53a76\jetified-android-image-cropper-2.8.0\AndroidManifest.xml:7:5-9:41
 MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\a39fc0a8c7496fd19cd8f1b3f6a822ed\jetified-fastscroll-0.2.5\AndroidManifest.xml:7:5-9:41
 MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\a39fc0a8c7496fd19cd8f1b3f6a822ed\jetified-fastscroll-0.2.5\AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\2623c5ec6fa92d68e711128d15e9038d\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
@@ -256,6 +277,8 @@ MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.gra
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\aac464be750fe7e42c6e3ef59b1c2d74\jetified-firebase-storage-19.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [de.hdodenhof:circleimageview:3.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\55cdd1cb5f873838de5123a4dae796cb\jetified-circleimageview-3.1.0\AndroidManifest.xml:5:5-7:41
 MERGED from [de.hdodenhof:circleimageview:3.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\55cdd1cb5f873838de5123a4dae796cb\jetified-circleimageview-3.1.0\AndroidManifest.xml:5:5-7:41
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:5:5-44
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:5:5-44
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\226817fd352d0debd037c03d8ec9b5c1\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\226817fd352d0debd037c03d8ec9b5c1\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\705071dba30571a9226503cb1f0dac80\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
@@ -336,6 +359,8 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\bf3e5eb0de5dbaf7174c5a9a34f69c5a\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\626cd0cdd86577b53b05b9ceb0f9a7ca\jetified-firebase-components-16.0.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.firebase:firebase-components:16.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\626cd0cdd86577b53b05b9ceb0f9a7ca\jetified-firebase-components-16.0.0\AndroidManifest.xml:19:5-21:41
+MERGED from [androidx.exifinterface:exifinterface:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\34d8e6fccc0ab5b895e5ef716d51459c\exifinterface-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\34d8e6fccc0ab5b895e5ef716d51459c\exifinterface-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\324b5866ad2c13339651997b434b41f3\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\324b5866ad2c13339651997b434b41f3\versionedparcelable-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\6ca55331635d9ca1071738b385928a75\documentfile-1.0.0\AndroidManifest.xml:20:5-44
@@ -422,6 +447,14 @@ ADDED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.grad
 		ADDED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\aac464be750fe7e42c6e3ef59b1c2d74\jetified-firebase-storage-19.2.0\AndroidManifest.xml:35:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\aac464be750fe7e42c6e3ef59b1c2d74\jetified-firebase-storage-19.2.0\AndroidManifest.xml:34:17-107
+provider#com.squareup.picasso.PicassoProvider
+ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+	android:authorities
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+	android:exported
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+	android:name
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\4987eaa8f0d6397bcea64ca992bb78be\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\PrakAash\.gradle\caches\transforms-2\files-2.1\73f874509465423414ab7604a318e1cc\jetified-play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
 	android:exported

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 import com.chatapp.application.R;
@@ -35,7 +34,6 @@ public class OTPActivity extends AppCompatActivity {
     CustomLoadingDialog loadingDialog;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,25 +49,10 @@ public class OTPActivity extends AppCompatActivity {
         final String phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
         sendPhoneNumberVerificationCode(phoneNumber);
 
-
-
         loadingDialog = new CustomLoadingDialog(OTPActivity.this);
         loadingDialog.startLoadingDialog();
 
 
-//        sign_up.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String code = phNumberCode.getText().toString().trim();
-//                if (code.isEmpty() || code.length() < 6) {
-//                    phNumberCode.setError("Enter correct code");
-//                    phNumberCode.requestFocus();
-//                    return;
-//                }
-//
-//                verifyCode(code);
-//            }
-//        });
     }
 
 
@@ -92,8 +75,12 @@ public class OTPActivity extends AppCompatActivity {
             Log.d(TAG, "onVerificationCompleted:" + phoneAuthCredential);
 
             String code = phoneAuthCredential.getSmsCode();
+
+            loadingDialog.startLoadingDialog();
+
             if (code != null) {
                 verifyCode(code);
+                loadingDialog.dismissDialog();
             }
         }
 
@@ -104,6 +91,7 @@ public class OTPActivity extends AppCompatActivity {
             loadingDialog.dismissDialog();
 
             Toast.makeText(OTPActivity.this, "Verification failed - "+ e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
         }
 
         @Override
@@ -115,9 +103,6 @@ public class OTPActivity extends AppCompatActivity {
             //Save verification ID and resending token so we can use them later
             numberVerification = verificationId;
             resendToken = token;
-
-
-            loadingDialog.dismissDialog();
         }
     };
 
@@ -135,25 +120,36 @@ public class OTPActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
+                        loadingDialog.startLoadingDialog();
+
                         if (task.isSuccessful()){
-                            loadingDialog.dismissDialog();
-
-
                             String getUserId = firebaseAuth.getCurrentUser().getUid();
                             databaseReference.child("Users").child(getUserId).setValue("");
-
-
 
                             Intent intent = new Intent(OTPActivity.this, ProfileSetupActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                             startActivity(intent);
+
+                            loadingDialog.dismissDialog();
+
                             finish();
 
                         } else {
-                        Toast.makeText(OTPActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                            loadingDialog.dismissDialog();
+                            Toast.makeText(OTPActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (loadingDialog != null && loadingDialog.startLoadingDialog()){
+            loadingDialog.dismissDialog();
+        }
     }
 }

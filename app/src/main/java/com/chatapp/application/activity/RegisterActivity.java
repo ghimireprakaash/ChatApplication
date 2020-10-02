@@ -9,11 +9,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.chatapp.application.R;
-import com.chatapp.application.dto.DialogFragment;
+import com.chatapp.application.fragments.DialogFragment;
 import com.hbb20.CountryCodePicker;
 
 public class RegisterActivity extends AppCompatActivity {
-    String regex = "^[0-9]{10,13}$";
+    String regex = "^[0-9]{10,14}$";
 
     CountryCodePicker ccp;
     EditText editTextCarrierNumber;

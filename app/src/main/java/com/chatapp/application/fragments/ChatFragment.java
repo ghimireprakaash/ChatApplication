@@ -54,10 +54,10 @@ public class ChatFragment extends Fragment {
 
 
 
+
     //To verify user existence
     private void verifyUserExistence() {
-        String checkCurrentUserID;
-        checkCurrentUserID = firebaseAuth.getCurrentUser().getUid();
+        String checkCurrentUserID = firebaseAuth.getCurrentUser().getUid();
 
         databaseReference.child("Users").child(checkCurrentUserID).addValueEventListener(new ValueEventListener() {
             @Override

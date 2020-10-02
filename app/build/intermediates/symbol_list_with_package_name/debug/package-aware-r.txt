@@ -330,6 +330,38 @@ attr counterOverflowTextAppearance
 attr counterOverflowTextColor
 attr counterTextAppearance
 attr counterTextColor
+attr cropAspectRatioX
+attr cropAspectRatioY
+attr cropAutoZoomEnabled
+attr cropBackgroundColor
+attr cropBorderCornerColor
+attr cropBorderCornerLength
+attr cropBorderCornerOffset
+attr cropBorderCornerThickness
+attr cropBorderLineColor
+attr cropBorderLineThickness
+attr cropFixAspectRatio
+attr cropFlipHorizontally
+attr cropFlipVertically
+attr cropGuidelines
+attr cropGuidelinesColor
+attr cropGuidelinesThickness
+attr cropInitialCropWindowPaddingRatio
+attr cropMaxCropResultHeightPX
+attr cropMaxCropResultWidthPX
+attr cropMaxZoom
+attr cropMinCropResultHeightPX
+attr cropMinCropResultWidthPX
+attr cropMinCropWindowHeight
+attr cropMinCropWindowWidth
+attr cropMultiTouchEnabled
+attr cropSaveBitmapToInstanceState
+attr cropScaleType
+attr cropShape
+attr cropShowCropOverlay
+attr cropShowProgressBar
+attr cropSnapRadius
+attr cropTouchRadius
 attr crossfade
 attr currentState
 attr curveFit
@@ -1592,6 +1624,9 @@ drawable common_google_signin_btn_text_light_focused
 drawable common_google_signin_btn_text_light_normal
 drawable common_google_signin_btn_text_light_normal_background
 drawable contact_24
+drawable crop_image_menu_flip
+drawable crop_image_menu_rotate_left
+drawable crop_image_menu_rotate_right
 drawable custom_disabled_button
 drawable custom_enabled_button
 drawable custom_start_button
@@ -1910,6 +1945,8 @@ id CTRL
 id CZECH
 id Card1
 id Card2
+id CropOverlayView
+id CropProgressBar
 id DANISH
 id DUTCH
 id ENGLISH
@@ -1925,6 +1962,7 @@ id HEBREW
 id HINDI
 id INDONESIA
 id ITALIAN
+id ImageView_image
 id JAPANESE
 id KAZAKH
 id KOREAN
@@ -2063,6 +2101,8 @@ id buttonSet
 id cancel_action
 id cancel_button
 id center
+id centerCrop
+id centerInside
 id center_horizontal
 id center_vertical
 id chain
@@ -2089,6 +2129,13 @@ id coordinator
 id cos
 id countryCodeHolder
 id countryCodePicker
+id cropImageView
+id crop_image_menu_crop
+id crop_image_menu_flip
+id crop_image_menu_flip_horizontally
+id crop_image_menu_flip_vertically
+id crop_image_menu_rotate_left
+id crop_image_menu_rotate_right
 id custom
 id customPanel
 id cut
@@ -2141,6 +2188,7 @@ id fill_horizontal
 id fill_vertical
 id filled
 id filter_chip
+id fitCenter
 id fitToContents
 id fixed
 id flip
@@ -2230,7 +2278,9 @@ id notification_main_column
 id notification_main_column_container
 id off
 id on
+id onTouch
 id outline
+id oval
 id packed
 id parallax
 id parent
@@ -2253,11 +2303,13 @@ id profileContactNumber
 id profileDOB
 id profileImage
 id profileName
+id profileSetupLayout
 id progressBar
 id progress_circular
 id progress_horizontal
 id radio
 id ratio
+id rectangle
 id rectangles
 id recycler_countryDialog
 id reverseSawtooth
@@ -2457,6 +2509,8 @@ layout activity_profile_setup
 layout activity_profile_update
 layout activity_register
 layout activity_start
+layout crop_image_activity
+layout crop_image_view
 layout custom_dialog
 layout custom_loading_dialog
 layout design_bottom_navigation_item
@@ -2544,6 +2598,7 @@ layout text_view_with_line_height_from_style
 layout text_view_with_theme_line_height
 layout text_view_without_line_height
 menu bottom_navigation_items
+menu crop_image_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
@@ -2648,6 +2703,14 @@ string common_signin_button_text
 string common_signin_button_text_long
 string contacts
 string continueButton
+string crop_image_activity_no_permissions
+string crop_image_activity_title
+string crop_image_menu_crop
+string crop_image_menu_flip
+string crop_image_menu_flip_horizontally
+string crop_image_menu_flip_vertically
+string crop_image_menu_rotate_left
+string crop_image_menu_rotate_right
 string default_web_client_id
 string editOption
 string error_icon_content_description
@@ -2709,6 +2772,7 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string phNumber
 string phone_number_code
+string pick_image_intent_chooser_title
 string profileDOB
 string profileName
 string project_id
@@ -3440,6 +3504,7 @@ styleable ConstraintSet android_orientation android_id android_visibility androi
 styleable CoordinatorLayout keylines statusBarBackground
 styleable CoordinatorLayout_Layout android_layout_gravity layout_anchor layout_anchorGravity layout_behavior layout_dodgeInsetEdges layout_insetEdge layout_keyline
 styleable CountryCodePicker ccpDialog_allowSearch ccpDialog_background ccpDialog_backgroundColor ccpDialog_fastScroller_bubbleColor ccpDialog_fastScroller_bubbleTextAppearance ccpDialog_fastScroller_handleColor ccpDialog_initialScrollToSelection ccpDialog_keyboardAutoPopup ccpDialog_searchEditTextTint ccpDialog_showCloseIcon ccpDialog_showFastScroller ccpDialog_showFlag ccpDialog_showNameCode ccpDialog_showPhoneCode ccpDialog_showTitle ccpDialog_textColor ccp_areaCodeDetectedCountry ccp_arrowColor ccp_arrowSize ccp_autoDetectCountry ccp_autoDetectLanguage ccp_autoFormatNumber ccp_clickable ccp_contentColor ccp_countryAutoDetectionPref ccp_countryPreference ccp_customMasterCountries ccp_defaultLanguage ccp_defaultNameCode ccp_defaultPhoneCode ccp_excludedCountries ccp_flagBorderColor ccp_hintExampleNumber ccp_hintExampleNumberType ccp_internationalFormattingOnly ccp_padding ccp_rememberLastSelection ccp_selectionMemoryTag ccp_showArrow ccp_showFlag ccp_showFullName ccp_showNameCode ccp_showPhoneCode ccp_textGravity ccp_textSize ccp_useDummyEmojiForPreview ccp_useFlagEmoji
+styleable CropImageView cropAspectRatioX cropAspectRatioY cropAutoZoomEnabled cropBackgroundColor cropBorderCornerColor cropBorderCornerLength cropBorderCornerOffset cropBorderCornerThickness cropBorderLineColor cropBorderLineThickness cropFixAspectRatio cropFlipHorizontally cropFlipVertically cropGuidelines cropGuidelinesColor cropGuidelinesThickness cropInitialCropWindowPaddingRatio cropMaxCropResultHeightPX cropMaxCropResultWidthPX cropMaxZoom cropMinCropResultHeightPX cropMinCropResultWidthPX cropMinCropWindowHeight cropMinCropWindowWidth cropMultiTouchEnabled cropSaveBitmapToInstanceState cropScaleType cropShape cropShowCropOverlay cropShowProgressBar cropSnapRadius cropTouchRadius
 styleable CustomAttribute attributeName customBoolean customColorDrawableValue customColorValue customDimension customFloatValue customIntegerValue customPixelDimension customStringValue
 styleable DrawerArrowToggle arrowHeadLength arrowShaftLength barLength color drawableSize gapBetweenBars spinBars thickness
 styleable ExtendedFloatingActionButton elevation extendMotionSpec hideMotionSpec showMotionSpec shrinkMotionSpec
