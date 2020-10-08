@@ -9,8 +9,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
+        android:name=".OfflineDataStore"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,7 +35,7 @@
             android:name=".activity.OTPActivity"
             android:theme="@style/AppTheme.Home" />
 
-        <activity android:name=".activity.ProfileSetupActivity" />
+        <activity android:name=".profile.ProfileSetupActivity" />
 
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
@@ -41,7 +43,8 @@
 
         <activity android:name=".activity.MainActivity"/>
 
-        <activity android:name=".profile.ProfileUpdate" />
+        <activity android:name=".profile.ProfileUpdate"
+            android:theme="@style/AppTheme.ProfileUpdate"/>
     </application>
 
 </manifest>

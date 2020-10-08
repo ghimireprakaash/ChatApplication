@@ -2,12 +2,14 @@ package com.chatapp.application.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 import com.chatapp.application.R;
 import com.chatapp.application.customloadingdialog.CustomLoadingDialog;
+import com.chatapp.application.profile.ProfileSetupActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -45,14 +47,12 @@ public class OTPActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-
-        final String phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
-        sendPhoneNumberVerificationCode(phoneNumber);
-
         loadingDialog = new CustomLoadingDialog(OTPActivity.this);
         loadingDialog.startLoadingDialog();
 
 
+        final String phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
+        sendPhoneNumberVerificationCode(phoneNumber);
     }
 
 
@@ -86,7 +86,7 @@ public class OTPActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-//                Log.w(TAG, "onVerificationFailed", e);
+            Log.w(TAG, "onVerificationFailed", e);
 
             loadingDialog.dismissDialog();
 
@@ -99,6 +99,7 @@ public class OTPActivity extends AppCompatActivity {
             super.onCodeSent(verificationId, token);
 
             Log.d(TAG, "onCodeSent:" + verificationId);
+            Log.d(TAG, "onCodeSent:" + resendToken);
 
             //Save verification ID and resending token so we can use them later
             numberVerification = verificationId;
@@ -129,9 +130,10 @@ public class OTPActivity extends AppCompatActivity {
                             Intent intent = new Intent(OTPActivity.this, ProfileSetupActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                            startActivity(intent);
-
+                            //loadingDialog dismissed before switching activity
                             loadingDialog.dismissDialog();
+
+                            startActivity(intent);
 
                             finish();
 
@@ -144,9 +146,10 @@ public class OTPActivity extends AppCompatActivity {
     }
 
 
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
 
         if (loadingDialog != null && loadingDialog.startLoadingDialog()){
             loadingDialog.dismissDialog();

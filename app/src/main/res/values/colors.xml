@@ -8,11 +8,15 @@
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#FB8C00</color>
 
+    <color name="colorSkyBlue">#4FC3F7</color>
+    <color name="colorWhiteMixedBlue">#74D5E1</color>
 
     <color name="colorBlack">#302F2F</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorLightWhite">#DCDADA</color>
+    <color name="colorDarkWhite">#979696</color>
 
-    <color name="colorLightDarkWhite">#EB989797</color>
+    <color name="colorLightDarkWhite">#EB6C6C6C</color>
 
     <color name="colorLightPurple">#8C4BEC</color>
 

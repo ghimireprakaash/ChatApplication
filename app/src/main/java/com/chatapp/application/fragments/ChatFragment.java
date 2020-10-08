@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import com.chatapp.application.R;
-import com.chatapp.application.activity.ProfileSetupActivity;
+import com.chatapp.application.profile.ProfileSetupActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,12 +18,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import java.util.Objects;
 
 public class ChatFragment extends Fragment {
     //Declaring instances
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
+    //Declaring string variable currentUserID
+    private String currentUserID;
 
     @Nullable
     @Override
@@ -36,7 +39,7 @@ public class ChatFragment extends Fragment {
         //Initializing instances
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
+        currentUserID = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
 
         //verifies if current user is null or not null
@@ -57,19 +60,20 @@ public class ChatFragment extends Fragment {
 
     //To verify user existence
     private void verifyUserExistence() {
-        String checkCurrentUserID = firebaseAuth.getCurrentUser().getUid();
-
-        databaseReference.child("Users").child(checkCurrentUserID).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("username").exists()){
-                    // If username exists then if statement executes
+                if (!(snapshot.child("username").exists())){
+                    // If username doesn't exists then moves to profile setup
+                    try {
+                        Intent intent = new Intent(getContext(), ProfileSetupActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                } else {
-                    Intent intent = new Intent(getContext(), ProfileSetupActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
 
-                    startActivity(intent);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
 

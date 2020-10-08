@@ -48,10 +48,6 @@ dependencies {
     //Country Code Picker
     implementation 'com.hbb20:ccp:2.4.0'
 
-
-    //Circular ImageView
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
-
     //Image Cropper library
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 
