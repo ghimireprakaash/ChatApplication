@@ -30,7 +30,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
 import java.util.Objects;
 import static android.app.Activity.RESULT_OK;
 
@@ -131,7 +130,7 @@ public class MoreOptionFragment extends Fragment {
             Uri imageUri = data.getData();
             CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(5,3)
+                    .setAspectRatio(4,3)
                     .start(Objects.requireNonNull(this.getActivity()));
         }
 

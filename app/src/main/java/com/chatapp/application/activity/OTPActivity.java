@@ -148,8 +148,8 @@ public class OTPActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
 
         if (loadingDialog != null && loadingDialog.startLoadingDialog()){
             loadingDialog.dismissDialog();

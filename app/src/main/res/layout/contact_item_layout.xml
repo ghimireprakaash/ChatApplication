@@ -9,13 +9,38 @@
         android:layout_height="match_parent"
         android:padding="8dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.cardview.widget.CardView
             android:id="@+id/contactUserImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="21dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/contactProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/contact_image_view_shape"
+                    android:scaleType="centerCrop"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:id="@+id/contactNameFirstLetter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Profile"
+                    android:textSize="12sp"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/contactUserName"

@@ -250,10 +250,6 @@ attr chipStyle
 attr chipSurfaceColor
 attr circleCrop
 attr circleRadius
-attr civ_border_color
-attr civ_border_overlay
-attr civ_border_width
-attr civ_circle_background_color
 attr clickAction
 attr closeIcon
 attr closeIconEnabled
@@ -994,6 +990,7 @@ color colorBlack
 color colorDarkWhite
 color colorDisabledButton
 color colorEnabledButton
+color colorGrey
 color colorLightDarkWhite
 color colorLightPurple
 color colorLightWhite
@@ -1628,6 +1625,7 @@ drawable common_google_signin_btn_text_light_focused
 drawable common_google_signin_btn_text_light_normal
 drawable common_google_signin_btn_text_light_normal_background
 drawable contact_24
+drawable contact_image_view_shape
 drawable crop_image_menu_flip
 drawable crop_image_menu_rotate_left
 drawable crop_image_menu_rotate_right
@@ -1897,6 +1895,7 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_backspace_black_24dp
 drawable ic_baseline_arrow_back
+drawable ic_baseline_person_add
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_edit_black_24dp
@@ -2082,6 +2081,7 @@ id actions
 id activateText
 id activity_chooser_view_content
 id add
+id addContactText
 id adjust_height
 id adjust_width
 id alertTitle
@@ -2104,6 +2104,7 @@ id blocking
 id bottom
 id bottomNav
 id bounce
+id buttonBack
 id buttonPanel
 id buttonSet
 id camera_icon
@@ -2129,7 +2130,9 @@ id collapseActionView
 id confirm_button
 id constraintLayout1
 id contact
+id contactNameFirstLetter
 id contactNumber
+id contactProfile
 id contactRecyclerView
 id contactText
 id contactUserImage
@@ -2321,6 +2324,7 @@ id profileImage
 id profileImageLayout
 id profileName
 id profileSetupLayout
+id profileUpdateLayout
 id progressBar
 id progress_circular
 id progress_horizontal
@@ -2688,6 +2692,7 @@ string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
 string about
 string activateText
+string addContacts
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
@@ -3510,7 +3515,6 @@ styleable ButtonBarLayout allowStacking
 styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
 styleable Chip android_textAppearance android_textColor android_ellipsize android_maxWidth android_text android_checkable checkedIcon checkedIconEnabled checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipMinTouchTargetSize chipStartPadding chipStrokeColor chipStrokeWidth chipSurfaceColor closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible ensureMinTouchTargetSize hideMotionSpec iconEndPadding iconStartPadding rippleColor shapeAppearance shapeAppearanceOverlay showMotionSpec textEndPadding textStartPadding
 styleable ChipGroup checkedChip chipSpacing chipSpacingHorizontal chipSpacingVertical singleLine singleSelection
-styleable CircleImageView civ_border_color civ_border_overlay civ_border_width civ_circle_background_color
 styleable CollapsingToolbarLayout collapsedTitleGravity collapsedTitleTextAppearance contentScrim expandedTitleGravity expandedTitleMargin expandedTitleMarginBottom expandedTitleMarginEnd expandedTitleMarginStart expandedTitleMarginTop expandedTitleTextAppearance scrimAnimationDuration scrimVisibleHeightTrigger statusBarScrim title titleEnabled toolbarId
 styleable CollapsingToolbarLayout_Layout layout_collapseMode layout_collapseParallaxMultiplier
 styleable ColorStateListItem android_color android_alpha alpha

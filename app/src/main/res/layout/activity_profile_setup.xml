@@ -35,8 +35,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileImageLayout"
-        android:layout_width="120dp"
-        android:layout_height="115dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         app:cardCornerRadius="46dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

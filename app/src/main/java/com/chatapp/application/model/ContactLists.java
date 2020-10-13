@@ -1,23 +1,42 @@
 package com.chatapp.application.model;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 public class ContactLists {
-//    private String contact_ID;
-    private int contact_user_image;
-    private String contact_name;
-    private String contact_number;
+    public String contact_ID;
+    public Bitmap photo;
+    public Uri photoURI;
+    public String contact_name;
+    public String contact_number;
 
     public ContactLists(){
     }
 
-    public ContactLists(int contact_user_image, String contact_name, String contact_number){
-        this.contact_user_image = contact_user_image;
-        this.contact_name = contact_name;
-        this.contact_number = contact_number;
+
+    public String getContact_ID() {
+        return contact_ID;
     }
 
-    public int getContact_user_image(){return contact_user_image;}
+    public void setContact_ID(String contact_ID) {
+        this.contact_ID = contact_ID;
+    }
 
-    public void setContact_user_image(int contact_user_image){this.contact_user_image = contact_user_image;}
+    public Bitmap getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
+    }
+
+    public Uri getPhotoURI() {
+        return photoURI;
+    }
+
+    public void setPhotoURI(Uri photoURI) {
+        this.photoURI = photoURI;
+    }
 
     public String getContact_name() {
         return contact_name;
