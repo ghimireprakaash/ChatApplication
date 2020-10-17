@@ -1,4 +1,4 @@
-#Tue Oct 13 22:02:42 NPT 2020
+#Sat Oct 17 08:38:09 NPT 2020
 base.0=C\:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

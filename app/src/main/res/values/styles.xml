@@ -3,8 +3,8 @@
     <style name="AppTheme.StartStyle"
         parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>

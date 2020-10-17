@@ -13,17 +13,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/editOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_24"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_gravity="end"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"/>
 
@@ -32,10 +32,8 @@
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 app:cardCornerRadius="46dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="25dp"
+                android:layout_gravity="center">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -66,33 +64,27 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/profileImageLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:padding="3dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/profileContactNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@+id/profileName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:padding="3dp"/>
+                android:padding="3dp"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/profileDOB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@+id/profileContactNumber"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:padding="3dp"/>
+                android:padding="3dp"
+                android:layout_gravity="center"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -106,9 +98,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/settingsText"
@@ -119,8 +112,6 @@
                 android:textAlignment="gravity"
                 android:gravity="start|center"
                 android:padding="15dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:drawableStartCompat="@drawable/settings_30"
                 android:drawablePadding="10dp"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -136,9 +127,6 @@
                 android:textAlignment="gravity"
                 android:gravity="start|center"
                 android:padding="15dp"
-                app:layout_constraintTop_toBottomOf="@+id/settingsText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/aboutText"
                 app:drawableStartCompat="@drawable/ic_baseline_person_add"
                 android:drawablePadding="10dp"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -154,16 +142,13 @@
                 android:textAlignment="gravity"
                 android:gravity="start|center"
                 android:padding="15dp"
-                app:layout_constraintTop_toBottomOf="@+id/settingsText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:drawableStartCompat="@drawable/info_30"
                 android:drawablePadding="10dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

@@ -32,12 +32,12 @@
         "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_baseline_arrow_back.png"
     },
     {
-        "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_edit_24.png.flat",
-        "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\edit_24.png"
-    },
-    {
         "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_edit_24.png.flat",
+        "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\edit_24.png"
     },
     {
         "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_contact_24.png.flat",

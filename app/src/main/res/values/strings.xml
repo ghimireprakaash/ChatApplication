@@ -51,5 +51,6 @@
     <string name="settings">Settings</string>
     <string name="addContacts">Add contact</string>
     <string name="about">About</string>
+    <string name="user_profile">user profile</string>
 
 </resources>

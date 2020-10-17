@@ -2,7 +2,6 @@ package com.chatapp.application.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,8 +46,7 @@ public class OTPActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-        loadingDialog = new CustomLoadingDialog(OTPActivity.this);
-        loadingDialog.startLoadingDialog();
+        loadingDialog = new CustomLoadingDialog(this);
 
 
         final String phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
@@ -88,10 +86,9 @@ public class OTPActivity extends AppCompatActivity {
         public void onVerificationFailed(@NonNull FirebaseException e) {
             Log.w(TAG, "onVerificationFailed", e);
 
-            loadingDialog.dismissDialog();
-
             Toast.makeText(OTPActivity.this, "Verification failed - "+ e.getMessage(), Toast.LENGTH_LONG).show();
-            finish();
+
+            loadingDialog.dismissDialog();
         }
 
         @Override
@@ -138,21 +135,26 @@ public class OTPActivity extends AppCompatActivity {
                             finish();
 
                         } else {
-                            loadingDialog.dismissDialog();
                             Toast.makeText(OTPActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                            loadingDialog.dismissDialog();
                         }
                     }
                 });
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        loadingDialog.startLoadingDialog();
+    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
 
-        if (loadingDialog != null && loadingDialog.startLoadingDialog()){
-            loadingDialog.dismissDialog();
-        }
+        if (loadingDialog != null && loadingDialog.startLoadingDialog())
+        loadingDialog.dismissDialog();
     }
 }

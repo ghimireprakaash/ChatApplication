@@ -34,16 +34,6 @@ public class ContactListsFragment extends Fragment {
     List<ContactLists> list;
 
 
-    public ContactListsFragment(Context context, List<ContactLists> list) {
-        this.context = context;
-        this.list = list;
-    }
-
-    public ContactListsFragment() {
-
-    }
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,15 +48,14 @@ public class ContactListsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
 
-        list = getContacts();
-
-        VerticalScrollableContactListsAdapter adapter = new VerticalScrollableContactListsAdapter(list);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+        list = getContacts();
+
+        VerticalScrollableContactListsAdapter adapter = new VerticalScrollableContactListsAdapter(list);
 
         recyclerView.setAdapter(adapter);
 
@@ -103,17 +92,17 @@ public class ContactListsFragment extends Fragment {
                             new String[]{id},
                             null);
 
-                    InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(),
-                            ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id)));
+//                    InputStream inputStream = ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(),
+//                            ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id)));
 
-                    Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id));
-                    Uri pURI = Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+//                    Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, new Long(id));
+//                    Uri pURI = Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
 
 
-                    Bitmap photo = null;
-                    if (inputStream != null){
-                        photo = BitmapFactory.decodeStream(inputStream);
-                    }
+//                    Bitmap photo = null;
+//                    if (inputStream != null){
+//                        photo = BitmapFactory.decodeStream(inputStream);
+//                    }
 
                     assert cursorInfo != null;
                     while (cursorInfo.moveToNext()){
@@ -122,8 +111,8 @@ public class ContactListsFragment extends Fragment {
 //                        contactInfo.contact_ID = id;
                         contactInfo.contact_name = cursorInfo.getString(cursorInfo.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                         contactInfo.contact_number = cursorInfo.getString(cursorInfo.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        contactInfo.photo = photo;
-                        contactInfo.photoURI = pURI;
+//                        contactInfo.photo = photo;
+//                        contactInfo.photoURI = pURI;
 
                         //Now adding it on lists,
                         //Attaching contactsInfo with List

@@ -3,8 +3,6 @@ package com.chatapp.application.profile;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.chatapp.application.R;
-import com.chatapp.application.activity.MainActivity;
-import com.chatapp.application.fragments.MoreOptionFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +31,7 @@ public class ProfileUpdate extends AppCompatActivity {
     private ImageView userProfileImage;
 
 
-    FirebaseStorage userProfileStorageRef;
+    StorageReference userProfileStorageRef;
     DatabaseReference databaseReference;
     String getCurrentUserID;
 
@@ -45,7 +41,7 @@ public class ProfileUpdate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
 
-        userProfileStorageRef = FirebaseStorage.getInstance();
+        userProfileStorageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
         databaseReference = FirebaseDatabase.getInstance().getReference();
         getCurrentUserID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
@@ -57,8 +53,6 @@ public class ProfileUpdate extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ProfileUpdate.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -115,7 +109,7 @@ public class ProfileUpdate extends AppCompatActivity {
                 //setting image uri to user profile image view
                 userProfileImage.setImageURI(resultUri);
 
-                StorageReference filePath = userProfileStorageRef.getReference().child(getCurrentUserID + ".jpg");
+                StorageReference filePath = userProfileStorageRef.child(getCurrentUserID + ".jpg");
                 filePath.putFile(resultUri)
                         .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -126,15 +120,15 @@ public class ProfileUpdate extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Error uploading "+message, Toast.LENGTH_LONG).show();
 
                                 }else {
-                                    String downloadUri = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl().toString();
+                                    String downloadUrl = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl().toString();
 
-                                    databaseReference.child("Users").child(getCurrentUserID).child("userProfileImage")
-                                            .setValue(downloadUri)
+                                    databaseReference.child("Users").child(getCurrentUserID).child("image")
+                                            .setValue(downloadUrl)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (!task.isSuccessful()){
-                                                        String message = task.getException().getMessage();
+                                                        String message = Objects.requireNonNull(task.getException()).getMessage();
                                                         Toast.makeText(getApplicationContext(), "Error: "+message, Toast.LENGTH_LONG).show();
                                                     }
                                                 }

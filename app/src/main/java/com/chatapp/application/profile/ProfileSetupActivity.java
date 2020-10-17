@@ -52,7 +52,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
     //Declaring Firebase instances
-    private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
     //declaring current user id variable
@@ -60,7 +59,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
     //Firebase storage
-    private StorageReference userProfileImagesStorage;
+    private StorageReference userProfileImagesStorageRef;
 
 
     @Override
@@ -69,22 +68,18 @@ public class ProfileSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_setup);
 
         //Initializing Instance
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUserID = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        userProfileImagesStorageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
-        userProfileImagesStorage = FirebaseStorage.getInstance().getReference().child("Profile Images");
-
+        currentUserID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
 
 
         init();
 
+
+
         setupProfileImage.setPressed(false);
-
-
-
 
         //Image setup via gallery access
         setupProfileImage.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +88,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 Intent profileSetupIntent = new Intent();
                 profileSetupIntent.setAction(Intent.ACTION_GET_CONTENT);
                 profileSetupIntent.setType("image/*");
+
                 startActivityForResult(profileSetupIntent, GALLERY_PICK);
             }
         });
@@ -114,7 +110,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                                 month = month+1;
-
                                 String date = day+"/"+month+"/"+year;
                                 setupProfileDOB.setText(date);
 
@@ -166,21 +161,20 @@ public class ProfileSetupActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK && data != null && data.getData() != null){
+        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK && data != null) {
             Uri imageUri = data.getData();
             CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1,1)
+                    .setAspectRatio(1, 1)
                     .start(this);
         }
 
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if (resultCode == RESULT_OK){
                 assert result != null;
-                final Uri resultUri = result.getUri();
+                Uri resultUri = result.getUri();
 
                 //setting icon visibility to gone after successful photo upload
                 camera_icon.setVisibility(View.GONE);
@@ -188,9 +182,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 //set image to the view
                 setupProfileImage.setImageURI(resultUri);
 
-                StorageReference filePath = userProfileImagesStorage.child(currentUserID + ".jpg");
-                filePath.putFile(resultUri)
-                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                final StorageReference filePath = userProfileImagesStorageRef.child(currentUserID + ".jpg");
+                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (!task.isSuccessful()){
@@ -198,21 +191,20 @@ public class ProfileSetupActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error selecting image "+ exception, Toast.LENGTH_LONG).show();
                         } else {
                             //Uploads the profile to firebase storage
-                            final String downloadUrl = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl().toString();
+                            final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
 
-                            databaseReference.child("Users").child(currentUserID).child("userProfileImage")
-                                    .setValue(downloadUrl)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
-                                                //Do nothing if successful
-                                            }else {
-                                                //returns error message if uploading image to the firebase database is failed
-                                                Toast.makeText(getApplicationContext(), "Error: " + task.getException().toString(), Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    });
+                            databaseReference.child("Users").child(currentUserID).child("image")
+                                    .setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        //Do nothing if successful
+                                    }else {
+                                        //returns error message if uploading image to the firebase database is failed
+                                        Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
                         }
                     }
                 });
@@ -237,7 +229,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
             setupProfileDOB.requestFocus();
 
         } else {
-
             String getUserPhoneNumber = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
 
             HashMap<String, String> profileMap = new HashMap<>();
@@ -275,9 +266,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
         databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ((snapshot.exists()) && (snapshot.hasChild("userProfileImage")) && (snapshot.hasChild("username"))){
+                if ((snapshot.exists()) && (snapshot.hasChild("image")) && (snapshot.hasChild("username"))){
 
-                    String getUserProfileImage = Objects.requireNonNull(snapshot.child("userProfileImage").getValue()).toString();
+                    String getUserProfileImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
                     String getUserName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
                     String getUserDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 

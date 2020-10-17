@@ -1,11 +1,10 @@
 package com.chatapp.application.model;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class ContactLists {
     public String contact_ID;
-    public Bitmap photo;
+    public String image;
     public Uri photoURI;
     public String contact_name;
     public String contact_number;
@@ -13,6 +12,13 @@ public class ContactLists {
     public ContactLists(){
     }
 
+    public ContactLists(String contact_ID, String image, Uri photoURI, String contact_name, String contact_number) {
+        this.contact_ID = contact_ID;
+        this.image = image;
+        this.photoURI = photoURI;
+        this.contact_name = contact_name;
+        this.contact_number = contact_number;
+    }
 
     public String getContact_ID() {
         return contact_ID;
@@ -22,12 +28,12 @@ public class ContactLists {
         this.contact_ID = contact_ID;
     }
 
-    public Bitmap getPhoto() {
-        return photo;
+    public String getImage() {
+        return image;
     }
 
-    public void setPhoto(Bitmap photo) {
-        this.photo = photo;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Uri getPhotoURI() {

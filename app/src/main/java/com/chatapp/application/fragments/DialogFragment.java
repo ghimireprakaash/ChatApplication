@@ -45,7 +45,7 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         dialogEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDialog().dismiss();
+                Objects.requireNonNull(getDialog()).dismiss();
             }
         });
 
@@ -55,7 +55,6 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
             @Override
             public void onClick(View view) {
 
-//                Objects.requireNonNull(getDialog()).dismiss();
                 requestPermission();
 
             }
@@ -75,6 +74,8 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
 
             requestPermissions(new String[] {Manifest.permission.READ_CONTACTS}, 1);
 
+        } else {
+            onClickYes();
         }
     }
 
@@ -97,11 +98,12 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
 
 
     public void onClickYes(){
+        Objects.requireNonNull(getDialog()).setCancelable(false);
+        getDialog().dismiss();
+
         Intent intent = new Intent(getContext(), OTPActivity.class);
         intent.putExtra("getFullPhoneNumber", getFullPhoneNumber);
 
         startActivity(intent);
-        Objects.requireNonNull(getDialog()).setCancelable(false);
-        getDialog().dismiss();
     }
 }

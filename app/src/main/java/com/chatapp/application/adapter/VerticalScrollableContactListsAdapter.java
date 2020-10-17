@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.ContactLists;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<VerticalScrollableContactListsAdapter.ViewHolder>{
@@ -34,7 +36,7 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
         final ContactLists getPosition = lists.get(position);
 
 //        holder.contactNameFirstLetter.setText(getPosition.getContact_name_first_letter());
-        holder.contactProfile.setImageURI(getPosition.photoURI);
+        Picasso.get().load(getPosition.image).into(holder.contactProfile);
         holder.contactUserName.setText(getPosition.contact_name);
         holder.contactNumber.setText(getPosition.contact_number);
     }
