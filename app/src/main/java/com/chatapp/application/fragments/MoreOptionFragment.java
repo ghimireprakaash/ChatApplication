@@ -81,8 +81,8 @@ public class MoreOptionFragment extends Fragment {
         editOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ProfileUpdate.class));
-                Objects.requireNonNull(getActivity()).finish();
+                Intent editIntent = new Intent(getContext(), ProfileUpdate.class);
+                startActivity(editIntent);
             }
         });
 

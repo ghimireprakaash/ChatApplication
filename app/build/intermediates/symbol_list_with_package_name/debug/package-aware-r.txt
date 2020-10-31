@@ -990,13 +990,16 @@ color colorBlack
 color colorDarkWhite
 color colorDisabledButton
 color colorEnabledButton
-color colorGrey
-color colorLightDarkWhite
+color colorLightDark
 color colorLightPurple
 color colorLightWhite
 color colorPrimary
 color colorPrimaryDark
+color colorPurple
+color colorReceiverBackground
+color colorSenderBackground
 color colorSkyBlue
+color colorTest
 color colorWhite
 color colorWhiteMixedBlue
 color common_google_signin_btn_text_dark
@@ -1591,6 +1594,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable blank_profile_picture
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1625,6 +1629,7 @@ drawable common_google_signin_btn_text_light_focused
 drawable common_google_signin_btn_text_light_normal
 drawable common_google_signin_btn_text_light_normal_background
 drawable contact_24
+drawable contact_card_state_background
 drawable contact_image_view_shape
 drawable crop_image_menu_flip
 drawable crop_image_menu_rotate_left
@@ -1895,7 +1900,10 @@ drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_backspace_black_24dp
 drawable ic_baseline_arrow_back
+drawable ic_baseline_group
 drawable ic_baseline_person_add
+drawable ic_baseline_search
+drawable ic_baseline_send
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_edit_black_24dp
@@ -1933,8 +1941,12 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable receiver_background
+drawable rounded_image_button_background
+drawable sender_background
 drawable set_button
 drawable settings_30
+drawable state_change_on_back_button_pressed_profile_update
 drawable state_pressed_on_circle_image_view
 drawable test_custom_background
 drawable tooltip_frame_dark
@@ -2090,6 +2102,7 @@ id all
 id always
 id animateToEnd
 id animateToStart
+id appBar
 id asConfigured
 id async
 id auto
@@ -2105,6 +2118,7 @@ id bottom
 id bottomNav
 id bounce
 id buttonBack
+id buttonMessageSend
 id buttonPanel
 id buttonSet
 id cache_measures
@@ -2119,6 +2133,9 @@ id center_vertical
 id chain
 id chains
 id chat
+id chatRecyclerView
+id chat_fab
+id chat_fab_toolbar
 id checkbox
 id checked
 id chip
@@ -2130,9 +2147,13 @@ id clip_vertical
 id collapseActionView
 id confirm_button
 id contact
+id contactButtonBack
+id contactName
 id contactNameFirstLetter
 id contactNumber
+id contactPhoneNumber
 id contactProfile
+id contactProfileCard
 id contactRecyclerView
 id contactText
 id contactUserImage
@@ -2147,6 +2168,7 @@ id coordinator
 id cos
 id countryCodeHolder
 id countryCodePicker
+id createNewGroupCardOption
 id cropImageView
 id crop_image_menu_crop
 id crop_image_menu_flip
@@ -2213,6 +2235,7 @@ id fixed
 id flip
 id forever
 id fragmentContainer
+id frameContainer
 id ghost_view
 id ghost_view_holder
 id gone
@@ -2232,6 +2255,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageCard
 id imageView_arrow
 id image_flag
 id img_clear_query
@@ -2251,6 +2275,7 @@ id light
 id line1
 id line3
 id linear
+id linearLayout
 id linear_flag_border
 id linear_flag_holder
 id listMode
@@ -2258,6 +2283,8 @@ id list_item
 id masked
 id media_actions
 id message
+id messageBox
+id messagesRecyclerView
 id middle
 id mini
 id month_grid
@@ -2268,6 +2295,8 @@ id month_navigation_previous
 id month_title
 id moreOption
 id motion_base
+id msg1
+id msg2
 id mtrl_calendar_day_selector_frame
 id mtrl_calendar_days_of_week
 id mtrl_calendar_frame
@@ -2291,6 +2320,7 @@ id mtrl_picker_title_text
 id multiply
 id navigation_header_container
 id never
+id noChatHistoryText
 id noScroll
 id none
 id normal
@@ -2333,9 +2363,12 @@ id progress_circular
 id progress_horizontal
 id radio
 id ratio
+id receivedTime
+id receiverMsgTemplate
 id rectangle
 id rectangles
 id recycler_countryDialog
+id registeredUserRecyclerView
 id reverseSawtooth
 id right
 id right_icon
@@ -2355,6 +2388,8 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id search
+id searchEditText
 id search_badge
 id search_bar
 id search_button
@@ -2365,8 +2400,10 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id seenStatus
 id select_dialog_listview
 id selected
+id sendTime
 id settingsText
 id setupProfileDOB
 id setupProfileImage
@@ -2412,6 +2449,11 @@ id tag_screen_reader_focusable
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
+id test1
+id test2
+id test3
+id test4
+id test5
 id test_checkbox_android_button_tint
 id test_checkbox_app_button_tint
 id text
@@ -2458,6 +2500,7 @@ id updateProfileDateOfBirth
 id updateProfileName
 id useLogo
 id userImage
+id userName
 id view_offset_helper
 id visible
 id welcomeTxt
@@ -2526,12 +2569,15 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_chat
 layout activity_main
 layout activity_otp
 layout activity_profile_setup
 layout activity_profile_update
 layout activity_register
+layout activity_show_friends
 layout activity_start
+layout activity_visit_contact_profile
 layout contact_item_layout
 layout crop_image_activity
 layout crop_image_view
@@ -2561,6 +2607,8 @@ layout layout_code_picker
 layout layout_full_width_code_picker
 layout layout_picker_dialog
 layout layout_recycler_country_tile
+layout message_receiver_layout
+layout message_sender_layout
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -2623,6 +2671,7 @@ layout text_view_with_theme_line_height
 layout text_view_without_line_height
 menu bottom_navigation_items
 menu crop_image_menu
+menu menu_search_item
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description

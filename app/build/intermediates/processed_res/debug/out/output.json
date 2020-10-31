@@ -21,7 +21,7 @@
       "properties": {
         "packageId": "com.chatapp.application",
         "split": "",
-        "minSdkVersion": "19"
+        "minSdkVersion": "21"
       }
     }
   ]

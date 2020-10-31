@@ -6,7 +6,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="19"
+        android:minSdkVersion="21"
         android:targetSdkVersion="30" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,6 +28,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.chatapp.application.activity.StartActivity"
@@ -50,6 +51,9 @@
         <activity
             android:name="com.chatapp.application.profile.ProfileUpdate"
             android:theme="@style/AppTheme.ProfileUpdate" />
+        <activity android:name="com.chatapp.application.activity.VisitContactProfile" />
+        <activity android:name="com.chatapp.application.activity.ShowFriendsActivity" />
+        <activity android:name="com.chatapp.application.activity.ChatActivity" />
         <activity
             android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
             android:excludeFromRecents="true"

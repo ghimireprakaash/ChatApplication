@@ -6,7 +6,7 @@
 
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
-    <color name="colorAccent">#FB8C00</color>
+    <color name="colorAccent">#9D63F3</color>
 
     <color name="colorSkyBlue">#4FC3F7</color>
     <color name="colorWhiteMixedBlue">#74D5E1</color>
@@ -15,16 +15,21 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightWhite">#DCDADA</color>
     <color name="colorDarkWhite">#979696</color>
+    <color name="colorLightDark">#EB6C6C6C</color>
 
-    <color name="colorGrey">#979797</color>
+    <!-- Used in profile update activity for back button -->
+    <color name="colorTest">#7EFBFAFA</color>
 
-    <color name="colorLightDarkWhite">#EB6C6C6C</color>
+    <color name="colorLightPurple">#9D63F3</color>
+    <color name="colorPurple">#7E57C2</color>
 
-    <color name="colorLightPurple">#8C4BEC</color>
 
-
-    <!-- Custom Color for Enabled and Disabled button    -->
+    <!-- Custom Color for Enabled and Disabled button -->
     <color name="colorEnabledButton">#7D3FD8</color>
     <color name="colorDisabledButton">#706F6F</color>
+
+    <!-- color for sender and receiver text fields -->
+    <color name="colorSenderBackground">#90CAF9</color>
+    <color name="colorReceiverBackground">#D7CCCCCC</color>
 
 </resources>

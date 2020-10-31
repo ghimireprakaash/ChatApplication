@@ -2,12 +2,17 @@ package com.chatapp.application.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,6 +42,7 @@ import java.util.Objects;
 
 public class ProfileSetupActivity extends AppCompatActivity {
     private static final int GALLERY_PICK = 1;
+    Uri uri;
 
     //initially setting year, month, and day to 0
     int year = 0;
@@ -85,11 +91,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         setupProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent profileSetupIntent = new Intent();
-                profileSetupIntent.setAction(Intent.ACTION_GET_CONTENT);
-                profileSetupIntent.setType("image/*");
-
-                startActivityForResult(profileSetupIntent, GALLERY_PICK);
+                setupProfileImage();
             }
         });
 
@@ -157,16 +159,26 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
 
+
+    private void setupProfileImage() {
+        CropImage.startPickImageActivity(ProfileSetupActivity.this);
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-            CropImage.activity()
-                    .setGuidelines(CropImageView.Guidelines.ON)
-                    .setAspectRatio(1, 1)
-                    .start(this);
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK){
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+
+            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)){
+                uri = imageUri;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PICK);
+            } else {
+                startImageCrop(imageUri);
+            }
         }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
@@ -182,6 +194,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 //set image to the view
                 setupProfileImage.setImageURI(resultUri);
 
+
+                //Uploads the profile to firebase storage
                 final StorageReference filePath = userProfileImagesStorageRef.child(currentUserID + ".jpg");
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -190,8 +204,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                             String exception = Objects.requireNonNull(task.getException()).toString();
                             Toast.makeText(getApplicationContext(), "Error selecting image "+ exception, Toast.LENGTH_LONG).show();
                         } else {
-                            //Uploads the profile to firebase storage
-                            final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
+                            final String downloadUrl = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl().toString();
 
                             databaseReference.child("Users").child(currentUserID).child("image")
                                     .setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -213,6 +226,15 @@ public class ProfileSetupActivity extends AppCompatActivity {
     }
 
 
+    private void startImageCrop(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1,1)
+                .setMultiTouchEnabled(true)
+                .start(this);
+    }
+
+
 
 
     //User Profile Setup
@@ -230,12 +252,14 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
         } else {
             String getUserPhoneNumber = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
+            String getDownloadUrl = userProfileImagesStorageRef.child(currentUserID).getDownloadUrl().toString();
 
             HashMap<String, String> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("username", profileName);
             profileMap.put("dob", profileDOB);
             profileMap.put("contact", getUserPhoneNumber);
+            profileMap.put("image", getDownloadUrl);
 
             databaseReference.child("Users").child(currentUserID).setValue(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -262,8 +286,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
 
-    private boolean retrieveUserInfo() {
-        databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+    private void retrieveUserInfo() {
+        databaseReference.child("Users").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if ((snapshot.exists()) && (snapshot.hasChild("image")) && (snapshot.hasChild("username"))){
@@ -293,11 +317,10 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("Error", error.getMessage());
+                Toast.makeText(ProfileSetupActivity.this, "Error: "+error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-
-        return true;
     }
 
 
@@ -306,8 +329,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (retrieveUserInfo()){
-            retrieveUserInfo();
-        }
+        retrieveUserInfo();
     }
 }
