@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.ShowFriendsActivity;
-import com.chatapp.application.adapter.RetrieveUsersRecyclerViewAdapter;
+import com.chatapp.application.adapter.RetrieveUsersAdapter;
 import com.chatapp.application.model.Contacts;
 import com.chatapp.application.profile.ProfileSetupActivity;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -35,7 +35,7 @@ public class ChatFragment extends Fragment {
     private RecyclerView chatRecyclerView;
     private FloatingActionButton chat_fab;
 
-    private RetrieveUsersRecyclerViewAdapter adapter;
+    private RetrieveUsersAdapter adapter;
     private List<Contacts> listUsers;
 
 
@@ -55,6 +55,13 @@ public class ChatFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
+        return view;
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         //Declaring instances and,
         //Initializing
@@ -72,14 +79,6 @@ public class ChatFragment extends Fragment {
         }
 
 
-        return view;
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         noChatHistoryText = view.findViewById(R.id.noChatHistoryText);
         chat_fab = view.findViewById(R.id.chat_fab);
         chat_fab.setOnClickListener(new View.OnClickListener() {
@@ -89,15 +88,11 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        
         chatRecyclerView = view.findViewById(R.id.chatRecyclerView);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
-
-
-        usersList = new ArrayList<>();
-        getMessages();
-
     }
 
 
@@ -185,14 +180,6 @@ public class ChatFragment extends Fragment {
                         }
                     }
                 }
-
-                FirebaseRecyclerOptions<Contacts> options = new FirebaseRecyclerOptions.Builder<Contacts>()
-                        .setQuery(databaseReference, Contacts.class)
-                        .build();
-
-                adapter = new RetrieveUsersRecyclerViewAdapter(options);
-                noChatHistoryText.setVisibility(View.GONE);
-                chatRecyclerView.setAdapter(adapter);
             }
 
             @Override

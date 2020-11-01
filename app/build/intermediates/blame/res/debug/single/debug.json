@@ -8,20 +8,20 @@
         "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\menu_24.xml"
     },
     {
-        "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rounded_image_button_background.xml.flat",
-        "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\rounded_image_button_background.xml"
-    },
-    {
         "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\layout_custom_loading_dialog.xml.flat",
         "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\layout\\custom_loading_dialog.xml"
     },
     {
-        "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_camera.png.flat",
-        "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\camera.png"
+        "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rounded_image_button_background.xml.flat",
+        "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\rounded_image_button_background.xml"
     },
     {
         "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_contact_card_state_background.xml.flat",
         "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\contact_card_state_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\drawable_camera.png.flat",
+        "source": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\src\\main\\res\\drawable\\camera.png"
     },
     {
         "merged": "C:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",

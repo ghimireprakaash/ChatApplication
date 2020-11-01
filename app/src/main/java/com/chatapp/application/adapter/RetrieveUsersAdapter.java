@@ -10,30 +10,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.Contacts;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
+import java.util.List;
 
-public class RetrieveUsersRecyclerViewAdapter extends FirebaseRecyclerAdapter<Contacts, RetrieveUsersRecyclerViewAdapter.ViewHolder> {
+public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdapter.ViewHolder>{
+    private List<Contacts> list;
     private ViewHolder.OnItemClickListener onItemClickListener;
 
-    /**
-     * Initialize a RecyclerView.Adapter that listens to a Firebase query.
-     */
-    public RetrieveUsersRecyclerViewAdapter(@NonNull FirebaseRecyclerOptions<Contacts> options, ViewHolder.OnItemClickListener onItemClickListener) {
-        super(options);
+    public RetrieveUsersAdapter(List<Contacts> list, ViewHolder.OnItemClickListener onItemClickListener) {
+        this.list = list;
         this.onItemClickListener = onItemClickListener;
-    }
-
-    public RetrieveUsersRecyclerViewAdapter(@NonNull FirebaseRecyclerOptions<Contacts> options) {
-        super(options);
-    }
-
-    @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Contacts model) {
-        Picasso.get().load(model.getImage()).into(holder.userProfile);
-        holder.userName.setText(model.getUsername());
-        holder.userPhoneNumber.setText(model.getContact());
     }
 
     @NonNull
@@ -42,6 +28,25 @@ public class RetrieveUsersRecyclerViewAdapter extends FirebaseRecyclerAdapter<Co
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_item_layout, parent, false);
         return new ViewHolder(view, onItemClickListener);
     }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Contacts model = list.get(position);
+
+        Picasso.get().load(model.getImage()).into(holder.userProfile);
+        holder.userName.setText(model.getUsername());
+        holder.userPhoneNumber.setText(model.getContact());
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    public Contacts getItem(int position) {
+        return list.get(position);
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView userProfile;
@@ -67,7 +72,9 @@ public class RetrieveUsersRecyclerViewAdapter extends FirebaseRecyclerAdapter<Co
 
         @Override
         public void onClick(View v) {
-            onItemClickListener.OnItemClick(getAdapterPosition());
+            if (onItemClickListener != null){
+                onItemClickListener.OnItemClick(getAdapterPosition());
+            }
         }
 
 

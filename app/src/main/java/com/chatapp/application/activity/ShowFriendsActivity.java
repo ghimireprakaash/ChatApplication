@@ -11,58 +11,76 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import com.chatapp.application.R;
-import com.chatapp.application.adapter.RetrieveUsersRecyclerViewAdapter;
+import com.chatapp.application.adapter.RetrieveUsersAdapter;
 import com.chatapp.application.model.Contacts;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUsersRecyclerViewAdapter.ViewHolder.OnItemClickListener {
+public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUsersAdapter.ViewHolder.OnItemClickListener {
     Toolbar toolbar;
     EditText searchEditText;
     RecyclerView registeredUserRecyclerView;
 
     CardView newGroupCreateOption;
 
-    RetrieveUsersRecyclerViewAdapter adapter;
-    FirebaseRecyclerOptions<Contacts> options;
-    DatabaseReference userRef, reference;
-    String currentUser;
+    List<Contacts> listUsers;
+    RetrieveUsersAdapter adapter;
+    DatabaseReference userRef;
 
-    Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_friends);
 
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        userRef = FirebaseDatabase.getInstance().getReference();
 
 
         init();
 
 
-        String getCurrentUser = userRef.child(currentUser).toString();
-        if (getCurrentUser.equals(currentUser)){
-//            userRef.child("Users").child(currentUser);
-        }
-
         registeredUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        options = new FirebaseRecyclerOptions.Builder<Contacts>()
-                        .setQuery(userRef, Contacts.class)
-                        .build();
+        listUsers = new ArrayList<>();
 
-        adapter = new RetrieveUsersRecyclerViewAdapter(options, this);
-        registeredUserRecyclerView.setAdapter(adapter);
+        retrieveUsers();
+        adapter = new RetrieveUsersAdapter(listUsers, this);
+    }
+
+    private void retrieveUsers() {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        userRef.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listUsers.clear();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Contacts user = dataSnapshot.getValue(Contacts.class);
+
+                    assert user != null;
+                    assert firebaseUser != null;
+                    if (!user.getUid().equals(firebaseUser.getUid())){
+                        listUsers.add(user);
+                    }
+                }
+
+                registeredUserRecyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     //Initialization of fields
@@ -99,13 +117,6 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        adapter.startListening();
-    }
 
     @Override
     public void OnItemClick(int position) {
