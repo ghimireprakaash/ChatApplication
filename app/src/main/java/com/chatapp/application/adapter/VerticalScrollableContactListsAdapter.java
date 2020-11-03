@@ -42,9 +42,8 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
         final Contacts getPosition = lists.get(position);
 
 //        holder.contactNameFirstLetter.setText(getPosition.getContact_name_first_letter());
-        Picasso.get().load(getPosition.getImage()).into(holder.contactProfile);
+        Picasso.get().load(getPosition.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.contactProfile);
         holder.contactUserName.setText(getPosition.getContact_name());
-        holder.contactNumber.setText(getPosition.getContact_number());
     }
 
     @Override
@@ -55,7 +54,7 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView contactNameFirstLetter;
         ImageView contactProfile;
-        TextView contactUserName, contactNumber;
+        TextView contactUserName;
         CardView inviteCard;
 
         OnItemClickListener onItemClickListener;
@@ -68,7 +67,6 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
             contactNameFirstLetter = itemView.findViewById(R.id.contactNameFirstLetter);
             contactProfile = itemView.findViewById(R.id.contactProfile);
             contactUserName = itemView.findViewById(R.id.contactUserName);
-            contactNumber = itemView.findViewById(R.id.contactNumber);
             inviteCard = itemView.findViewById(R.id.inviteCard);
 
             itemView.setOnClickListener(this);

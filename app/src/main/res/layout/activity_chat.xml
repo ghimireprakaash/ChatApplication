@@ -10,9 +10,9 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,13 +22,13 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/userName"
@@ -36,14 +36,14 @@
                     android:layout_height="wrap_content"
                     android:text="UserName"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorBlack"/>
+                    android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/seenStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Last seen"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             </LinearLayout>
 
@@ -56,15 +56,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorLightWhite"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/messagesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </FrameLayout>
 
@@ -73,30 +73,78 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:minHeight="55dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/messageBox"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Type a message..."
-            android:textSize="16sp"
-            android:padding="20dp"
             android:layout_weight="1"
-            android:background="@android:color/transparent"/>
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/messageBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:hint="Type a message..."
+                android:padding="10dp"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/emoji_select"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/emoji_select"
+                    android:layout_weight="1"
+                    tools:ignore="contentDescription"/>
+
+                <ImageView
+                    android:id="@+id/gallery_pick"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/gallery_pick"
+                    android:layout_weight="1"
+                    tools:ignore="contentDescription"/>
+
+                <ImageView
+                    android:id="@+id/open_camera"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/open_camera"
+                    android:layout_weight="1"
+                    tools:ignore="contentDescription"/>
+
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/more"
+                    android:layout_weight="1"
+                    tools:ignore="contentDescription"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/buttonMessageSend"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:background="@drawable/rounded_image_button_background"
             android:src="@drawable/ic_baseline_send"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"
-            tools:ignore="contentDescription"/>
+            tools:ignore="contentDescription"
+            android:onClick="onSendButtonClicked"/>
 
     </LinearLayout>
 

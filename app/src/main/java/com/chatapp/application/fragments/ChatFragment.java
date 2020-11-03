@@ -17,7 +17,6 @@ import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.adapter.RetrieveUsersAdapter;
 import com.chatapp.application.model.Contacts;
 import com.chatapp.application.profile.ProfileSetupActivity;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -123,7 +122,7 @@ public class ChatFragment extends Fragment {
     }
 
 
-    private void getMessages(){
+    private void getChat(){
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("UsersChatList").addValueEventListener(new ValueEventListener() {
             @Override

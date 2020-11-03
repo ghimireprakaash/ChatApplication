@@ -9,7 +9,7 @@
     android:layout_gravity="end">
 
     <TextView
-        android:id="@+id/msg1"
+        android:id="@+id/show_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="abcdefgh"
@@ -26,7 +26,7 @@
         android:text="9:00 AM"
         android:textSize="12sp"
         android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@+id/msg1"
-        app:layout_constraintBottom_toBottomOf="@+id/msg1"/>
+        app:layout_constraintStart_toEndOf="@+id/show_message"
+        app:layout_constraintBottom_toBottomOf="@+id/show_message"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

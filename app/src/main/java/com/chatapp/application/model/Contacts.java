@@ -9,18 +9,16 @@ public class Contacts {
     public Bitmap photo;
     public Uri photoURI;
     public String contact_name;
-    public String contact_number;
 
     public Contacts(){
     }
 
-    public Contacts(String contact_ID, String image, Bitmap photo, Uri photoURI, String contact_name, String contact_number) {
+    public Contacts(String contact_ID, String image, Bitmap photo, Uri photoURI, String contact_name) {
         this.contact_ID = contact_ID;
         this.image = image;
         this.photo = photo;
         this.photoURI = photoURI;
         this.contact_name = contact_name;
-        this.contact_number = contact_number;
     }
 
     public String getContact_ID() {
@@ -63,25 +61,16 @@ public class Contacts {
         this.contact_name = contact_name;
     }
 
-    public String getContact_number() {
-        return contact_number;
-    }
-
-    public void setContact_number(String contact_number) {
-        this.contact_number = contact_number;
-    }
 
 
     // Getter Setter for retrieving from firebase
     private String uid;
     private String username;
-    private String contact;
 
-    public Contacts(String uid, String image, String username, String contact) {
+    public Contacts(String uid, String image, String username) {
         this.uid = uid;
         this.image = image;
         this.username = username;
-        this.contact = contact;
     }
 
     public String getUid() {
@@ -98,13 +87,5 @@ public class Contacts {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
     }
 }

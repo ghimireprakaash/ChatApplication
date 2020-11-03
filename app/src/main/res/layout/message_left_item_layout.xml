@@ -15,6 +15,7 @@
         android:layout_margin="7dp">
 
         <ImageView
+            android:id="@+id/sender_profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/contact_image_view_shape"
@@ -35,7 +36,7 @@
         android:layout_margin="7dp">
 
         <TextView
-            android:id="@+id/msg2"
+            android:id="@+id/show_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="abcdefgh"

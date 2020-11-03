@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +34,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class ContactListsFragment extends Fragment implements VerticalScrollableContactListsAdapter.OnItemClickListener {
-    Context context;
-
     RecyclerView recyclerView;
     List<Contacts> list;
     VerticalScrollableContactListsAdapter adapter;
@@ -82,7 +79,7 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
 
         if (requestCode == 1){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                getContacts();
+                list = getContacts();
             }
         }
     }
@@ -96,11 +93,9 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
         assert cursor != null;
         while (cursor.moveToNext()){
             String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
             Contacts contactInfo = new Contacts();
             contactInfo.setContact_name(contactName);
-            contactInfo.setContact_number(contactNumber);
 
             //Now attaching contactInfo to ArrayList object
             contactsList.add(contactInfo);

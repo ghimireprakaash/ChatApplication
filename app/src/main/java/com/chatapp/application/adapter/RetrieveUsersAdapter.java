@@ -33,9 +33,8 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contacts model = list.get(position);
 
-        Picasso.get().load(model.getImage()).into(holder.userProfile);
+        Picasso.get().load(model.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.userProfile);
         holder.userName.setText(model.getUsername());
-        holder.userPhoneNumber.setText(model.getContact());
     }
 
     @Override
@@ -50,7 +49,7 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView userProfile;
-        TextView userNameFirstAndLastLetter, userName, userPhoneNumber;
+        TextView userNameFirstAndLastLetter, userName;
         CardView inviteCard;
 
         OnItemClickListener onItemClickListener;
@@ -61,9 +60,8 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
             this.onItemClickListener = onItemClickListener;
 
             userProfile = itemView.findViewById(R.id.contactProfile);
-            userNameFirstAndLastLetter = itemView.findViewById(R.id.contactNameFirstLetter);
+            userNameFirstAndLastLetter = itemView.findViewById(R.id.contactNameFirstAndLastLetter);
             userName = itemView.findViewById(R.id.contactUserName);
-            userPhoneNumber = itemView.findViewById(R.id.contactNumber);
             inviteCard = itemView.findViewById(R.id.inviteCard);
             inviteCard.setVisibility(View.GONE);
 

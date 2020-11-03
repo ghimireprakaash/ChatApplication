@@ -123,13 +123,11 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         String userId = adapter.getItem(position).getUid();
         String userName = adapter.getItem(position).getUsername();
         String image = adapter.getItem(position).getImage();
-        String phoneNumber = adapter.getItem(position).getContact();
 
         Intent intent = new Intent(ShowFriendsActivity.this, ChatActivity.class);
         intent.putExtra("userId", userId);
         intent.putExtra("username", userName);
         intent.putExtra("image", image);
-        intent.putExtra("phone", phoneNumber);
         startActivity(intent);
         finish();
     }
