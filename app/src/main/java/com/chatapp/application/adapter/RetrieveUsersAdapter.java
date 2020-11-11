@@ -50,7 +50,6 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView userProfile;
         TextView userNameFirstAndLastLetter, userName, inviteText;
-        CardView inviteCard;
 
         OnItemClickListener onItemClickListener;
 

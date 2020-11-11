@@ -19,21 +19,47 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:drawableStartCompat="@drawable/ic_baseline_search"/>
-
-            <EditText
-                android:id="@+id/searchEditText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/enter_name_search_bar_hint"
-                android:singleLine="true"
-                android:focusable="true"
-                android:clickable="true"
-                android:inputType="textPersonName"
-                tools:ignore="Autofill"/>
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:drawableStartCompat="@drawable/ic_baseline_search"
+                    android:visibility="visible"
+                    android:layout_weight="1"/>
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_name_search_bar_hint"
+                    android:background="@android:color/transparent"
+                    android:singleLine="true"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:inputType="textPersonName"
+                    tools:ignore="Autofill"
+                    android:padding="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="10"/>
+
+                <TextView
+                    android:id="@+id/clearText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:drawableStartCompat="@drawable/ic_baseline_clear"
+                    android:padding="4dp"
+                    tools:ignore="ContentDescription"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="20dp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -71,13 +97,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/createNewGroupCardOption"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/createNewGroupCardOption"
+        app:layout_constraintTop_toBottomOf="@+id/showUsersOnSearch_recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
@@ -88,12 +113,12 @@
             android:layout_height="match_parent"
             android:text="@string/contacts"
             android:textAllCaps="true"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:paddingTop="6dp"
             android:paddingBottom="3dp"
-            android:paddingStart="5dp"
+            android:paddingStart="10dp"
             android:paddingEnd="0dp"
             android:background="@color/colorWhite"/>
 

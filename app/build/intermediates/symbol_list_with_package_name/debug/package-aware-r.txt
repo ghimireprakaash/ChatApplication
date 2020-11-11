@@ -993,6 +993,7 @@ color colorEnabledButton
 color colorLightDark
 color colorLightPurple
 color colorLightWhite
+color colorOnPressed
 color colorPrimary
 color colorPrimaryDark
 color colorPurple
@@ -1634,6 +1635,7 @@ drawable contact_image_view_shape
 drawable crop_image_menu_flip
 drawable crop_image_menu_rotate_left
 drawable crop_image_menu_rotate_right
+drawable custom_bg_invite_text
 drawable custom_bg_profile_update
 drawable custom_disabled_button
 drawable custom_enabled_button
@@ -1647,6 +1649,7 @@ drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
 drawable edit_24
+drawable emoji_select
 drawable fastscroll__default_bubble
 drawable fastscroll__default_handle
 drawable flag_afghanistan
@@ -1896,10 +1899,12 @@ drawable flag_wallis_and_futuna
 drawable flag_yemen
 drawable flag_zambia
 drawable flag_zimbabwe
+drawable gallery_pick
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable ic_backspace_black_24dp
 drawable ic_baseline_arrow_back
+drawable ic_baseline_clear
 drawable ic_baseline_group
 drawable ic_baseline_person_add
 drawable ic_baseline_search
@@ -1919,6 +1924,7 @@ drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable info_30
 drawable menu_24
+drawable more
 drawable mtrl_dialog_background
 drawable mtrl_dropdown_arrow
 drawable mtrl_ic_arrow_drop_down
@@ -1941,6 +1947,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable open_camera
 drawable receiver_background
 drawable rounded_image_button_background
 drawable sender_background
@@ -2141,6 +2148,7 @@ id checked
 id chip
 id chip_group
 id chronometer
+id clearText
 id clear_text
 id clip_horizontal
 id clip_vertical
@@ -2149,8 +2157,7 @@ id confirm_button
 id contact
 id contactButtonBack
 id contactName
-id contactNameFirstLetter
-id contactNumber
+id contactNameFirstAndLastLetter
 id contactPhoneNumber
 id contactProfile
 id contactProfileCard
@@ -2215,6 +2222,7 @@ id easeOut
 id editOption
 id editText_search
 id edit_query
+id emoji_select
 id end
 id end_padder
 id enterAlways
@@ -2235,7 +2243,7 @@ id fixed
 id flip
 id forever
 id fragmentContainer
-id frameContainer
+id gallery_pick
 id ghost_view
 id ghost_view_holder
 id gone
@@ -2262,7 +2270,8 @@ id img_clear_query
 id img_dismiss
 id info
 id invisible
-id inviteCard
+id inviteText
+id inviteUserCard
 id italic
 id item_touch_helper_previous_elevation
 id jumpToEnd
@@ -2293,10 +2302,9 @@ id month_navigation_fragment_toggle
 id month_navigation_next
 id month_navigation_previous
 id month_title
+id more
 id moreOption
 id motion_base
-id msg1
-id msg2
 id mtrl_calendar_day_selector_frame
 id mtrl_calendar_days_of_week
 id mtrl_calendar_frame
@@ -2330,6 +2338,7 @@ id notification_main_column_container
 id off
 id on
 id onTouch
+id open_camera
 id outline
 id oval
 id packed
@@ -2390,6 +2399,7 @@ id scrollView
 id scrollable
 id search
 id searchEditText
+id searchIcon
 id search_badge
 id search_bar
 id search_button
@@ -2404,6 +2414,7 @@ id seenStatus
 id select_dialog_listview
 id selected
 id sendTime
+id sender_profile_image
 id settingsText
 id setupProfileDOB
 id setupProfileImage
@@ -2412,6 +2423,8 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id showUsersOnSearch_recyclerView
+id show_message
 id sin
 id skipCollapsed
 id slide
@@ -2607,8 +2620,8 @@ layout layout_code_picker
 layout layout_full_width_code_picker
 layout layout_picker_dialog
 layout layout_recycler_country_tile
-layout message_receiver_layout
-layout message_sender_layout
+layout message_left_item_layout
+layout message_right_item_layout
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -2787,6 +2800,7 @@ string crop_image_menu_rotate_left
 string crop_image_menu_rotate_right
 string default_web_client_id
 string editOption
+string enter_name_search_bar_hint
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
@@ -2837,6 +2851,7 @@ string mtrl_picker_toggle_to_calendar_input_mode
 string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
+string new_group
 string no_result_found
 string otpScreenText
 string password_toggle_content_description
@@ -3216,6 +3231,7 @@ style TextAppearance_Compat_Notification_Time
 style TextAppearance_Compat_Notification_Time_Media
 style TextAppearance_Compat_Notification_Title
 style TextAppearance_Compat_Notification_Title_Media
+style TextAppearance_ContactName
 style TextAppearance_Design_CollapsingToolbar_Expanded
 style TextAppearance_Design_Counter
 style TextAppearance_Design_Counter_Overflow

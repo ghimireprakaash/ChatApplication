@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.chatapp.application.R;
 import com.chatapp.application.adapter.RetrieveUsersAdapter;
 import com.chatapp.application.model.User;
@@ -29,13 +31,14 @@ import java.util.Objects;
 
 public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUsersAdapter.ViewHolder.OnItemClickListener {
     Toolbar toolbar;
+    TextView searchIcon, clearText;
     EditText searchEditText;
     RecyclerView registeredUserRecyclerView, showUsersOnSearchRecyclerView;
 
     CardView newGroupCreateOption;
 
-    List<User> listUsers, showUsersBasedOnSearch;
-    RetrieveUsersAdapter adapter;
+    List<User> listUsers, listUsersBasedOnSearch;
+    RetrieveUsersAdapter adapter, searchAdapter;
     DatabaseReference userRef;
 
 
@@ -51,13 +54,13 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
 
         registeredUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         listUsers = new ArrayList<>();
-
         retrieveUsers();
         adapter = new RetrieveUsersAdapter(listUsers, this);
 
-        showUsersBasedOnSearch = new ArrayList<>();
+
+        showUsersOnSearchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listUsersBasedOnSearch = new ArrayList<>();
         searchEditText.addTextChangedListener(filter);
     }
 
@@ -73,6 +76,8 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
             }
         });
 
+        searchIcon = findViewById(R.id.searchIcon);
+        clearText = findViewById(R.id.clearText);
         searchEditText = findViewById(R.id.searchEditText);
         newGroupCreateOption = findViewById(R.id.createNewGroupCardOption);
 
@@ -122,7 +127,7 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     }
 
 
-    private TextWatcher filter = new TextWatcher() {
+    private final TextWatcher filter = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -130,7 +135,36 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            searchUser(s.toString());
+            String valueChange = searchEditText.getText().toString();
+
+            if ((TextUtils.isEmpty(valueChange)) || (TextUtils.isEmpty(valueChange))){
+                //set search icon to visible if text field is found empty
+                searchIcon.setVisibility(View.VISIBLE);
+
+                //set clear text icon visibility to gone
+                clearText.setVisibility(View.GONE);
+
+            } else {
+                //set search icon visibility to gone since we want to make search icon invisible
+                // if text is entered on field
+                searchIcon.setVisibility(View.GONE);
+
+
+                //show results on searching users
+                searchUser(s.toString());
+
+
+                //set visibility to visible if text change is triggered
+                clearText.setVisibility(View.VISIBLE);
+
+                //providing behaviour for clear icon to clear all text that is entered...
+                clearText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        searchEditText.setText("");
+                    }
+                });
+            }
         }
 
         @Override
@@ -148,18 +182,19 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                showUsersBasedOnSearch.clear();
+                listUsersBasedOnSearch.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
 
-                    assert user != null;
-                    assert firebaseUser != null;
                     if (!user.getUid().equals(firebaseUser.getUid())){
-                        showUsersBasedOnSearch.add(user);
-                        showUsersOnSearchRecyclerView.setVisibility(View.VISIBLE);
+                        listUsersBasedOnSearch.add(user);
                     }
                 }
+
+
+                searchAdapter = new RetrieveUsersAdapter(listUsersBasedOnSearch, ShowFriendsActivity.this);
+                showUsersOnSearchRecyclerView.setAdapter(searchAdapter);
             }
 
             @Override

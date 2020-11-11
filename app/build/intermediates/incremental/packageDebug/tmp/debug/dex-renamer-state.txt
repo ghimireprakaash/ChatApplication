@@ -1,7 +1,7 @@
-#Sun Nov 01 10:14:08 NPT 2020
-base.0=C\:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+#Wed Nov 11 23:00:20 NPT 2020
+base.0=C\:\\Users\\ghimi\\StudioProjects\\ChatApplication\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=C\:\\Users\\ghimi\\AndroidStudioProjects\\ChatApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
+base.1=C\:\\Users\\ghimi\\StudioProjects\\ChatApplication\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
