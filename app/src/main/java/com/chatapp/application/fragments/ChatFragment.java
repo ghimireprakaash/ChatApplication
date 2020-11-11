@@ -13,9 +13,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
+import com.chatapp.application.activity.ChatActivity;
 import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.adapter.RetrieveUsersAdapter;
-import com.chatapp.application.model.Contacts;
+import com.chatapp.application.model.Chat;
+import com.chatapp.application.model.User;
 import com.chatapp.application.profile.ProfileSetupActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,21 +31,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements RetrieveUsersAdapter.ViewHolder.OnItemClickListener {
     private TextView noChatHistoryText;
     private RecyclerView chatRecyclerView;
     private FloatingActionButton chat_fab;
 
     private RetrieveUsersAdapter adapter;
-    private List<Contacts> listUsers;
-
+    private List<User> listUsers;
 
     private List<String> usersList;
 
     private DatabaseReference databaseReference;
+    private FirebaseUser currentUser;
 
-    //Declaring string variable currentUserID
-    private String currentUserID;
+    //Declaring string variable
+    private String userId;
 
 
     @Nullable
@@ -66,11 +68,10 @@ public class ChatFragment extends Fragment {
         //Initializing
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        currentUserID = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
 
         //verifies if current user is null or not null
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        currentUser = firebaseAuth.getCurrentUser();
         if (currentUser == null){
             startActivity(new Intent(getContext(), ProfileSetupActivity.class));
         } else {
@@ -79,6 +80,7 @@ public class ChatFragment extends Fragment {
 
 
         noChatHistoryText = view.findViewById(R.id.noChatHistoryText);
+
         chat_fab = view.findViewById(R.id.chat_fab);
         chat_fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +91,16 @@ public class ChatFragment extends Fragment {
 
         
         chatRecyclerView = view.findViewById(R.id.chatRecyclerView);
+        chatRecyclerView.setHasFixedSize(true);
+        chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(RecyclerView.VERTICAL);
+//        getChat();
     }
 
 
     //To verify user existence
     private void verifyUserExistence() {
-        databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!(snapshot.child("username").exists())){
@@ -123,26 +126,33 @@ public class ChatFragment extends Fragment {
 
 
     private void getChat(){
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("UsersChatList").addValueEventListener(new ValueEventListener() {
+        usersList = new ArrayList<>();
+
+        databaseReference.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-//                usersList.clear();
-//
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    Chat chat = dataSnapshot.getValue(Chat.class);
-//
-//                    assert chat != null;
-//                    if (chat.getSender().equals(currentUserID)){
-//                        usersList.add(chat.getReceiver());
-//                    }
-//                    if (chat.getReceiver().equals(currentUserID)){
-//                        usersList.add(chat.getSender());
-//                    }
-//                }
-//
-//                readChats();
+                usersList.clear();
+
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Chat chat = dataSnapshot.getValue(Chat.class);
+
+                        noChatHistoryText.setVisibility(View.GONE);
+
+                        assert chat != null;
+                        if (chat.getSender().equals(currentUser.getUid())) {
+                            usersList.add(chat.getReceiver());
+                        }
+                        if (chat.getReceiver().equals(currentUser.getUid())) {
+                            usersList.add(chat.getSender());
+                        }
+                    }
+                } else {
+                    noChatHistoryText.setVisibility(View.VISIBLE);
+                }
+
+                readChats();
             }
 
             @Override
@@ -162,23 +172,27 @@ public class ChatFragment extends Fragment {
                 listUsers.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Contacts userContact = dataSnapshot.getValue(Contacts.class);
+                    User user = dataSnapshot.getValue(User.class);
 
+                    //Display user with whom chat is going on
                     for (String id : usersList){
-                        assert userContact != null;
-                        if (userContact.getUid().equals(id)){
+                        assert user != null;
+                        if (user.getUid().equals(id)){
                             if (listUsers.size() != 0){
-                                for (Contacts userContact1 : listUsers){
-                                    if (!userContact.getUid().equals(userContact1.getUid())){
-                                        listUsers.add(userContact);
+                                for (User user1 : listUsers){
+                                    if (!user.getUid().equals(user1.getUid())){
+                                        listUsers.add(user);
                                     }
                                 }
                             } else {
-                                listUsers.add(userContact);
+                                listUsers.add(user);
                             }
                         }
                     }
                 }
+
+                adapter = new RetrieveUsersAdapter(listUsers, (RetrieveUsersAdapter.ViewHolder.OnItemClickListener) getContext());
+                chatRecyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -186,5 +200,12 @@ public class ChatFragment extends Fragment {
 
             }
         });
+    }
+
+
+    @Override
+    public void OnItemClick(int position) {
+        Intent intent = new Intent(getContext(), ChatActivity.class);
+        startActivity(intent);
     }
 }

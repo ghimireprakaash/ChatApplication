@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -23,6 +22,8 @@ import android.widget.Toast;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +42,8 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ProfileSetupActivity extends AppCompatActivity {
+    private String TAG = "ProfileSetupActivity";
+
     private static final int GALLERY_PICK = 1;
     Uri uri;
 
@@ -66,6 +69,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
     //Firebase storage
     private StorageReference userProfileImagesStorageRef;
+    private StorageReference filePath;
 
 
     @Override
@@ -95,8 +99,31 @@ public class ProfileSetupActivity extends AppCompatActivity {
             }
         });
 
+        //On click button set, it setups the user information
+        btnSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                profileSetup();
+            }
+        });
+    }
 
 
+
+    // Initializing fields
+    private void init() {
+        setupProfileImage = findViewById(R.id.setupProfileImage);
+        camera_icon = findViewById(R.id.camera_icon);
+
+        setupProfileName = findViewById(R.id.setupProfileName);
+        setupProfileDOB = findViewById(R.id.setupProfileDOB);
+
+        btnSet = findViewById(R.id.buttonSet);
+    }
+
+
+
+    public void OnDatePicker(View view) {
         //get instance of calendar
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -121,20 +148,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
-
-
-
-
-        //On click button set, it setups the user information
-        btnSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                profileSetup();
-            }
-        });
     }
-
 
     //set date so on second call remains on the same date that was picked on first call
     private void setDate(int year, int month, int day){
@@ -142,23 +156,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
         this.month = month;
         this.day = day;
     }
-
-
-    // Initializing fields
-    private void init() {
-        setupProfileImage = findViewById(R.id.setupProfileImage);
-        camera_icon = findViewById(R.id.camera_icon);
-
-        setupProfileName = findViewById(R.id.setupProfileName);
-        setupProfileDOB = findViewById(R.id.setupProfileDOB);
-
-        btnSet = findViewById(R.id.buttonSet);
-    }
-
-
-
-
-
 
     private void setupProfileImage() {
         CropImage.startPickImageActivity(ProfileSetupActivity.this);
@@ -196,28 +193,13 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
                 //Uploads the profile to firebase storage
-                final StorageReference filePath = userProfileImagesStorageRef.child(currentUserID + ".jpg");
+                filePath = userProfileImagesStorageRef.child(currentUserID + ".jpg");
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (!task.isSuccessful()){
                             String exception = Objects.requireNonNull(task.getException()).toString();
                             Toast.makeText(getApplicationContext(), "Error selecting image "+ exception, Toast.LENGTH_LONG).show();
-                        } else {
-                            final String downloadUrl = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl().toString();
-
-                            databaseReference.child("Users").child(currentUserID).child("image")
-                                    .setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        //Do nothing if successful
-                                    }else {
-                                        //returns error message if uploading image to the firebase database is failed
-                                        Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
                         }
                     }
                 });
@@ -235,12 +217,11 @@ public class ProfileSetupActivity extends AppCompatActivity {
     }
 
 
-
-
+    
     //User Profile Setup
     private void profileSetup() {
-        String profileName = setupProfileName.getText().toString();
-        String profileDOB = setupProfileDOB.getText().toString();
+        final String profileName = setupProfileName.getText().toString();
+        final String profileDOB = setupProfileDOB.getText().toString();
 
         if (TextUtils.isEmpty(profileName)){
             setupProfileName.setError("Name required");
@@ -251,39 +232,52 @@ public class ProfileSetupActivity extends AppCompatActivity {
             setupProfileDOB.requestFocus();
 
         } else {
-            String getUserPhoneNumber = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
-            String getDownloadUrl = userProfileImagesStorageRef.child(currentUserID).getDownloadUrl().toString();
+            final String getUserPhoneNumber = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
 
             HashMap<String, String> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("username", profileName);
             profileMap.put("dob", profileDOB);
             profileMap.put("contact", getUserPhoneNumber);
-            profileMap.put("image", getDownloadUrl);
+            profileMap.put("search", profileName.toLowerCase());
 
-            databaseReference.child("Users").child(currentUserID).setValue(profileMap)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            filePath.getDownloadUrl()
+                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!(task.isSuccessful())){
+                                            //returns error message if uploading image to the firebase database is failed
+                                            Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                    }
+                })
+                    .addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                Toast.makeText(getApplicationContext(), "Profile Setup Successful", Toast.LENGTH_SHORT).show();
-
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                                startActivity(intent);
-                                finish();
-
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Error " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
-                            }
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "onFailure: "+e.getMessage());
                         }
                     });
+
+            databaseReference.child("Users").child(currentUserID).setValue(profileMap)
+            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
     }
-
-
-
 
 
     private void retrieveUserInfo() {

@@ -9,15 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
-import com.chatapp.application.model.Contacts;
+import com.chatapp.application.model.User;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdapter.ViewHolder>{
-    private List<Contacts> list;
+    private List<User> list;
     private ViewHolder.OnItemClickListener onItemClickListener;
 
-    public RetrieveUsersAdapter(List<Contacts> list, ViewHolder.OnItemClickListener onItemClickListener) {
+    public RetrieveUsersAdapter(List<User> list, ViewHolder.OnItemClickListener onItemClickListener) {
         this.list = list;
         this.onItemClickListener = onItemClickListener;
     }
@@ -31,9 +31,9 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Contacts model = list.get(position);
+        User model = list.get(position);
 
-        Picasso.get().load(model.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.userProfile);
+        Picasso.get().load(model.getImage()).into(holder.userProfile);
         holder.userName.setText(model.getUsername());
     }
 
@@ -42,14 +42,14 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
         return list.size();
     }
 
-    public Contacts getItem(int position) {
+    public User getItem(int position) {
         return list.get(position);
     }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView userProfile;
-        TextView userNameFirstAndLastLetter, userName;
+        TextView userNameFirstAndLastLetter, userName, inviteText;
         CardView inviteCard;
 
         OnItemClickListener onItemClickListener;
@@ -62,8 +62,8 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
             userProfile = itemView.findViewById(R.id.contactProfile);
             userNameFirstAndLastLetter = itemView.findViewById(R.id.contactNameFirstAndLastLetter);
             userName = itemView.findViewById(R.id.contactUserName);
-            inviteCard = itemView.findViewById(R.id.inviteCard);
-            inviteCard.setVisibility(View.GONE);
+            inviteText = itemView.findViewById(R.id.inviteText);
+            inviteText.setVisibility(View.GONE);
 
             itemView.setOnClickListener(this);
         }

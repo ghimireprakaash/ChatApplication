@@ -11,6 +11,8 @@ public class VisitContactProfile extends AppCompatActivity {
     private TextView buttonBack, contactName, contactPhoneNumber;
     private ImageView contactProfileImage;
 
+    String contact_name, contact_number;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,5 +28,11 @@ public class VisitContactProfile extends AppCompatActivity {
                 finish();
             }
         });
+
+        contact_name = getIntent().getStringExtra("contact_username");
+        contactName.setText(contact_name);
+
+        contact_number = getIntent().getStringExtra("contact_number");
+        contactPhoneNumber.setText(contact_number);
     }
 }

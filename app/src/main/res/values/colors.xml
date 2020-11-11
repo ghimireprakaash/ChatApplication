@@ -23,6 +23,8 @@
     <color name="colorLightPurple">#9D63F3</color>
     <color name="colorPurple">#7E57C2</color>
 
+    <!-- shows on background when on pressed is called-->
+    <color name="colorOnPressed">#C1EAE7E7</color>
 
     <!-- Custom Color for Enabled and Disabled button -->
     <color name="colorEnabledButton">#7D3FD8</color>

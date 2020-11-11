@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.chatapp.application.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +35,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.util.Objects;
 
 public class ProfileUpdate extends AppCompatActivity {
+    private String TAG = "ProfileUpdate";
+
     private static final int GALLERY_PICK = 1;
     Uri uri;
 
@@ -121,7 +125,7 @@ public class ProfileUpdate extends AppCompatActivity {
                 //setting image uri to user profile image view
                 userProfileImage.setImageURI(resultUri);
 
-                StorageReference filePath = userProfileStorageRef.child(currentUserID + ".jpg");
+                final StorageReference filePath = userProfileStorageRef.child(currentUserID + ".jpg");
                 filePath.putFile(resultUri)
                         .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -132,19 +136,29 @@ public class ProfileUpdate extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Error uploading "+message, Toast.LENGTH_LONG).show();
 
                                 }else {
-                                    String downloadUrl = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl().toString();
+                                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            Log.d(TAG, "onSuccess: downloadUrl: "+uri.toString());
 
-                                    databaseReference.child("Users").child(currentUserID).child("image")
-                                            .setValue(downloadUrl)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            databaseReference.child("Users").child(currentUserID).child("image")
+                                                    .setValue(uri.toString()).addOnFailureListener(new OnFailureListener() {
                                                 @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (!task.isSuccessful()){
-                                                        String message = Objects.requireNonNull(task.getException()).getMessage();
-                                                        Toast.makeText(getApplicationContext(), "Error: "+message, Toast.LENGTH_LONG).show();
-                                                    }
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: "+e.getMessage());
+                                                    Toast.makeText(getApplicationContext(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
+                                        }
+                                    })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: "+e.getMessage());
+                                                    Toast.makeText(getApplicationContext(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+
                                 }
                             }
                         });
@@ -168,13 +182,15 @@ public class ProfileUpdate extends AppCompatActivity {
         databaseReference.child("Users").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String profileImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
-                String profileName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
-                String userDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
+                if ((snapshot.exists()) && (snapshot.hasChild("image")) || (snapshot.exists()) && (snapshot.hasChild("username"))){
+                    String profileImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
+                    String profileName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
+                    String userDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
-                Picasso.get().load(profileImage).into(userProfileImage);
-                updateProfileName.setText(profileName);
-                updateProfileDateOfBirth.setText(userDOB);
+                    Picasso.get().load(profileImage).into(userProfileImage);
+                    updateProfileName.setText(profileName);
+                    updateProfileDateOfBirth.setText(userDOB);
+                }
             }
 
             @Override

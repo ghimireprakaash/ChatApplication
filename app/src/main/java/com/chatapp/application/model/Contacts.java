@@ -4,21 +4,25 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class Contacts {
-    public String contact_ID;
-    public String image;
-    public Bitmap photo;
-    public Uri photoURI;
-    public String contact_name;
+    private String contact_ID;
+    private String image;
+    private Bitmap photo;
+    private Uri photoURI;
+    private String contact_name;
+    private String contact_number;
+    private String userName_firstLetter_and_lastLetter;
 
     public Contacts(){
     }
 
-    public Contacts(String contact_ID, String image, Bitmap photo, Uri photoURI, String contact_name) {
+    public Contacts(String contact_ID, String image, Bitmap photo, Uri photoURI, String contact_name, String contact_number, String userName_firstLetter_and_lastLetter) {
         this.contact_ID = contact_ID;
         this.image = image;
         this.photo = photo;
         this.photoURI = photoURI;
         this.contact_name = contact_name;
+        this.contact_number = contact_number;
+        this.userName_firstLetter_and_lastLetter = userName_firstLetter_and_lastLetter;
     }
 
     public String getContact_ID() {
@@ -61,31 +65,19 @@ public class Contacts {
         this.contact_name = contact_name;
     }
 
-
-
-    // Getter Setter for retrieving from firebase
-    private String uid;
-    private String username;
-
-    public Contacts(String uid, String image, String username) {
-        this.uid = uid;
-        this.image = image;
-        this.username = username;
+    public String getContact_number() {
+        return contact_number;
     }
 
-    public String getUid() {
-        return uid;
+    public void setContact_number(String contact_number) {
+        this.contact_number = contact_number;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public String getUserName_firstLetter_and_lastLetter() {
+        return userName_firstLetter_and_lastLetter;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName_firstLetter_and_lastLetter(String userName_firstLetter_and_lastLetter) {
+        this.userName_firstLetter_and_lastLetter = userName_firstLetter_and_lastLetter;
     }
 }

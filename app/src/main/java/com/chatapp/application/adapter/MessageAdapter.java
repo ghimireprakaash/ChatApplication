@@ -47,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Chat model = chat.get(position);
 
         holder.show_message.setText(model.getMessage());
-        Picasso.get().load(model.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.sender_profile_image);
+//        Picasso.get().load(model.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.sender_profile_image);
     }
 
     @Override

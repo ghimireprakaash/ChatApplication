@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class OTPActivity extends AppCompatActivity {
     private static final String TAG = "OTPActivity";
 
-    String numberVerification;
+    String phoneNumber, numberVerification;
     PhoneAuthProvider.ForceResendingToken resendToken;
 
 
@@ -49,7 +49,7 @@ public class OTPActivity extends AppCompatActivity {
         loadingDialog = new CustomLoadingDialog(this);
 
 
-        final String phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
+        phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
         sendPhoneNumberVerificationCode(phoneNumber);
     }
 
@@ -89,6 +89,7 @@ public class OTPActivity extends AppCompatActivity {
             Toast.makeText(OTPActivity.this, "Verification failed - "+ e.getMessage(), Toast.LENGTH_LONG).show();
 
             loadingDialog.dismissDialog();
+            finish();
         }
 
         @Override
@@ -121,9 +122,6 @@ public class OTPActivity extends AppCompatActivity {
                         loadingDialog.startLoadingDialog();
 
                         if (task.isSuccessful()){
-                            String getUserId = firebaseAuth.getCurrentUser().getUid();
-                            databaseReference.child("Users").child(getUserId).setValue("");
-
                             Intent intent = new Intent(OTPActivity.this, ProfileSetupActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
@@ -151,10 +149,17 @@ public class OTPActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
 
         if (loadingDialog != null && loadingDialog.startLoadingDialog())
         loadingDialog.dismissDialog();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        sendPhoneNumberVerificationCode(phoneNumber);
     }
 }

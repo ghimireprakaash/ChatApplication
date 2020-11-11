@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.chatapp.application.R;
 import com.chatapp.application.adapter.MessageAdapter;
 import com.chatapp.application.model.Chat;
-import com.chatapp.application.model.Contacts;
+import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +35,6 @@ public class ChatActivity extends AppCompatActivity {
 
     String userId;
     String image;
-    Intent intent;
 
     DatabaseReference reference;
     FirebaseUser user;
@@ -66,22 +65,21 @@ public class ChatActivity extends AppCompatActivity {
         });
 
 
-        intent = getIntent();
-
-        userId = intent.getStringExtra("userId");
-        image = intent.getStringExtra("image");
+        userId = getIntent().getStringExtra("userId");
+        image = getIntent().getStringExtra("image");
 
 
-        storeChatInfo();
+//        storeChatInfo();
 
         buildChatRecycler();
 
-        reference.child("UsersChatList").child(userId).addValueEventListener(new ValueEventListener() {
+        reference.child("Users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Contacts model = snapshot.getValue(Contacts.class);
+                User model = snapshot.getValue(User.class);
                 assert model != null;
                 userName.setText(model.getUsername());
+
 
                 retrieveMessages(user.getUid(), userId);
             }
@@ -101,12 +99,11 @@ public class ChatActivity extends AppCompatActivity {
         buttonMessageSend = findViewById(R.id.buttonMessageSend);
 
         messageRecycler = findViewById(R.id.messagesRecyclerView);
-        messageRecycler.setHasFixedSize(true);
     }
 
 
     private void storeChatInfo(){
-        final String userName = intent.getStringExtra("username");
+        final String userName = getIntent().getStringExtra("username");
 
 
         assert userId != null;
@@ -131,16 +128,15 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void sendMessage(String sender, String message, String receiver, String image){
+    private void sendMessage(String sender, String message, String receiver){
         reference = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("message", message);
         hashMap.put("receiver", receiver);
-        hashMap.put("image", image);
 
-        reference.child("UsersChatList").child(userId).push().setValue(hashMap);
+        reference.child("Chats").child(userId).push().setValue(hashMap);
     }
 
 
@@ -151,7 +147,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String edit_message = message.getText().toString();
                 if (!edit_message.equals("")){
-                    sendMessage(user.getUid(), edit_message, userId, image);
+                    sendMessage(user.getUid(), edit_message, userId);
                 }
 
                 message.setText("");
@@ -160,16 +156,15 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void buildChatRecycler(){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-        layoutManager.setStackFromEnd(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setStackFromEnd(false);
         messageRecycler.setLayoutManager(layoutManager);
     }
 
     private void retrieveMessages(final String myId, final String userid){
         chatList = new ArrayList<>();
 
-        reference.child("UsersChatList").child(userId).addValueEventListener(new ValueEventListener() {
+        reference.child("Chats").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatList.clear();

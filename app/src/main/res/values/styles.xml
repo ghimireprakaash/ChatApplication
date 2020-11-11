@@ -33,4 +33,8 @@
 
     </style>
 
+    <style name="TextAppearance.ContactName" parent="TextAppearance.AppCompat.Display4">
+        <item name="android:textColor">@color/colorLightPurple</item>
+    </style>
+
 </resources>

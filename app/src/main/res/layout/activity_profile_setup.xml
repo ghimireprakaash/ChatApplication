@@ -7,32 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".profile.ProfileSetupActivity">
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/profileImageLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent">-->
-
-<!--        <de.hdodenhof.circleimageview.CircleImageView-->
-<!--            android:id="@+id/setupProfileImage"-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="115dp"-->
-<!--            android:background="@drawable/state_pressed_on_circle_image_view"-->
-<!--            app:civ_border_width="1dp"-->
-<!--            app:civ_border_color="@color/colorLightDarkWhite"-->
-<!--            android:layout_margin="50dp"-->
-<!--            android:layout_centerInParent="true"/>-->
-
-<!--        <TextView-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:background="@drawable/camera"-->
-<!--            android:layout_centerInParent="true"/>-->
-
-<!--    </RelativeLayout>-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/profileImageLayout"
         android:layout_width="110dp"
@@ -53,7 +27,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/state_pressed_on_circle_image_view"
                     android:scaleType="centerCrop"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    tools:ignore="contentDescription"/>
 
                 <TextView
                     android:id="@+id/camera_icon"
@@ -97,7 +72,8 @@
         android:padding="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"/>
+        android:layout_marginEnd="15dp"
+        android:onClick="OnDatePicker"/>
 
     <Button
         android:id="@+id/buttonSet"

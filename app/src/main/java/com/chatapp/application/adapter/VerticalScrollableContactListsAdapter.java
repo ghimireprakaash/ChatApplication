@@ -6,14 +6,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.Contacts;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+import java.util.Objects;
 
 public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<VerticalScrollableContactListsAdapter.ViewHolder>{
     DatabaseReference userRef;
@@ -38,11 +41,11 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Contacts getPosition = lists.get(position);
 
-//        holder.contactNameFirstLetter.setText(getPosition.getContact_name_first_letter());
-        Picasso.get().load(getPosition.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.contactProfile);
+        holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
+        Picasso.get().load(getPosition.getImage()).into(holder.contactProfile);
         holder.contactUserName.setText(getPosition.getContact_name());
     }
 
@@ -51,11 +54,15 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
         return lists.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView contactNameFirstLetter;
+        TextView contactNameFirstAndLastLetter;
         ImageView contactProfile;
-        TextView contactUserName;
-        CardView inviteCard;
+        TextView contactUserName, inviteText;
 
         OnItemClickListener onItemClickListener;
 
@@ -64,10 +71,11 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
 
             this.onItemClickListener = onItemClickListener;
 
-            contactNameFirstLetter = itemView.findViewById(R.id.contactNameFirstLetter);
+            contactNameFirstAndLastLetter = itemView.findViewById(R.id.contactNameFirstAndLastLetter);
             contactProfile = itemView.findViewById(R.id.contactProfile);
             contactUserName = itemView.findViewById(R.id.contactUserName);
-            inviteCard = itemView.findViewById(R.id.inviteCard);
+            inviteText = itemView.findViewById(R.id.inviteText);
+
 
             itemView.setOnClickListener(this);
         }
@@ -82,9 +90,5 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
 
     public interface OnItemClickListener{
         void OnClickItem(int position);
-    }
-
-    public void isUserAvailable(){
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 }

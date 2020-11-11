@@ -19,8 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
@@ -34,21 +32,17 @@ public class MoreOptionFragment extends Fragment {
 
 
     //Declaring Firebase Instance
-    private FirebaseAuth firebaseAuth;
     private String currentUserID;
     private DatabaseReference databaseReference;
-    private StorageReference userProfileStorageRef;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).hide();
 
-        View view = inflater.inflate(R.layout.fragment_more_option, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_more_option, container, false);
     }
 
 
@@ -57,13 +51,10 @@ public class MoreOptionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Initializing firebase instance
-        firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         //Getting Current user id
-        currentUserID = firebaseAuth.getCurrentUser().getUid();
-
-        userProfileStorageRef = FirebaseStorage.getInstance().getReference().child(currentUserID).child("Profile Images");
+        currentUserID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
 
 
@@ -72,6 +63,7 @@ public class MoreOptionFragment extends Fragment {
 
         userProfileImage = view.findViewById(R.id.profileImage);
         camera_icon = view.findViewById(R.id.camera_icon);
+        camera_icon.setVisibility(View.VISIBLE);
 
         userProfileName = view.findViewById(R.id.profileName);
         userProfileContact = view.findViewById(R.id.profileContactNumber);
@@ -112,7 +104,7 @@ public class MoreOptionFragment extends Fragment {
                     String getUserContactNumber = Objects.requireNonNull(snapshot.child("contact").getValue()).toString();
                     String getUserDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
-
+                    camera_icon.setVisibility(View.GONE);
                     Picasso.get().load(getUserProfileImage).into(userProfileImage);
                     userProfileName.setText(getUserName);
                     userProfileContact.setText(getUserContactNumber);

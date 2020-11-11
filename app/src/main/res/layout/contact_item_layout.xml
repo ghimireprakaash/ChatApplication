@@ -9,31 +9,39 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/contactUserImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:cardCornerRadius="22dp"
-        android:layout_marginStart="30dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        app:cardCornerRadius="23dp"
+        app:cardBackgroundColor="@color/colorPurple"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp">
 
-        <ImageView
-            android:id="@+id/contactProfile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/contact_image_view_shape"
-            android:scaleType="centerCrop"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/user_profile"/>
-
-        <TextView
-            android:id="@+id/contactNameFirstAndLastLetter"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/contactProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/contact_image_view_shape"
+                android:scaleType="centerCrop"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/user_profile"/>
+
+            <TextView
+                android:id="@+id/contactNameFirstAndLastLetter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textAppearance="@style/TextAppearance.ContactName"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
 
     <TextView
         android:id="@+id/contactUserName"
@@ -47,36 +55,20 @@
         app:layout_constraintBottom_toBottomOf="@+id/contactUserImage"
         android:layout_marginStart="10dp"/>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/inviteCard"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        app:cardBackgroundColor="@color/colorLightWhite"
-        app:cardCornerRadius="12dp"
+    <TextView
+        android:id="@+id/inviteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite"
+        android:textAllCaps="true"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorLightPurple"
+        android:background="@drawable/custom_bg_invite_text"
         app:layout_constraintTop_toTopOf="@id/contactUserName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/contactUserName"
-        android:layout_marginEnd="15dp"
-        android:visibility="visible">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="3dp"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Invite"
-                android:textAllCaps="true"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorLightPurple"
-                android:visibility="visible"/>
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintBottom_toBottomOf="@id/contactUserName"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

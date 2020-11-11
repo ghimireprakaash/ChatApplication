@@ -8,17 +8,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import com.chatapp.application.R;
 import com.chatapp.application.adapter.RetrieveUsersAdapter;
-import com.chatapp.application.model.Contacts;
+import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +30,11 @@ import java.util.Objects;
 public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUsersAdapter.ViewHolder.OnItemClickListener {
     Toolbar toolbar;
     EditText searchEditText;
-    RecyclerView registeredUserRecyclerView;
+    RecyclerView registeredUserRecyclerView, showUsersOnSearchRecyclerView;
 
     CardView newGroupCreateOption;
 
-    List<Contacts> listUsers;
+    List<User> listUsers, showUsersBasedOnSearch;
     RetrieveUsersAdapter adapter;
     DatabaseReference userRef;
 
@@ -53,34 +56,9 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
         retrieveUsers();
         adapter = new RetrieveUsersAdapter(listUsers, this);
-    }
 
-    private void retrieveUsers() {
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        userRef.child("Users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listUsers.clear();
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Contacts user = dataSnapshot.getValue(Contacts.class);
-
-                    assert user != null;
-                    assert firebaseUser != null;
-                    if (!user.getUid().equals(firebaseUser.getUid())){
-                        listUsers.add(user);
-                    }
-                }
-
-                registeredUserRecyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        showUsersBasedOnSearch = new ArrayList<>();
+        searchEditText.addTextChangedListener(filter);
     }
 
     //Initialization of fields
@@ -99,7 +77,38 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         newGroupCreateOption = findViewById(R.id.createNewGroupCardOption);
 
         registeredUserRecyclerView = findViewById(R.id.registeredUserRecyclerView);
+        showUsersOnSearchRecyclerView = findViewById(R.id.showUsersOnSearch_recyclerView);
     }
+
+
+    private void retrieveUsers() {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        userRef.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listUsers.clear();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    User user = dataSnapshot.getValue(User.class);
+
+                    assert user != null;
+                    assert firebaseUser != null;
+                    if (!user.getUid().equals(firebaseUser.getUid())){
+                        listUsers.add(user);
+                    }
+                }
+
+                registeredUserRecyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
 
     //called when createNewGroup is clicked
@@ -113,8 +122,51 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     }
 
 
-    private void filter(){
+    private TextWatcher filter = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            searchUser(s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+    private void searchUser(String s) {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        Query query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("search")
+                .startAt(s)
+                .endAt(s+"\uf8ff");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                showUsersBasedOnSearch.clear();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    User user = dataSnapshot.getValue(User.class);
+
+                    assert user != null;
+                    assert firebaseUser != null;
+                    if (!user.getUid().equals(firebaseUser.getUid())){
+                        showUsersBasedOnSearch.add(user);
+                        showUsersOnSearchRecyclerView.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 

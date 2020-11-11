@@ -53,7 +53,8 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:background="@drawable/camera"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:visibility="visible"/>
 
                 </RelativeLayout>
 
@@ -63,8 +64,9 @@
                 android:id="@+id/profileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorBlack"
                 android:padding="5dp"
                 android:layout_gravity="center"/>
 
