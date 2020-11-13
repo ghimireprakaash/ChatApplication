@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.ChatActivity;
 import com.chatapp.application.activity.ShowFriendsActivity;
-import com.chatapp.application.adapter.RetrieveUsersAdapter;
-import com.chatapp.application.model.Chat;
+import com.chatapp.application.adapter.ChatListAdapter;
+import com.chatapp.application.model.ChatList;
 import com.chatapp.application.model.User;
 import com.chatapp.application.profile.ProfileSetupActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,21 +31,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ChatFragment extends Fragment implements RetrieveUsersAdapter.ViewHolder.OnItemClickListener {
+public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder.OnItemClickListener {
     private TextView noChatHistoryText;
     private RecyclerView chatRecyclerView;
     private FloatingActionButton chat_fab;
 
-    private RetrieveUsersAdapter adapter;
+    private ChatListAdapter adapter;
     private List<User> listUsers;
 
-    private List<String> usersList;
+    private List<ChatList> usersList;
 
     private DatabaseReference databaseReference;
     private FirebaseUser currentUser;
-
-    //Declaring string variable
-    private String userId;
 
 
     @Nullable
@@ -54,9 +51,7 @@ public class ChatFragment extends Fragment implements RetrieveUsersAdapter.ViewH
 
         Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
 
-        View view = inflater.inflate(R.layout.fragment_chat, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 
 
@@ -94,7 +89,7 @@ public class ChatFragment extends Fragment implements RetrieveUsersAdapter.ViewH
         chatRecyclerView.setHasFixedSize(true);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        getChat();
+        getChatWithUsers();
     }
 
 
@@ -125,34 +120,24 @@ public class ChatFragment extends Fragment implements RetrieveUsersAdapter.ViewH
     }
 
 
-    private void getChat(){
+    private void getChatWithUsers(){
         usersList = new ArrayList<>();
 
-        databaseReference.child("Chats").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("ChatList").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                usersList.clear();
-
-                if (snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        Chat chat = dataSnapshot.getValue(Chat.class);
-
-                        noChatHistoryText.setVisibility(View.GONE);
-
-                        assert chat != null;
-                        if (chat.getSender().equals(currentUser.getUid())) {
-                            usersList.add(chat.getReceiver());
-                        }
-                        if (chat.getReceiver().equals(currentUser.getUid())) {
-                            usersList.add(chat.getSender());
-                        }
-                    }
-                } else {
+                if (!(snapshot.exists())){
                     noChatHistoryText.setVisibility(View.VISIBLE);
-                }
+                } else {
+                    noChatHistoryText.setVisibility(View.GONE);
 
-                readChats();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        ChatList chatList = dataSnapshot.getValue(ChatList.class);
+                        usersList.add(chatList);
+                    }
+
+                    chatList();
+                }
             }
 
             @Override
@@ -162,37 +147,31 @@ public class ChatFragment extends Fragment implements RetrieveUsersAdapter.ViewH
         });
     }
 
-    private void readChats() {
+    private void chatList() {
         listUsers = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listUsers.clear();
+                if (!(snapshot.exists())){
+                    noChatHistoryText.setVisibility(View.VISIBLE);
+                } else {
+                    noChatHistoryText.setVisibility(View.GONE);
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    User user = dataSnapshot.getValue(User.class);
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        User user = dataSnapshot.getValue(User.class);
 
-                    //Display user with whom chat is going on
-                    for (String id : usersList){
-                        assert user != null;
-                        if (user.getUid().equals(id)){
-                            if (listUsers.size() != 0){
-                                for (User user1 : listUsers){
-                                    if (!user.getUid().equals(user1.getUid())){
-                                        listUsers.add(user);
-                                    }
-                                }
-                            } else {
+                        for (ChatList list : usersList){
+                            assert user != null;
+                            if (user.getUid().equals(list.getId())){
                                 listUsers.add(user);
                             }
                         }
+
+                        adapter = new ChatListAdapter(listUsers, ChatFragment.this);
+                        chatRecyclerView.setAdapter(adapter);
                     }
                 }
-
-                adapter = new RetrieveUsersAdapter(listUsers, (RetrieveUsersAdapter.ViewHolder.OnItemClickListener) getContext());
-                chatRecyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -201,11 +180,53 @@ public class ChatFragment extends Fragment implements RetrieveUsersAdapter.ViewH
             }
         });
     }
+
+//    private void readChats() {
+//        listUsers = new ArrayList<>();
+//
+//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                listUsers.clear();
+//
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    User user = dataSnapshot.getValue(User.class);
+//
+//                    //Display user with whom chat is going on
+//                    for (String id : usersList){
+//                        assert user != null;
+//                        if (user.getUid().equals(id)){
+//                            if (listUsers.size() != 0){
+//                                for (User user1 : listUsers){
+//                                    if (!user.getUid().equals(user1.getUid())){
+//                                        listUsers.add(user);
+//                                    }
+//                                }
+//                            } else {
+//                                listUsers.add(user);
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                adapter = new RetrieveUsersAdapter(listUsers, ChatFragment.this);
+//                chatRecyclerView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
 
     @Override
     public void OnItemClick(int position) {
+        String userId = adapter.getItem(position).getUid();
         Intent intent = new Intent(getContext(), ChatActivity.class);
+        intent.putExtra("userId", userId);
         startActivity(intent);
     }
 }

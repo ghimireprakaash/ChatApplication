@@ -33,13 +33,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
         if (viewType == MSG_TYPE_RIGHT){
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_right_item_layout, parent, false);
-            return new ViewHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_right_item_layout, parent, false);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_left_item_layout, parent, false);
-            return new ViewHolder(view);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_left_item_layout, parent, false);
         }
+        return new ViewHolder(view);
     }
 
     @Override

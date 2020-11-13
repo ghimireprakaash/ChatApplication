@@ -2514,6 +2514,8 @@ id updateProfileName
 id useLogo
 id userImage
 id userName
+id userNameFirstAndLastLetter
+id userProfile
 id view_offset_helper
 id visible
 id welcomeTxt
@@ -2616,6 +2618,7 @@ layout fastscroll__default_bubble
 layout fragment_chat
 layout fragment_contact_lists
 layout fragment_more_option
+layout item_chat_layout
 layout layout_code_picker
 layout layout_full_width_code_picker
 layout layout_picker_dialog

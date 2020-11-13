@@ -137,6 +137,24 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("receiver", receiver);
 
         reference.child("Chats").child(userId).push().setValue(hashMap);
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference().child("ChatList")
+                .child(user.getUid())
+                .child(userId);
+
+        chatRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!(snapshot.exists())){
+                    chatRef.child("id").setValue(userId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 

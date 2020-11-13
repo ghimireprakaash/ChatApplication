@@ -187,6 +187,8 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     User user = dataSnapshot.getValue(User.class);
 
+                    assert user != null;
+                    assert firebaseUser != null;
                     if (!user.getUid().equals(firebaseUser.getUid())){
                         listUsersBasedOnSearch.add(user);
                     }
