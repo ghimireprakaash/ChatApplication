@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:text="@string/secondText1"
         android:textSize="15sp"
-        android:textColor="@color/colorBlack"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@+id/phNumberText"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,65 +34,74 @@
 
     <com.hbb20.CountryCodePicker
         android:id="@+id/countryCodePicker"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:ccp_textSize="16sp"
-        android:padding="6dp"
-        app:ccp_showFullName="false"
-        app:ccp_showPhoneCode="true"
-        app:ccp_showNameCode="true"
-        app:ccp_showFlag="true"
+        android:padding="7dp"
+        app:ccp_showFullName="true"
+        app:ccp_showNameCode="false"
+        app:ccp_arrowSize="20dp"
+        app:ccp_showFlag="false"
+        app:ccp_showPhoneCode="false"
+        app:ccp_textGravity="LEFT"
+        app:ccpDialog_textColor="@android:color/transparent"
         app:ccp_autoDetectCountry="true"
         app:ccp_rememberLastSelection="true"
         android:onClick="OnCountryCodePicker"
         app:layout_constraintTop_toBottomOf="@+id/text1"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:padding="16dp"-->
-<!--        android:text="+"-->
-<!--        android:textSize="18sp"-->
-<!--        android:textAlignment="textStart"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/phNumberEditText"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/countryCodePicker" />-->
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toBottomOf="@+id/countryCodePicker"
+        app:layout_constraintStart_toStartOf="@id/countryCodePicker"
+        android:layout_marginTop="10dp">
 
-<!--    <EditText-->
-<!--        android:id="@+id/countryCode"-->
-<!--        android:layout_width="80dp"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:hint="977"-->
-<!--        android:textSize="18sp"-->
-<!--        android:padding="20dp"-->
-<!--        android:inputType="phone"-->
-<!--        android:layout_marginStart="7dp"-->
-<!--        android:textAlignment="textStart"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/countryCodePicker"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/phNumberEditText"-->
-<!--        android:layout_marginTop="20dp"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:text="+"
+            android:textColor="@android:color/tertiary_text_dark"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/countryCode"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColor="@android:color/tertiary_text_dark"
+            android:textSize="18sp"
+            android:paddingStart="21dp"
+            android:paddingEnd="0dp"
+            android:inputType="number"
+            android:textAlignment="textStart"
+            tools:ignore="Autofill,LabelFor"/>
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/phNumberEditText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:hint="@string/PhoneNumber"
-        android:textSize="16sp"
+        android:textColor="@android:color/tertiary_text_dark"
+        android:textSize="18sp"
         android:inputType="phone"
         android:maxLines="1"
         android:maxLength="14"
-        android:padding="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/text1"
-        app:layout_constraintStart_toEndOf="@+id/countryCodePicker"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="45dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginEnd="10dp"/>
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/countryCodePicker"
+        app:layout_constraintEnd_toEndOf="@id/countryCodePicker"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginEnd="30dp"
+        tools:ignore="Autofill"/>
 
     <Button
         android:id="@+id/continueButton"
@@ -101,16 +109,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_state_on_changed"
         android:text="@string/continueButton"
-        android:textColor="@color/colorWhite"
         android:textAllCaps="false"
-        android:textSize="16sp"
-        android:focusable="true"
-        android:clickable="true"
-        android:onClick="OnPressedContinue"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
         app:layout_constraintTop_toBottomOf="@+id/phNumberEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:enabled="false"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

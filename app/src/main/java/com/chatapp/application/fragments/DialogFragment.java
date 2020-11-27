@@ -14,31 +14,38 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import com.chatapp.application.activity.OTPActivity;
 import com.chatapp.application.R;
+import com.chatapp.application.activity.RegisterActivity;
+
 import java.util.Objects;
 
 public class DialogFragment extends androidx.fragment.app.DialogFragment {
+    private static final int REQUEST_CODE = 1;
+
     TextView phoneNumberText, dialogEdit, dialogYes;
 
-    String getFullPhoneNumber;
+    String getFullPhoneNumber, getPhoneNumber;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.dialog_fragment, container, false);
+        return inflater.inflate(R.layout.dialog_fragment, container, false);
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         phoneNumberText = view.findViewById(R.id.phoneNumberText);
 
         assert this.getArguments() != null;
-        final String getPhoneNumber = this.getArguments().getString("phNumber");
-
+        getFullPhoneNumber = this.getArguments().getString("fullPhoneNumber");
+        getPhoneNumber = this.getArguments().getString("phoneNumber");
 
         //setting the text i.e phone number to dialog fragment
-        phoneNumberText.setText(getPhoneNumber);
-
-
-        getFullPhoneNumber = this.getArguments().getString("phNumberWithCountryCode");
+        phoneNumberText.setText(getFullPhoneNumber);
 
 
         dialogEdit = view.findViewById(R.id.dialogEdit);
@@ -59,12 +66,7 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
 
             }
         });
-
-        return view;
     }
-
-
-
 
     //get contact permission
     public void requestPermission(){
@@ -72,10 +74,10 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
                 && ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            requestPermissions(new String[] {Manifest.permission.READ_CONTACTS}, 1);
+            requestPermissions(new String[] {Manifest.permission.READ_CONTACTS}, REQUEST_CODE);
 
         } else {
-            onClickYes();
+            startIntent();
         }
     }
 
@@ -85,25 +87,39 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-
-        if (requestCode == 1){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                onClickYes();
+        if (requestCode == REQUEST_CODE){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                onClickAllow();
             }else {
-                onClickYes();
+                onClickDeny();
             }
         }
     }
 
 
-
-    public void onClickYes(){
-        Objects.requireNonNull(getDialog()).setCancelable(false);
-        getDialog().dismiss();
-
+    public void startIntent(){
         Intent intent = new Intent(getContext(), OTPActivity.class);
-        intent.putExtra("getFullPhoneNumber", getFullPhoneNumber);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        intent.putExtra("fullPhoneNumber", getFullPhoneNumber);
+        intent.putExtra("phoneNumber", getPhoneNumber);
 
         startActivity(intent);
+    }
+
+    private void onClickAllow(){
+        startIntent();
+    }
+
+    private void onClickDeny(){
+        startIntent();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Objects.requireNonNull(getDialog()).getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 }

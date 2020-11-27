@@ -9,12 +9,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.Contacts;
+import com.chatapp.application.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<VerticalScrollableContactListsAdapter.ViewHolder>{
     List<Contacts> lists;
     private final OnItemClickListener onItemClickListener;
+
+    DatabaseReference databaseReference;
+    FirebaseUser firebaseUser;
 
 
     public VerticalScrollableContactListsAdapter(List<Contacts> lists, OnItemClickListener onItemClickListener){
@@ -36,9 +47,49 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Contacts getPosition = lists.get(position);
 
-        holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
-        Picasso.get().load(getPosition.getImage()).into(holder.contactProfile);
         holder.contactUserName.setText(getPosition.getContact_name());
+        holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    final User user = dataSnapshot.getValue(User.class);
+                    assert user != null;
+                    String userId = user.getUid();
+
+                    databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild("image")){
+                                if (user.getContact().equals(getPosition.getContact_number()) ||
+                                        user.getFullcontactnumber().equals(getPosition.getContact_number())){
+                                    holder.inviteText.setVisibility(View.GONE);
+
+                                    Picasso.get().load(user.getImage()).into(holder.contactProfile);
+                                }
+                            } else {
+
+                                holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

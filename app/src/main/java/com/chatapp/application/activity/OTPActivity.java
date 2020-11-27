@@ -24,9 +24,9 @@ import java.util.concurrent.TimeUnit;
 public class OTPActivity extends AppCompatActivity {
     private static final String TAG = "OTPActivity";
 
-    String phoneNumber, numberVerification;
+    String fullPhoneNumber, phoneNumber;
+    String numberVerificationId;
     PhoneAuthProvider.ForceResendingToken resendToken;
-
 
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -46,39 +46,29 @@ public class OTPActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
+        fullPhoneNumber = getIntent().getStringExtra("fullPhoneNumber");
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
+
+
         loadingDialog = new CustomLoadingDialog(this);
+        loadingDialog.startLoadingDialog();
 
-
-        phoneNumber = getIntent().getStringExtra("getFullPhoneNumber");
-        sendPhoneNumberVerificationCode(phoneNumber);
-    }
-
-
-
-    private void sendPhoneNumberVerificationCode(String number) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                number,                 // Phone number to verify
-                60,                  // Timeout duration
-                TimeUnit.SECONDS,       // Unit of timeout
-                this,           // Activity (for callback binding)
-                mCallbacks);            // OnVerificationStateChangedCallbacks
+                fullPhoneNumber,                 // Phone number to verify
+                60,                           // Timeout duration
+                TimeUnit.SECONDS,                // Unit of timeout
+                this,                    // Activity (for callback binding)
+                mCallbacks);                     // OnVerificationStateChangedCallbacks
     }
 
-
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
             Log.d(TAG, "onVerificationCompleted:" + phoneAuthCredential);
 
-            String code = phoneAuthCredential.getSmsCode();
-
-            loadingDialog.startLoadingDialog();
-
-            if (code != null) {
-                verifyCode(code);
-                loadingDialog.dismissDialog();
+            String verificationCode = phoneAuthCredential.getSmsCode();
+            if (verificationCode != null) {
+                verifyCode(verificationCode);
             }
         }
 
@@ -87,7 +77,6 @@ public class OTPActivity extends AppCompatActivity {
             Log.w(TAG, "onVerificationFailed", e);
 
             Toast.makeText(OTPActivity.this, "Verification failed - "+ e.getMessage(), Toast.LENGTH_LONG).show();
-
             loadingDialog.dismissDialog();
             finish();
         }
@@ -100,16 +89,14 @@ public class OTPActivity extends AppCompatActivity {
             Log.d(TAG, "onCodeSent:" + resendToken);
 
             //Save verification ID and resending token so we can use them later
-            numberVerification = verificationId;
+            numberVerificationId = verificationId;
             resendToken = token;
         }
     };
 
 
-
-
-    private void verifyCode(String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(numberVerification, code);
+    private void verifyCode(String verificationCode) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(numberVerificationId, verificationCode);
         signInWithPhoneAuthCredential(credential);
     }
 
@@ -119,17 +106,14 @@ public class OTPActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        loadingDialog.startLoadingDialog();
-
                         if (task.isSuccessful()){
                             Intent intent = new Intent(OTPActivity.this, ProfileSetupActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra("phoneNumber", phoneNumber);
 
                             //loadingDialog dismissed before switching activity
                             loadingDialog.dismissDialog();
 
                             startActivity(intent);
-
                             finish();
 
                         } else {
@@ -138,28 +122,5 @@ public class OTPActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        loadingDialog.startLoadingDialog();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (loadingDialog != null && loadingDialog.startLoadingDialog())
-        loadingDialog.dismissDialog();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        sendPhoneNumberVerificationCode(phoneNumber);
     }
 }

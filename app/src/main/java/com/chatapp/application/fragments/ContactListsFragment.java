@@ -48,7 +48,6 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
 
         View view = inflater.inflate(R.layout.fragment_contact_lists, container, false);
 
-
         //Initializing recyclerView with id of RecyclerView of its xml
         recyclerView = view.findViewById(R.id.contactRecyclerView);
 
@@ -56,6 +55,7 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
+        alertMessageBuilder();
 
         return view;
     }
@@ -140,6 +140,20 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
 
     }
 
+    private void alertMessageBuilder(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        builder.setTitle("Alert Message!!!");
+        builder.setMessage("Currently doesn't support full feature since the maintenance process is being held.");
+        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setCancelable(false);
+        builder.create();
+        builder.show();
+    }
 
 
     @Override
@@ -153,20 +167,6 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
         }else {
             requestPermissions(new String[]{android.Manifest.permission.READ_CONTACTS}, 1);
         }
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
-        builder.setTitle("Alert Message!!!");
-        builder.setMessage("Currently doesn't support full feature since the maintenance process is being held.");
-        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setCancelable(false);
-        builder.create();
-        builder.show();
     }
 
     @Override

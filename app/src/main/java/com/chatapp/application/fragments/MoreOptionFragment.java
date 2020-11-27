@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.chatapp.application.profile.ProfileUpdate;
 import com.chatapp.application.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +33,7 @@ public class MoreOptionFragment extends Fragment {
 
 
     //Declaring Firebase Instance
-    private String currentUserID;
+    private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
 
 
@@ -54,7 +55,7 @@ public class MoreOptionFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         //Getting Current user id
-        currentUserID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
 
@@ -94,18 +95,19 @@ public class MoreOptionFragment extends Fragment {
 
     //Retrieving Current User Information
     private void retrieveUserInfo() {
-        databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Users").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if ((snapshot.exists()) && (snapshot.hasChild("image")) && (snapshot.hasChild("username"))){
 
                     String getUserProfileImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
                     String getUserName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
-                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("contact").getValue()).toString();
+                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("fullcontactnumber").getValue()).toString();
                     String getUserDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
                     camera_icon.setVisibility(View.GONE);
                     Picasso.get().load(getUserProfileImage).into(userProfileImage);
+
                     userProfileName.setText(getUserName);
                     userProfileContact.setText(getUserContactNumber);
                     userDOB.setText(getUserDOB);
@@ -113,15 +115,13 @@ public class MoreOptionFragment extends Fragment {
                 } else if ((snapshot.exists() && (snapshot.hasChild("username")))){
 
                     String getUserName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
-                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("contact").getValue()).toString();
+                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("fullcontactnumber").getValue()).toString();
                     String getUserDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
                     userProfileName.setText(getUserName);
                     userProfileContact.setText(getUserContactNumber);
                     userDOB.setText(getUserDOB);
 
-                } else {
-                    //DO Nothing
                 }
             }
 

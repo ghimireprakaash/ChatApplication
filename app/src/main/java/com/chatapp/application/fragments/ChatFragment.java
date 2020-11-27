@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -131,6 +132,8 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
                 } else {
                     noChatHistoryText.setVisibility(View.GONE);
 
+                    usersList.clear();
+
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                         ChatList chatList = dataSnapshot.getValue(ChatList.class);
                         usersList.add(chatList);
@@ -157,6 +160,8 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
                     noChatHistoryText.setVisibility(View.VISIBLE);
                 } else {
                     noChatHistoryText.setVisibility(View.GONE);
+
+                    listUsers.clear();
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                         User user = dataSnapshot.getValue(User.class);
@@ -222,11 +227,58 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
 //    }
 
 
+    private void checkOnlineOrOfflineStatus(String status){
+        HashMap<String, Object> statusMap = new HashMap<>();
+        statusMap.put("status", status);
+
+        databaseReference.child("Users").child(currentUser.getUid()).updateChildren(statusMap);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        checkOnlineOrOfflineStatus("Online");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        checkOnlineOrOfflineStatus("Online");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        checkOnlineOrOfflineStatus("Online");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        checkOnlineOrOfflineStatus("Online");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        checkOnlineOrOfflineStatus("Offline");
+    }
+
+
+
     @Override
     public void OnItemClick(int position) {
         String userId = adapter.getItem(position).getUid();
+        String username = adapter.getItem(position).getUsername();
+
         Intent intent = new Intent(getContext(), ChatActivity.class);
         intent.putExtra("userId", userId);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }

@@ -6,8 +6,6 @@ import android.net.Uri;
 public class Contacts {
     private String contact_ID;
     private String image;
-    private Bitmap photo;
-    private Uri photoURI;
     private String contact_name;
     private String contact_number;
     private String userName_firstLetter_and_lastLetter;
@@ -15,11 +13,9 @@ public class Contacts {
     public Contacts(){
     }
 
-    public Contacts(String contact_ID, String image, Bitmap photo, Uri photoURI, String contact_name, String contact_number, String userName_firstLetter_and_lastLetter) {
+    public Contacts(String contact_ID, String image, String contact_name, String contact_number, String userName_firstLetter_and_lastLetter) {
         this.contact_ID = contact_ID;
         this.image = image;
-        this.photo = photo;
-        this.photoURI = photoURI;
         this.contact_name = contact_name;
         this.contact_number = contact_number;
         this.userName_firstLetter_and_lastLetter = userName_firstLetter_and_lastLetter;
@@ -39,22 +35,6 @@ public class Contacts {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Bitmap getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Bitmap photo) {
-        this.photo = photo;
-    }
-
-    public Uri getPhotoURI() {
-        return photoURI;
-    }
-
-    public void setPhotoURI(Uri photoURI) {
-        this.photoURI = photoURI;
     }
 
     public String getContact_name() {

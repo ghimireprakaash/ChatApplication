@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class ProfileSetupActivity extends AppCompatActivity {
-    private String TAG = "ProfileSetupActivity";
+    private final String TAG = "ProfileSetupActivity";
 
     private static final int GALLERY_PICK = 1;
     Uri uri;
@@ -61,6 +61,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
     //Declaring Firebase instances
+    private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
 
     //declaring current user id variable
@@ -78,10 +79,11 @@ public class ProfileSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile_setup);
 
         //Initializing Instance
+        firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         userProfileImagesStorageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
-        currentUserID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        currentUserID = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
 
 
@@ -217,7 +219,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
     }
 
 
-    
+
     //User Profile Setup
     private void profileSetup() {
         final String profileName = setupProfileName.getText().toString();
@@ -232,32 +234,34 @@ public class ProfileSetupActivity extends AppCompatActivity {
             setupProfileDOB.requestFocus();
 
         } else {
-            final String getUserPhoneNumber = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
+            final String getFullPhoneNumber = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber();
+            final String getPhoneNumber = getIntent().getStringExtra("phoneNumber");
 
             HashMap<String, String> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("username", profileName);
             profileMap.put("dob", profileDOB);
-            profileMap.put("contact", getUserPhoneNumber);
+            profileMap.put("fullcontactnumber", getFullPhoneNumber);
+            profileMap.put("contact", getPhoneNumber);
             profileMap.put("search", profileName.toLowerCase());
 
 
             filePath.getDownloadUrl()
                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (!(task.isSuccessful())){
-                                            //returns error message if uploading image to the firebase database is failed
-                                            Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (!(task.isSuccessful())){
+                                                //returns error message if uploading image to the firebase database is failed
+                                                Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
+                                            }
                                         }
-                                    }
-                                });
-                    }
-                })
+                                    });
+                        }
+                    })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
@@ -266,16 +270,16 @@ public class ProfileSetupActivity extends AppCompatActivity {
                     });
 
             databaseReference.child("Users").child(currentUserID).setValue(profileMap)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                    startActivity(intent);
-                    finish();
-                }
-            });
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
         }
     }
 
@@ -285,13 +289,14 @@ public class ProfileSetupActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if ((snapshot.exists()) && (snapshot.hasChild("image")) && (snapshot.hasChild("username"))){
-
+                    camera_icon.setVisibility(View.VISIBLE);
                     String getUserProfileImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
                     String getUserName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
                     String getUserDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
-
+                    camera_icon.setVisibility(View.GONE);
                     Picasso.get().load(getUserProfileImage).into(setupProfileImage);
+
                     setupProfileName.setText(getUserName);
                     setupProfileDOB.setText(getUserDOB);
 

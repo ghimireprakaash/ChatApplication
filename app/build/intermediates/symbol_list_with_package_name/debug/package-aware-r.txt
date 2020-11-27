@@ -997,6 +997,7 @@ color colorOnPressed
 color colorPrimary
 color colorPrimaryDark
 color colorPurple
+color colorPurpleOnPressed
 color colorReceiverBackground
 color colorSenderBackground
 color colorSkyBlue
@@ -1969,8 +1970,6 @@ id CHINESE_SIMPLIFIED
 id CHINESE_TRADITIONAL
 id CTRL
 id CZECH
-id Card1
-id Card2
 id CropOverlayView
 id CropProgressBar
 id DANISH
@@ -2173,6 +2172,7 @@ id continueButton
 id continueTxt
 id coordinator
 id cos
+id countryCode
 id countryCodeHolder
 id countryCodePicker
 id createNewGroupCardOption
@@ -2462,11 +2462,6 @@ id tag_screen_reader_focusable
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
-id test1
-id test2
-id test3
-id test4
-id test5
 id test_checkbox_android_button_tint
 id test_checkbox_app_button_tint
 id text

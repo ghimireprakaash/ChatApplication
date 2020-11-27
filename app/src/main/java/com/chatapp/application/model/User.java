@@ -4,18 +4,20 @@ public class User {
     private String uid;
     private String username;
     private String image;
-    private String search;
     private String contact;
+    private String fullcontactnumber;
+    private String status;
 
     public User() {
     }
 
-    public User(String uid, String username, String image, String search, String contact) {
+    public User(String uid, String username, String image, String contact, String fullcontactnumber, String status) {
         this.uid = uid;
         this.username = username;
         this.image = image;
-        this.search = search;
         this.contact = contact;
+        this.fullcontactnumber = fullcontactnumber;
+        this.status = status;
     }
 
     public String getUid() {
@@ -42,19 +44,27 @@ public class User {
         this.image = image;
     }
 
-    public String getSearch() {
-        return search;
-    }
-
-    public void setSearch(String search) {
-        this.search = search;
-    }
-
     public String getContact() {
         return contact;
     }
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    public String getFullcontactnumber() {
+        return fullcontactnumber;
+    }
+
+    public void setFullcontactnumber(String fullcontactnumber) {
+        this.fullcontactnumber = fullcontactnumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

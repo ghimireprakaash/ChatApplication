@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".activity.VisitContactProfile">
 
     <androidx.cardview.widget.CardView
@@ -67,14 +68,19 @@
 
     <TextView
         android:id="@+id/contactPhoneNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="0987654321"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBlack"
         app:layout_constraintTop_toBottomOf="@+id/inviteUserCard"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="15dp"
+        android:background="@drawable/contact_card_state_background"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

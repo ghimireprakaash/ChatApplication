@@ -16,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
     String regex = "^[0-9]{10,14}$";
 
     CountryCodePicker ccp;
-    EditText editTextCarrierNumber;
+    EditText countryCode, editTextCarrierNumber;
     Button continueBtn;
 
     Bundle bundle;
@@ -29,29 +29,52 @@ public class RegisterActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_register);
 
-        ccp = findViewById(R.id.countryCodePicker);
-        editTextCarrierNumber = findViewById(R.id.phNumberEditText);
-        continueBtn = findViewById(R.id.continueButton);
+        init();
 
+
+        updateCountryCode(ccp);
 
         //for button enable and disable
         editTextCarrierNumber.addTextChangedListener(textChangeListener);
 
 
-
         //Attach CarrierNumber editText to CCP
         ccp.registerCarrierNumberEditText(editTextCarrierNumber);
 
-        ccp.getFormattedFullNumber();
+        continueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = editTextCarrierNumber.getText().toString().trim();
 
-        //Defining constructor of Bundle class
-        bundle = new Bundle();
+                if (phoneNumber.length() < 10 || phoneNumber.length() > 14 || phoneNumber.matches(regex)){
 
+                    editTextCarrierNumber.setError("Valid phone number is required.");
+
+                } else {
+                    //Initializing constructor of Bundle class
+                    bundle = new Bundle();
+                    bundle.putString("fullPhoneNumber", ccp.getFormattedFullNumber());
+                    bundle.putString("phoneNumber", phoneNumber);
+
+                    final DialogFragment dialogFragment = new DialogFragment();
+                    dialogFragment.setArguments(bundle);
+                    dialogFragment.show(getSupportFragmentManager(), "Dialog Fragment");
+
+                }
+            }
+        });
+    }
+
+    private void init(){
+        ccp = findViewById(R.id.countryCodePicker);
+        countryCode = findViewById(R.id.countryCode);
+        editTextCarrierNumber = findViewById(R.id.phNumberEditText);
+        continueBtn = findViewById(R.id.continueButton);
     }
 
 
     //TextChange Listener listens to either button should be disabled or enabled
-    private TextWatcher textChangeListener = new TextWatcher() {
+    private final TextWatcher textChangeListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -80,35 +103,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                 ccp.getSelectedCountryName();
                 ccp.getSelectedCountryCodeWithPlus();
+                ccp.setNumberAutoFormattingEnabled(false);
 
+                updateCountryCode(ccp);
             }
         });
     }
 
-
-
-    //On Pressed Continue Button after number is filled and country selected
-    public void OnPressedContinue(View view) {
+    private void updateCountryCode(CountryCodePicker ccp){
         String code = ccp.getSelectedCountryCode();
-
-        String phNumber = editTextCarrierNumber.getText().toString().trim();
-
-        if (phNumber.length() < 10 || phNumber.length() > 14 || phNumber.matches(regex)){
-
-            editTextCarrierNumber.setError("Valid phone number is required.");
-
-        } else {
-            String fullPhoneNumberWithCountryCode = "+" + code + phNumber;
-
-            bundle.putString("phNumberWithCountryCode", fullPhoneNumberWithCountryCode);
-
-            bundle.putString("phNumber", phNumber);
-
-            final DialogFragment dialogFragment = new DialogFragment();
-            dialogFragment.setArguments(bundle);
-            dialogFragment.show(getSupportFragmentManager(), "Dialog Fragment");
-
-        }
+        countryCode.setText(code);
     }
 
 

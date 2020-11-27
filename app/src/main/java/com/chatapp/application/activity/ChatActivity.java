@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,8 +29,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
+    private static final String TAG = "ChatActivity";
+
     private Toolbar toolbar;
-    private TextView userName, lastSeenStatus;
+    private TextView userName, onlineStatus;
     private EditText message;
     ImageButton buttonMessageSend;
 
@@ -69,6 +72,8 @@ public class ChatActivity extends AppCompatActivity {
         image = getIntent().getStringExtra("image");
 
 
+        checkOnlineOrOfflineStatus();
+
 //        storeChatInfo();
 
         buildChatRecycler();
@@ -94,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
     private void init() {
         toolbar = findViewById(R.id.toolbar);
         userName = findViewById(R.id.userName);
-        lastSeenStatus = findViewById(R.id.seenStatus);
+        onlineStatus = findViewById(R.id.seenStatus);
         message = findViewById(R.id.messageBox);
         buttonMessageSend = findViewById(R.id.buttonMessageSend);
 
@@ -107,17 +112,17 @@ public class ChatActivity extends AppCompatActivity {
 
 
         assert userId != null;
-        reference.child("UsersChatList").child(userId).addValueEventListener(new ValueEventListener() {
+        reference.child("UsersChatList").child(user.getUid()).child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Chat chat = new Chat();
 
                 String username = chat.setUsername(userName);
-                reference.child("UsersChatList").child(userId).child("username").setValue(username);
+                reference.child("UsersChatList").child(user.getUid()).child(userId).child("username").setValue(username);
 
                 String emptyMsg = "No messages";
                 chat.setEmptyMessageChat(emptyMsg);
-                reference.child("UsersChatList").child(userId).child("EmptyMessageValue").setValue(emptyMsg);
+                reference.child("UsersChatList").child(user.getUid()).child(userId).child("EmptyMessageValue").setValue(emptyMsg);
             }
 
             @Override
@@ -198,6 +203,28 @@ public class ChatActivity extends AppCompatActivity {
 
                     messageAdapter = new MessageAdapter(ChatActivity.this, chatList);
                     messageRecycler.setAdapter(messageAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+    private void checkOnlineOrOfflineStatus(){
+        reference.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if ((snapshot.exists()) && (snapshot.hasChild("status"))){
+                    User model = snapshot.getValue(User.class);
+
+                    String status = model.getStatus();
+
+                    onlineStatus.setText(status);
+                    Log.d(TAG, "status: "+status);
                 }
             }
 

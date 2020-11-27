@@ -34,5 +34,11 @@ public class VisitContactProfile extends AppCompatActivity {
 
         contact_number = getIntent().getStringExtra("contact_number");
         contactPhoneNumber.setText(contact_number);
+        contactPhoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactPhoneNumber.setPressed(true);
+            }
+        });
     }
 }

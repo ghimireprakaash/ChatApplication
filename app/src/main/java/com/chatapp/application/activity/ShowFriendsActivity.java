@@ -7,15 +7,20 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.chatapp.application.R;
 import com.chatapp.application.adapter.RetrieveUsersAdapter;
+import com.chatapp.application.model.Contacts;
 import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +35,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUsersAdapter.ViewHolder.OnItemClickListener {
+    private static final String TAG = "ShowFriendsActivity";
+
     Toolbar toolbar;
+    LinearLayout showContacts;
     TextView searchIcon, clearText;
     EditText searchEditText;
     RecyclerView registeredUserRecyclerView, showUsersOnSearchRecyclerView;
@@ -56,7 +64,6 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         registeredUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         listUsers = new ArrayList<>();
         retrieveUsers();
-        adapter = new RetrieveUsersAdapter(listUsers, this);
 
 
         showUsersOnSearchRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -94,16 +101,27 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listUsers.clear();
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
 
-                    assert user != null;
-                    assert firebaseUser != null;
-                    if (!user.getUid().equals(firebaseUser.getUid())){
-                        listUsers.add(user);
+                    Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null, null, null, null);
+                    while (cursor.moveToNext()) {
+                        String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                        assert user != null;
+//                        if (user.getContact().equals(contactNumber)) {
+//                            listUsers.add(user);
+//                        }
+
+                        if (user.getFullcontactnumber().equals(contactNumber)){
+                            listUsers.add(user);
+                        }
                     }
+                    cursor.close();
                 }
 
+                adapter = new RetrieveUsersAdapter(listUsers, ShowFriendsActivity.this);
                 registeredUserRecyclerView.setAdapter(adapter);
             }
 

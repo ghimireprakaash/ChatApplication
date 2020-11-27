@@ -18,7 +18,7 @@
     <!-- DialogFragment string values -->
     <string name="IsThisYourPhNumber">Is this your phone number?</string>
     <string name="respectiveContactNumber">Phone Number</string>
-    <string name="codeSent">A code will be sent to this number\nand will activate automatically.</string>
+    <string name="codeSent">A code will be sent to this number, and will activate automatically.</string>
     <string name="editOption">EDIT</string>
     <string name="yesOption">YES</string>
 

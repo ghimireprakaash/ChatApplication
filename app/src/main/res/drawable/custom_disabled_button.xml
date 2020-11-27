@@ -3,8 +3,8 @@
     android:shape="rectangle">
 
     <solid android:color="@color/colorDisabledButton"/>
-    <corners android:radius="15dp"/>
-    <size android:width="200dp"
-        android:height="55dp"/>
+    <corners android:radius="25dp"/>
+    <size android:width="180dp"
+        android:height="50dp"/>
 
 </shape>

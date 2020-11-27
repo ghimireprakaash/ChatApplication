@@ -10,8 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.Chat;
+import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
@@ -24,6 +30,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
     FirebaseUser firebaseUser;
+    DatabaseReference userImageRef;
+
+    String userId;
+
 
     public MessageAdapter(Context context, List<Chat> chat) {
         this.context = context;
@@ -43,11 +53,32 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Chat model = chat.get(position);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final Chat model = chat.get(position);
 
         holder.show_message.setText(model.getMessage());
-//        Picasso.get().load(model.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.sender_profile_image);
+
+        final User userModel = new User();
+        userId = model.getReceiver();
+        userImageRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        userImageRef.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Picasso.get().load(userModel.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.sender_profile_image);
+//                if ((snapshot.exists()) && (snapshot.hasChild("image"))){
+//
+//                    Picasso.get().load(userModel.getImage()).into(holder.sender_profile_image);
+//
+//                } else {
+//                    holder.sender_profile_image.setImageResource(R.drawable.blank_profile_picture);
+//                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
