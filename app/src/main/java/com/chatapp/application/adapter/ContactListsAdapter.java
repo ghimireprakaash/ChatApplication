@@ -1,5 +1,6 @@
 package com.chatapp.application.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
-public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<VerticalScrollableContactListsAdapter.ViewHolder>{
+public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapter.ViewHolder>{
+    private static final String TAG = "Adapter";
+
     List<Contacts> lists;
     private final OnItemClickListener onItemClickListener;
 
@@ -28,7 +31,7 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
     FirebaseUser firebaseUser;
 
 
-    public VerticalScrollableContactListsAdapter(List<Contacts> lists, OnItemClickListener onItemClickListener){
+    public ContactListsAdapter(List<Contacts> lists, OnItemClickListener onItemClickListener){
         this.lists = lists;
         this.onItemClickListener = onItemClickListener;
     }
@@ -55,33 +58,34 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
         databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     final User user = dataSnapshot.getValue(User.class);
-                    assert user != null;
-                    String userId = user.getUid();
 
-                    databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild("image")){
-                                if (user.getContact().equals(getPosition.getContact_number()) ||
-                                        user.getFullcontactnumber().equals(getPosition.getContact_number())){
-                                    holder.inviteText.setVisibility(View.GONE);
+                    String userId = dataSnapshot.getKey();
+                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+                    assert userId != null;
+                    if (!firebaseUser.getUid().equals(userId)) {
+                        userRef.child(userId).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if ((snapshot.exists()) && (snapshot.hasChild("fullcontactnumber")) && (snapshot.hasChild("contact"))) {
+                                    assert user != null;
+                                    if (user.getContact().equals(getPosition.getContact_number())) {
+                                        Log.d(TAG, "fullContact: "+ user.getContact().equals(getPosition.getContact_number()));
 
-                                    Picasso.get().load(user.getImage()).into(holder.contactProfile);
+                                        holder.inviteText.setVisibility(View.GONE);
+                                        holder.contactNameFirstAndLastLetter.setVisibility(View.GONE);
+                                        Picasso.get().load(user.getImage()).into(holder.contactProfile);
+                                    }
                                 }
-                            } else {
+                            }
 
-                                holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
                             }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                        });
+                    }
                 }
             }
 
@@ -90,6 +94,7 @@ public class VerticalScrollableContactListsAdapter extends RecyclerView.Adapter<
 
             }
         });
+
     }
 
     @Override

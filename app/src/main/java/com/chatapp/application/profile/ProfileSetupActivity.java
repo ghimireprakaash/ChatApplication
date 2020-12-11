@@ -202,6 +202,29 @@ public class ProfileSetupActivity extends AppCompatActivity {
                         if (!task.isSuccessful()){
                             String exception = Objects.requireNonNull(task.getException()).toString();
                             Toast.makeText(getApplicationContext(), "Error selecting image "+ exception, Toast.LENGTH_LONG).show();
+                        } else {
+                            filePath.getDownloadUrl()
+                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (!(task.isSuccessful())) {
+                                                                //returns error message if uploading image to the firebase database is failed
+                                                                Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
+                                                            }
+                                                        }
+                                                    });
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: " + e.getMessage());
+                                        }
+                                    });
                         }
                     }
                 });
@@ -235,39 +258,15 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
         } else {
             final String getFullPhoneNumber = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber();
-            final String getPhoneNumber = getIntent().getStringExtra("phoneNumber");
 
             HashMap<String, String> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("username", profileName);
             profileMap.put("dob", profileDOB);
-            profileMap.put("fullcontactnumber", getFullPhoneNumber);
-            profileMap.put("contact", getPhoneNumber);
+            profileMap.put("contact", getFullPhoneNumber);
             profileMap.put("search", profileName.toLowerCase());
 
-
-            filePath.getDownloadUrl()
-                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (!(task.isSuccessful())){
-                                                //returns error message if uploading image to the firebase database is failed
-                                                Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
-                                            }
-                                        }
-                                    });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFailure: "+e.getMessage());
-                        }
-                    });
+//            getImageUri();
 
             databaseReference.child("Users").child(currentUserID).setValue(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -275,7 +274,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
                             startActivity(intent);
                             finish();
                         }
@@ -283,6 +281,31 @@ public class ProfileSetupActivity extends AppCompatActivity {
         }
     }
 
+
+    private void getImageUri(){
+        filePath.getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!(task.isSuccessful())) {
+                                            //returns error message if uploading image to the firebase database is failed
+                                            Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: " + e.getMessage());
+                    }
+                });
+    }
 
     private void retrieveUserInfo() {
         databaseReference.child("Users").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {

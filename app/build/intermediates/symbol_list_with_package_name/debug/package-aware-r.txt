@@ -2420,6 +2420,7 @@ id setupProfileDOB
 id setupProfileImage
 id setupProfileName
 id shortcut
+id showContacts
 id showCustom
 id showHome
 id showTitle

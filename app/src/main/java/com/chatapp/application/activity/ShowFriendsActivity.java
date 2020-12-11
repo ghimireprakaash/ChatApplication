@@ -48,6 +48,7 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     List<User> listUsers, listUsersBasedOnSearch;
     RetrieveUsersAdapter adapter, searchAdapter;
     DatabaseReference userRef;
+    FirebaseUser firebaseUser;
 
 
     @Override
@@ -55,6 +56,7 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_friends);
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userRef = FirebaseDatabase.getInstance().getReference();
 
 
@@ -87,6 +89,7 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         clearText = findViewById(R.id.clearText);
         searchEditText = findViewById(R.id.searchEditText);
         newGroupCreateOption = findViewById(R.id.createNewGroupCardOption);
+        showContacts = findViewById(R.id.showContacts);
 
         registeredUserRecyclerView = findViewById(R.id.registeredUserRecyclerView);
         showUsersOnSearchRecyclerView = findViewById(R.id.showUsersOnSearch_recyclerView);
@@ -94,31 +97,27 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
 
     private void retrieveUsers() {
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
         userRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listUsers.clear();
-
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
 
-                    Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null, null, null, null);
-                    while (cursor.moveToNext()) {
-                        String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    assert user != null;
+                    if (!firebaseUser.getUid().equals(user.getUid())) {
+                        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                null, null, null, null);
+                        while (cursor.moveToNext()) {
+                            String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-                        assert user != null;
-//                        if (user.getContact().equals(contactNumber)) {
-//                            listUsers.add(user);
-//                        }
-
-                        if (user.getFullcontactnumber().equals(contactNumber)){
-                            listUsers.add(user);
+                            if (user.getContact().equals(contactNumber)) {
+                                showContacts.setVisibility(View.VISIBLE);
+                                listUsers.add(user);
+                            }
                         }
+                        cursor.close();
                     }
-                    cursor.close();
                 }
 
                 adapter = new RetrieveUsersAdapter(listUsers, ShowFriendsActivity.this);
@@ -192,7 +191,6 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     };
 
     private void searchUser(String s) {
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Query query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("search")
                 .startAt(s)
                 .endAt(s+"\uf8ff");

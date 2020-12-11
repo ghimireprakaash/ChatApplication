@@ -18,9 +18,7 @@ public class VisitContactProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_contact_profile);
 
-        buttonBack = findViewById(R.id.contactButtonBack);
-        contactName = findViewById(R.id.contactName);
-        contactPhoneNumber = findViewById(R.id.contactPhoneNumber);
+        init();
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +27,16 @@ public class VisitContactProfile extends AppCompatActivity {
             }
         });
 
+        getUserProfileInfo();
+    }
+
+    private void init() {
+        buttonBack = findViewById(R.id.contactButtonBack);
+        contactName = findViewById(R.id.contactName);
+        contactPhoneNumber = findViewById(R.id.contactPhoneNumber);
+    }
+
+    private void getUserProfileInfo() {
         contact_name = getIntent().getStringExtra("contact_username");
         contactName.setText(contact_name);
 

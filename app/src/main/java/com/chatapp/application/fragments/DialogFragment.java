@@ -23,7 +23,7 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
 
     TextView phoneNumberText, dialogEdit, dialogYes;
 
-    String getFullPhoneNumber, getPhoneNumber;
+    String fullPhoneNumber;
 
     @Nullable
     @Override
@@ -41,11 +41,10 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
         phoneNumberText = view.findViewById(R.id.phoneNumberText);
 
         assert this.getArguments() != null;
-        getFullPhoneNumber = this.getArguments().getString("fullPhoneNumber");
-        getPhoneNumber = this.getArguments().getString("phoneNumber");
+        fullPhoneNumber = this.getArguments().getString("fullPhoneNumber");
 
         //setting the text i.e phone number to dialog fragment
-        phoneNumberText.setText(getFullPhoneNumber);
+        phoneNumberText.setText(fullPhoneNumber);
 
 
         dialogEdit = view.findViewById(R.id.dialogEdit);
@@ -100,10 +99,7 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
     public void startIntent(){
         Intent intent = new Intent(getContext(), OTPActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-        intent.putExtra("fullPhoneNumber", getFullPhoneNumber);
-        intent.putExtra("phoneNumber", getPhoneNumber);
-
+        intent.putExtra("fullPhoneNumber", fullPhoneNumber);
         startActivity(intent);
     }
 

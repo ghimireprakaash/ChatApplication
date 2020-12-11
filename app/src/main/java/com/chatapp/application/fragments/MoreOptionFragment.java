@@ -102,7 +102,7 @@ public class MoreOptionFragment extends Fragment {
 
                     String getUserProfileImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
                     String getUserName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
-                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("fullcontactnumber").getValue()).toString();
+                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("contact").getValue()).toString();
                     String getUserDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
                     camera_icon.setVisibility(View.GONE);
@@ -115,7 +115,7 @@ public class MoreOptionFragment extends Fragment {
                 } else if ((snapshot.exists() && (snapshot.hasChild("username")))){
 
                     String getUserName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
-                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("fullcontactnumber").getValue()).toString();
+                    String getUserContactNumber = Objects.requireNonNull(snapshot.child("contact").getValue()).toString();
                     String getUserDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
                     userProfileName.setText(getUserName);

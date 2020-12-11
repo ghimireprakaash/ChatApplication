@@ -4,7 +4,7 @@ ADDED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\And
 INJECTED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml:2:1-47:12
 INJECTED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml:2:1-47:12
 INJECTED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml:2:1-47:12
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9a7396e1444c212720c909ece4c39d7\constraintlayout-2.0.4\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\3701e9653f876850c07414763fb9f811\constraintlayout-2.0.2\AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f0b94a39da2319083e52005d905f6f02\jetified-ccp-2.4.0\AndroidManifest.xml:2:1-11:12
 MERGED from [com.theartofdev.edmodo:android-image-cropper:2.8.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\757480c9f43fb6e72b7075c514a6d24a\jetified-android-image-cropper-2.8.0\AndroidManifest.xml:2:1-11:12
@@ -140,8 +140,8 @@ ADDED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\And
 		ADDED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml:10:22-69
 application
 ADDED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml:12:5-45:19
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9a7396e1444c212720c909ece4c39d7\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9a7396e1444c212720c909ece4c39d7\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\3701e9653f876850c07414763fb9f811\constraintlayout-2.0.2\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\3701e9653f876850c07414763fb9f811\constraintlayout-2.0.2\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ab5ee603671e68dfb0fb0481bc213244\jetified-fastscroll-0.2.5\AndroidManifest.xml:11:5-20
@@ -268,8 +268,8 @@ uses-sdk
 INJECTED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\ghimi\AndroidStudioProjects\ChatApplication\app\src\main\AndroidManifest.xml
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9a7396e1444c212720c909ece4c39d7\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9a7396e1444c212720c909ece4c39d7\constraintlayout-2.0.4\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\3701e9653f876850c07414763fb9f811\constraintlayout-2.0.2\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\3701e9653f876850c07414763fb9f811\constraintlayout-2.0.2\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:20:5-44
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f0b94a39da2319083e52005d905f6f02\jetified-ccp-2.4.0\AndroidManifest.xml:7:5-9:41

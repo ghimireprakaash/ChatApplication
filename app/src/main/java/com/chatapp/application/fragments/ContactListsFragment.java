@@ -1,6 +1,5 @@
 package com.chatapp.application.fragments;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -20,23 +18,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.VisitContactProfile;
-import com.chatapp.application.adapter.VerticalScrollableContactListsAdapter;
+import com.chatapp.application.adapter.ContactListsAdapter;
 import com.chatapp.application.model.Contacts;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ContactListsFragment extends Fragment implements VerticalScrollableContactListsAdapter.OnItemClickListener {
+public class ContactListsFragment extends Fragment implements ContactListsAdapter.OnItemClickListener {
     private static final String TAG = "ContactListFragment";
 
     RecyclerView recyclerView;
     List<Contacts> contactsList;
-    VerticalScrollableContactListsAdapter adapter;
+    ContactListsAdapter adapter;
 
     DatabaseReference userRef;
 
@@ -55,7 +49,14 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        alertMessageBuilder();
+        // checkPermission if permission was not granted
+        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED){
+            getContacts();
+        }else {
+            requestPermissions(new String[]{android.Manifest.permission.READ_CONTACTS}, 1);
+        }
+
 
         return view;
     }
@@ -95,7 +96,7 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
                 String lastName = nameParts[nameParts.length - 1];
                 String lastNameChar = lastName.substring(0,1).toUpperCase();
 
-                Log.d(TAG, "getContacts: " + nameParts[0] +"\n"+ nameParts[1]);
+                Log.d(TAG, "getContacts: " + nameParts[0] + nameParts[1]);
                 Log.d(TAG, "getContacts: " + firstNameChar + lastNameChar);
 
                 String firstAndLastNameChar = firstNameChar + lastNameChar;
@@ -114,60 +115,12 @@ public class ContactListsFragment extends Fragment implements VerticalScrollable
             contactsList.add(contactInfo);
         }
 
-        adapter = new VerticalScrollableContactListsAdapter(contactsList, this);
+        adapter = new ContactListsAdapter(contactsList, this);
         recyclerView.setAdapter(adapter);
 
         cursor.close();
     }
 
-
-    private void retrieveUserImage(){
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ((snapshot.exists()) && (snapshot.hasChild("image")) && (snapshot.hasChild("username"))){
-                    String userImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
-                    String userName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    private void alertMessageBuilder(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
-        builder.setTitle("Alert Message!!!");
-        builder.setMessage("Currently doesn't support full feature since the maintenance process is being held.");
-        builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        builder.setCancelable(false);
-        builder.create();
-        builder.show();
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // checkPermission if permission was not granted
-        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), android.Manifest.permission.READ_CONTACTS)
-                == PackageManager.PERMISSION_GRANTED){
-            getContacts();
-        }else {
-            requestPermissions(new String[]{android.Manifest.permission.READ_CONTACTS}, 1);
-        }
-    }
 
     @Override
     public void OnClickItem(int position) {

@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class OTPActivity extends AppCompatActivity {
     private static final String TAG = "OTPActivity";
 
-    String fullPhoneNumber, phoneNumber;
+    String fullPhoneNumber;
     String numberVerificationId;
     PhoneAuthProvider.ForceResendingToken resendToken;
 
@@ -47,7 +47,6 @@ public class OTPActivity extends AppCompatActivity {
 
 
         fullPhoneNumber = getIntent().getStringExtra("fullPhoneNumber");
-        phoneNumber = getIntent().getStringExtra("phoneNumber");
 
 
         loadingDialog = new CustomLoadingDialog(this);
@@ -108,8 +107,6 @@ public class OTPActivity extends AppCompatActivity {
 
                         if (task.isSuccessful()){
                             Intent intent = new Intent(OTPActivity.this, ProfileSetupActivity.class);
-                            intent.putExtra("phoneNumber", phoneNumber);
-
                             //loadingDialog dismissed before switching activity
                             loadingDialog.dismissDialog();
 

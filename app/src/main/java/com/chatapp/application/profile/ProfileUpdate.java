@@ -62,7 +62,7 @@ public class ProfileUpdate extends AppCompatActivity {
 
         init();
 
-
+        retrieveUserInfo();
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,20 +174,22 @@ public class ProfileUpdate extends AppCompatActivity {
                 .start(this);
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+    private void retrieveUserInfo(){
         databaseReference.child("Users").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ((snapshot.exists()) && (snapshot.hasChild("image")) || (snapshot.exists()) && (snapshot.hasChild("username"))){
+                if ((snapshot.exists()) && (snapshot.hasChild("image"))){
                     String profileImage = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
                     String profileName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
                     String userDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
                     Picasso.get().load(profileImage).into(userProfileImage);
+                    updateProfileName.setText(profileName);
+                    updateProfileDateOfBirth.setText(userDOB);
+                } else {
+                    String profileName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
+                    String userDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
+
                     updateProfileName.setText(profileName);
                     updateProfileDateOfBirth.setText(userDOB);
                 }

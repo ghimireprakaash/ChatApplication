@@ -54,7 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
                     //Initializing constructor of Bundle class
                     bundle = new Bundle();
                     bundle.putString("fullPhoneNumber", ccp.getFormattedFullNumber());
-                    bundle.putString("phoneNumber", phoneNumber);
 
                     final DialogFragment dialogFragment = new DialogFragment();
                     dialogFragment.setArguments(bundle);

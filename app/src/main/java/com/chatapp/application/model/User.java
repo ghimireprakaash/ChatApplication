@@ -5,18 +5,16 @@ public class User {
     private String username;
     private String image;
     private String contact;
-    private String fullcontactnumber;
     private String status;
 
     public User() {
     }
 
-    public User(String uid, String username, String image, String contact, String fullcontactnumber, String status) {
+    public User(String uid, String username, String image, String contact, String status) {
         this.uid = uid;
         this.username = username;
         this.image = image;
         this.contact = contact;
-        this.fullcontactnumber = fullcontactnumber;
         this.status = status;
     }
 
@@ -50,14 +48,6 @@ public class User {
 
     public void setContact(String contact) {
         this.contact = contact;
-    }
-
-    public String getFullcontactnumber() {
-        return fullcontactnumber;
-    }
-
-    public void setFullcontactnumber(String fullcontactnumber) {
-        this.fullcontactnumber = fullcontactnumber;
     }
 
     public String getStatus() {

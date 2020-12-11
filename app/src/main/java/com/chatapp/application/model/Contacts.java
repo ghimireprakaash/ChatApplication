@@ -1,11 +1,6 @@
 package com.chatapp.application.model;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-
 public class Contacts {
-    private String contact_ID;
-    private String image;
     private String contact_name;
     private String contact_number;
     private String userName_firstLetter_and_lastLetter;
@@ -13,28 +8,10 @@ public class Contacts {
     public Contacts(){
     }
 
-    public Contacts(String contact_ID, String image, String contact_name, String contact_number, String userName_firstLetter_and_lastLetter) {
-        this.contact_ID = contact_ID;
-        this.image = image;
+    public Contacts(String contact_name, String contact_number, String userName_firstLetter_and_lastLetter) {
         this.contact_name = contact_name;
         this.contact_number = contact_number;
         this.userName_firstLetter_and_lastLetter = userName_firstLetter_and_lastLetter;
-    }
-
-    public String getContact_ID() {
-        return contact_ID;
-    }
-
-    public void setContact_ID(String contact_ID) {
-        this.contact_ID = contact_ID;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getContact_name() {
