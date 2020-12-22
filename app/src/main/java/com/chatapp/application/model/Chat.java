@@ -7,6 +7,7 @@ public class Chat {
     private String sender;
     private String message;
     private String receiver;
+    private String messageSentTime;
     private String image;
 
     public Chat() {
@@ -40,10 +41,11 @@ public class Chat {
 
 
     //When message is sent, and received
-    public Chat(String sender, String message, String receiver, String image) {
+    public Chat(String sender, String message, String receiver, String messageSentTime, String image) {
         this.sender = sender;
         this.message = message;
         this.receiver = receiver;
+        this.messageSentTime = messageSentTime;
         this.image = image;
     }
 
@@ -69,6 +71,14 @@ public class Chat {
 
     public void setReceiver(String receiver) {
         this.receiver = receiver;
+    }
+
+    public String getMessageSentTime() {
+        return messageSentTime;
+    }
+
+    public void setMessageSentTime(String messageSentTime) {
+        this.messageSentTime = messageSentTime;
     }
 
     public String getImage() {

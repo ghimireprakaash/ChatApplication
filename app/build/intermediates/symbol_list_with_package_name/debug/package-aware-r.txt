@@ -2160,6 +2160,7 @@ id contactNameFirstAndLastLetter
 id contactPhoneNumber
 id contactProfile
 id contactProfileCard
+id contactProfileImage
 id contactRecyclerView
 id contactText
 id contactUserImage
@@ -2243,6 +2244,7 @@ id fixed
 id flip
 id forever
 id fragmentContainer
+id freeMessageTxt
 id gallery_pick
 id ghost_view
 id ghost_view_holder
@@ -2272,6 +2274,7 @@ id info
 id invisible
 id inviteText
 id inviteUserCard
+id inviteUserTxt
 id italic
 id item_touch_helper_previous_elevation
 id jumpToEnd
@@ -2293,6 +2296,7 @@ id masked
 id media_actions
 id message
 id messageBox
+id messageSentTime
 id messagesRecyclerView
 id middle
 id mini
@@ -2328,6 +2332,7 @@ id mtrl_picker_title_text
 id multiply
 id navigation_header_container
 id never
+id newMessage
 id noChatHistoryText
 id noScroll
 id none
@@ -2372,7 +2377,6 @@ id progress_circular
 id progress_horizontal
 id radio
 id ratio
-id receivedTime
 id receiverMsgTemplate
 id rectangle
 id rectangles
@@ -2410,10 +2414,8 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
-id seenStatus
 id select_dialog_listview
 id selected
-id sendTime
 id sender_profile_image
 id settingsText
 id setupProfileDOB
@@ -2512,6 +2514,7 @@ id userImage
 id userName
 id userNameFirstAndLastLetter
 id userProfile
+id userStatus
 id view_offset_helper
 id visible
 id welcomeTxt
@@ -2727,6 +2730,7 @@ raw ccp_vietnamese
 raw keep_ccp
 string IsThisYourPhNumber
 string PhoneNumber
+string _0987654321
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -2787,6 +2791,7 @@ string common_google_play_services_wear_update_text
 string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
+string contactName
 string contacts
 string continueButton
 string crop_image_activity_no_permissions
@@ -2808,6 +2813,7 @@ string fastscroll__app_name
 string firebase_database_url
 string firstScreenSecondText
 string firstScreenThirdText
+string free_message
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id
@@ -2815,6 +2821,8 @@ string google_crash_reporting_api_key
 string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
+string invite
+string invite_to_chatapp
 string more
 string mtrl_badge_numberless_content_description
 string mtrl_chip_close_icon_content_description
@@ -2851,7 +2859,10 @@ string mtrl_picker_toggle_to_day_selection
 string mtrl_picker_toggle_to_text_input_mode
 string mtrl_picker_toggle_to_year_selection
 string new_group
+string new_message
+string no_chat_history
 string no_result_found
+string offline
 string otpScreenText
 string password_toggle_content_description
 string path_password_eye
@@ -2869,11 +2880,13 @@ string search_hint
 string search_menu_title
 string secondText1
 string select_country
+string sentTime
 string settings
 string status_bar_notification_info_overflow
 string userContactNumber
 string userDOB
 string user_profile
+string username
 string welcomeText
 string yesOption
 style AlertDialog_AppCompat

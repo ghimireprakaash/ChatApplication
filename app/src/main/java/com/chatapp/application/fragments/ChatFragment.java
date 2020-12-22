@@ -18,7 +18,6 @@ import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.adapter.ChatListAdapter;
 import com.chatapp.application.model.ChatList;
 import com.chatapp.application.model.User;
-import com.chatapp.application.profile.ProfileSetupActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,19 +58,10 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Declaring instances and,
+        //Declaring instance,
         //Initializing
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
-
-        //verifies if current user is null or not null
-        currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser == null){
-            startActivity(new Intent(getContext(), ProfileSetupActivity.class));
-        } else {
-            verifyUserExistence();
-        }
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         noChatHistoryText = view.findViewById(R.id.noChatHistoryText);
@@ -93,34 +82,6 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
         getChatWithUsers();
     }
 
-
-    //To verify user existence
-    private void verifyUserExistence() {
-        databaseReference.child("Users").child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!(snapshot.child("username").exists())){
-                    // If username doesn't exists then moves to profile setup
-                    try {
-                        Intent intent = new Intent(getContext(), ProfileSetupActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                        startActivity(intent);
-
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-
     private void getChatWithUsers(){
         usersList = new ArrayList<>();
 
@@ -130,8 +91,6 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
                 if (!(snapshot.exists())){
                     noChatHistoryText.setVisibility(View.VISIBLE);
                 } else {
-                    noChatHistoryText.setVisibility(View.GONE);
-
                     usersList.clear();
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
@@ -172,10 +131,10 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
                                 listUsers.add(user);
                             }
                         }
-
-                        adapter = new ChatListAdapter(listUsers, ChatFragment.this);
-                        chatRecyclerView.setAdapter(adapter);
                     }
+
+                    adapter = new ChatListAdapter(listUsers, ChatFragment.this);
+                    chatRecyclerView.setAdapter(adapter);
                 }
             }
 
@@ -225,50 +184,6 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
 //            }
 //        });
 //    }
-
-
-    private void checkOnlineOrOfflineStatus(String status){
-        HashMap<String, Object> statusMap = new HashMap<>();
-        statusMap.put("status", status);
-
-        databaseReference.child("Users").child(currentUser.getUid()).updateChildren(statusMap);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        checkOnlineOrOfflineStatus("Online");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        checkOnlineOrOfflineStatus("Online");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        checkOnlineOrOfflineStatus("Online");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        checkOnlineOrOfflineStatus("Online");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        checkOnlineOrOfflineStatus("Offline");
-    }
-
 
 
     @Override

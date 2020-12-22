@@ -106,12 +106,19 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
                     assert user != null;
                     if (!firebaseUser.getUid().equals(user.getUid())) {
+                        //Retrieving users contact number stored on database
+                        String contact = user.getContact();
+
                         Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                                 null, null, null, null);
                         while (cursor.moveToNext()) {
-                            String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            String contacts = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-                            if (user.getContact().equals(contactNumber)) {
+                            String contactNumber = contacts.replaceAll("\\s|-", "");
+
+                            //And, taking those contact number without country code to compare with phone contacts...
+                            if (((user.getContact().equals(contactNumber)))
+                                    || ((getPhoneNumberWithoutCountryCode(contact).equals(contactNumber)))) {
                                 showContacts.setVisibility(View.VISIBLE);
                                 listUsers.add(user);
                             }
@@ -131,6 +138,22 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         });
     }
 
+    public String getPhoneNumberWithoutCountryCode(String contact){
+        //Creating StringBuilder object
+        StringBuilder reverseNumber = new StringBuilder();
+        //Reversing original contact number that was fetched from the database
+        String reversedContact = new StringBuilder(contact).reverse().toString();
+        reverseNumber.append(reversedContact);
+
+        //From the reversed contact number taking 10digits which removes country code
+        String reverseContactWithoutCode = reversedContact.substring(0, 10);
+
+        //Finally reversing the "reverseContactWithoutCode" which results the actual contact number without country code...
+        String contactWithoutCountryCode = new StringBuilder(reverseContactWithoutCode).reverse().toString();
+        reverseNumber.append(contactWithoutCountryCode);
+
+        return contactWithoutCountryCode;
+    }
 
 
     //called when createNewGroup is clicked
@@ -227,12 +250,10 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     public void OnItemClick(int position) {
         String userId = adapter.getItem(position).getUid();
         String userName = adapter.getItem(position).getUsername();
-        String image = adapter.getItem(position).getImage();
 
         Intent intent = new Intent(ShowFriendsActivity.this, ChatActivity.class);
         intent.putExtra("userId", userId);
         intent.putExtra("username", userName);
-        intent.putExtra("image", image);
         startActivity(intent);
         finish();
     }

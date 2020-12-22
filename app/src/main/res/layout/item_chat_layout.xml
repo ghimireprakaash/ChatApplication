@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="2dp"
+    android:layout_marginTop="1dp"
     android:background="@drawable/contact_card_state_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -54,7 +55,7 @@
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UserName"
+            android:text="@string/username"
             android:textColor="@color/colorBlack"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="17sp"
@@ -62,6 +63,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/userImage"
             android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/newMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_message"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            app:layout_constraintTop_toBottomOf="@+id/userName"
+            app:layout_constraintStart_toStartOf="@+id/userName"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

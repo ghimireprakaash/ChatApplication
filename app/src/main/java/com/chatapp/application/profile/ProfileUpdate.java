@@ -5,12 +5,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,13 +36,22 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ProfileUpdate extends AppCompatActivity {
-    private String TAG = "ProfileUpdate";
+    private final String TAG = "ProfileUpdate";
 
     private static final int GALLERY_PICK = 1;
     Uri uri;
+
+    //initially setting year, month, and day to 0
+    int year = 0;
+    int month = 0;
+    int day = 0;
 
     private RelativeLayout buttonBack;
     private ImageView userProfileImage;
@@ -64,23 +77,77 @@ public class ProfileUpdate extends AppCompatActivity {
 
         retrieveUserInfo();
 
+
+        //get instance of calendar
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        updateProfileDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileUpdate.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                month = month+1;
+                                String date = day+"/"+month+"/"+year;
+                                updateProfileDateOfBirth.setText(date);
+
+                                setDate(year, month, day);
+                            }
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateProfileImage(v);
+                updateProfile();
                 buttonBack.setPressed(true);
                 finish();
             }
         });
-
-
-
-        userProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateProfileImage();
-            }
-        });
     }
+
+    private void setDate(int year, int month, int day){
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        checkOnlineOrOfflineStatus("Online");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        checkOnlineOrOfflineStatus("Offline");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        checkOnlineOrOfflineStatus("Online");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        checkOnlineOrOfflineStatus("Offline");
+    }
+
 
 
     //initializing views
@@ -94,7 +161,7 @@ public class ProfileUpdate extends AppCompatActivity {
 
 
     //Setup profile image if profile was not added on first time profile setup
-    private void updateProfileImage() {
+    public void updateProfileImage(View view) {
         CropImage.startPickImageActivity(ProfileUpdate.this);
     }
 
@@ -142,7 +209,8 @@ public class ProfileUpdate extends AppCompatActivity {
                                             Log.d(TAG, "onSuccess: downloadUrl: "+uri.toString());
 
                                             databaseReference.child("Users").child(currentUserID).child("image")
-                                                    .setValue(uri.toString()).addOnFailureListener(new OnFailureListener() {
+                                                    .setValue(uri.toString())
+                                                    .addOnFailureListener(new OnFailureListener() {
                                                 @Override
                                                 public void onFailure(@NonNull Exception e) {
                                                     Log.d(TAG, "onFailure: "+e.getMessage());
@@ -174,8 +242,29 @@ public class ProfileUpdate extends AppCompatActivity {
                 .start(this);
     }
 
+
+    private void updateProfile(){
+        String profileName = updateProfileName.getText().toString();
+        String profileDOB = updateProfileDateOfBirth.getText().toString();
+
+        if (TextUtils.isEmpty(profileName)){
+            updateProfileName.setError("Can't be left empty");
+            updateProfileName.requestFocus();
+        } else if (TextUtils.isEmpty(profileDOB)){
+            updateProfileDateOfBirth.setError("Can't be left empty");
+            updateProfileDateOfBirth.requestFocus();
+        } else {
+            HashMap<String, Object> updateProfileMap = new HashMap<>();
+            updateProfileMap.put("username", profileName);
+            updateProfileMap.put("dob", profileDOB);
+            updateProfileMap.put("search", profileName.toLowerCase());
+
+            databaseReference.child("Users").child(currentUserID).updateChildren(updateProfileMap);
+        }
+    }
+
     private void retrieveUserInfo(){
-        databaseReference.child("Users").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if ((snapshot.exists()) && (snapshot.hasChild("image"))){
@@ -201,5 +290,31 @@ public class ProfileUpdate extends AppCompatActivity {
                 Toast.makeText(ProfileUpdate.this, "Error: "+error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private void checkOnlineOrOfflineStatus(String state){
+        String saveCurrentTime, saveCurrentDate;
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentTime;
+        if (android.text.format.DateFormat.is24HourFormat(this)){
+            currentTime = new SimpleDateFormat("HH:mm");
+        }else {
+            currentTime = new SimpleDateFormat("hh:mm a");
+        }
+        saveCurrentTime = currentTime.format(calendar.getTime());
+
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("MMMM dd");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        HashMap<String, Object> userStateMap = new HashMap<>();
+        userStateMap.put("time", saveCurrentTime);
+        userStateMap.put("date", saveCurrentDate);
+        userStateMap.put("state", state);
+
+        databaseReference.child("Users").child(currentUserID).child("userState").updateChildren(userStateMap);
     }
 }

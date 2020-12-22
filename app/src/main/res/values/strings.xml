@@ -57,4 +57,18 @@
     <string name="enter_name_search_bar_hint">Enter name</string>
     <string name="new_group">New Group</string>
 
+
+    <string name="contactName">ContactName</string>
+    <string name="invite_to_chatapp">Invite to ChatApp</string>
+    <string name="free_message">Free Message</string>
+    <string name="_0987654321">0987654321</string>
+
+    <string name="username">UserName</string>
+    <string name="invite">Invite</string>
+
+    <string name="no_chat_history">No chat history</string>
+    <string name="offline">Offline</string>
+    <string name="new_message">New Message</string>
+    <string name="sentTime">9:00 AM</string>
+
 </resources>

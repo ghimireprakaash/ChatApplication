@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,7 +17,6 @@ import android.widget.TextView;
 import com.chatapp.application.R;
 import com.chatapp.application.adapter.MessageAdapter;
 import com.chatapp.application.model.Chat;
-import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +24,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -32,29 +36,32 @@ public class ChatActivity extends AppCompatActivity {
     private static final String TAG = "ChatActivity";
 
     private Toolbar toolbar;
-    private TextView userName, onlineStatus;
+    private TextView userName, userStatus;
     private EditText message;
     ImageButton buttonMessageSend;
 
     String userId;
     String image;
-
-    DatabaseReference reference;
-    FirebaseUser user;
+    String userProfileName;
 
     MessageAdapter messageAdapter;
     List<Chat> chatList;
     RecyclerView messageRecycler;
+
+    DatabaseReference databaseReference;
+    FirebaseUser currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         init();
+
 
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -69,37 +76,41 @@ public class ChatActivity extends AppCompatActivity {
 
 
         userId = getIntent().getStringExtra("userId");
-        image = getIntent().getStringExtra("image");
-
-
-        checkOnlineOrOfflineStatus();
-
-//        storeChatInfo();
+        userProfileName = getIntent().getStringExtra("username");
 
         buildChatRecycler();
 
-        reference.child("Users").child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User model = snapshot.getValue(User.class);
-                assert model != null;
-                userName.setText(model.getUsername());
+        userName.setText(userProfileName);
+        checkUserOnlineOrOfflineState();
 
+//        storeEmptyChatInfo();
+    }
 
-                retrieveMessages(user.getUid(), userId);
-            }
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        checkOnlineOrOfflineStatus("Online");
+    }
 
-            }
-        });
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        checkOnlineOrOfflineStatus("Offline");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        checkOnlineOrOfflineStatus("Offline");
     }
 
     private void init() {
         toolbar = findViewById(R.id.toolbar);
         userName = findViewById(R.id.userName);
-        onlineStatus = findViewById(R.id.seenStatus);
+        userStatus = findViewById(R.id.userStatus);
         message = findViewById(R.id.messageBox);
         buttonMessageSend = findViewById(R.id.buttonMessageSend);
 
@@ -107,44 +118,30 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void storeChatInfo(){
-        final String userName = getIntent().getStringExtra("username");
+    private void storeEmptyChatInfo(){
+        final DatabaseReference emptyChatRef = FirebaseDatabase.getInstance().getReference().child("ChatList")
+                .child("EmptyChatList")
+                .child(currentUser.getUid())
+                .child(userId);
 
+        String emptyMsg = "No messages";
 
-        assert userId != null;
-        reference.child("UsersChatList").child(user.getUid()).child(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Chat chat = new Chat();
-
-                String username = chat.setUsername(userName);
-                reference.child("UsersChatList").child(user.getUid()).child(userId).child("username").setValue(username);
-
-                String emptyMsg = "No messages";
-                chat.setEmptyMessageChat(emptyMsg);
-                reference.child("UsersChatList").child(user.getUid()).child(userId).child("EmptyMessageValue").setValue(emptyMsg);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        emptyChatRef.child("id").setValue(userId);
+        emptyChatRef.child("EmptyMessageValue").setValue(emptyMsg);
     }
 
 
-    private void sendMessage(String sender, String message, String receiver){
-        reference = FirebaseDatabase.getInstance().getReference();
-
+    private void sendMessage(String sender, String message, String receiver, String messageSentTime){
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("message", message);
         hashMap.put("receiver", receiver);
+        hashMap.put("messageSentTime", messageSentTime);
 
-        reference.child("Chats").child(userId).push().setValue(hashMap);
+        databaseReference.child("Chats").push().setValue(hashMap);
 
         final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference().child("ChatList")
-                .child(user.getUid())
+                .child(currentUser.getUid())
                 .child(userId);
 
         chatRef.addValueEventListener(new ValueEventListener() {
@@ -163,46 +160,57 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SimpleDateFormat")
     public void onSendButtonClicked(View view) {
-        //On pressed button send allows user to send message to the destination user
-        buttonMessageSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String edit_message = message.getText().toString();
-                if (!edit_message.equals("")){
-                    sendMessage(user.getUid(), edit_message, userId);
-                }
+        String edit_message = message.getText().toString();
+        String messageSentTime;
 
-                message.setText("");
-            }
-        });
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sentTime;
+        if (DateFormat.is24HourFormat(getApplicationContext())){
+            sentTime = new SimpleDateFormat("HH:mm");
+        } else {
+            sentTime = new SimpleDateFormat("hh:mm a");
+        }
+        messageSentTime = sentTime.format(calendar.getTime());
+
+        if (!edit_message.equals("")){
+            sendMessage(currentUser.getUid(), edit_message, userId, messageSentTime);
+//            databaseReference.child("ChatList").child("EmptyChatList").child(currentUser.getUid()).child(userId).removeValue();
+        }
+
+        message.setText("");
     }
 
     private void buildChatRecycler(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setStackFromEnd(false);
         messageRecycler.setLayoutManager(layoutManager);
+
+        retrieveMessages(currentUser.getUid(), userId);
     }
 
-    private void retrieveMessages(final String myId, final String userid){
+    private void retrieveMessages(final String myId, final String correspondingUserId){
         chatList = new ArrayList<>();
 
-        reference.child("Chats").child(userId).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatList.clear();
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Chat chat = dataSnapshot.getValue(Chat.class);
+                if (snapshot.exists()){
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        Chat chat = dataSnapshot.getValue(Chat.class);
 
-                    assert chat != null;
-                    if ((chat.getReceiver().equals(myId)) && (chat.getSender().equals(userid)) ||
-                            (chat.getReceiver().equals(userid)) && (chat.getSender().equals(myId))) {
-                        chatList.add(chat);
+                        assert chat != null;
+                        if ((chat.getReceiver().equals(correspondingUserId)) && (chat.getSender().equals(myId))
+                                    || (chat.getReceiver().equals(myId)) && (chat.getSender().equals(correspondingUserId))) {
+                            chatList.add(chat);
+                        }
+
+                        messageAdapter = new MessageAdapter(ChatActivity.this, chatList);
+                        messageRecycler.setAdapter(messageAdapter);
                     }
-
-                    messageAdapter = new MessageAdapter(ChatActivity.this, chatList);
-                    messageRecycler.setAdapter(messageAdapter);
                 }
             }
 
@@ -214,17 +222,48 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    private void checkOnlineOrOfflineStatus(){
-        reference.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+    @SuppressLint("SimpleDateFormat")
+    private void checkOnlineOrOfflineStatus(String state){
+        String saveCurrentTime, saveCurrentDate;
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentTime;
+        if (android.text.format.DateFormat.is24HourFormat(getApplicationContext())){
+            currentTime = new SimpleDateFormat("HH:mm");
+        }else {
+            currentTime = new SimpleDateFormat("hh:mm a");
+        }
+        saveCurrentTime = currentTime.format(calendar.getTime());
+
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("MMMM dd");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        HashMap<String, Object> userStateMap = new HashMap<>();
+        userStateMap.put("time", saveCurrentTime);
+        userStateMap.put("date", saveCurrentDate);
+        userStateMap.put("state", state);
+
+        databaseReference.child("Users").child(currentUser.getUid()).child("userState").updateChildren(userStateMap);
+    }
+
+    private void checkUserOnlineOrOfflineState(){
+        databaseReference.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ((snapshot.exists()) && (snapshot.hasChild("status"))){
-                    User model = snapshot.getValue(User.class);
+                if ((snapshot.exists()) && (snapshot.child("userState").hasChild("state"))){
+                    String state = Objects.requireNonNull(snapshot.child("userState").child("state").getValue()).toString();
+                    String date = Objects.requireNonNull(snapshot.child("userState").child("date").getValue()).toString();
+                    String time = Objects.requireNonNull(snapshot.child("userState").child("time").getValue()).toString();
 
-                    String status = model.getStatus();
-
-                    onlineStatus.setText(status);
-                    Log.d(TAG, "status: "+status);
+                    if (state.equals("Online")){
+                        userStatus.setText(state);
+                    } else {
+                        userStatus.setText("Last seen "+date+" "+time);
+                    }
+                } else {
+                    userStatus.setText(R.string.offline);
                 }
             }
 

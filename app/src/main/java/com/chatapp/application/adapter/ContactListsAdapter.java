@@ -1,6 +1,5 @@
 package com.chatapp.application.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
+import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.model.Contacts;
 import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import java.util.List;
+import java.util.Objects;
 
 public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapter.ViewHolder>{
     private static final String TAG = "Adapter";
@@ -29,6 +30,8 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
 
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
+
+    ShowFriendsActivity showFriendsActivity;
 
 
     public ContactListsAdapter(List<Contacts> lists, OnItemClickListener onItemClickListener){
@@ -54,28 +57,38 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
         holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     final User user = dataSnapshot.getValue(User.class);
+                    assert user != null;
+                    String userId = user.getUid();
 
-                    String userId = dataSnapshot.getKey();
-                    DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-                    assert userId != null;
-                    if (!firebaseUser.getUid().equals(userId)) {
+                    DatabaseReference userRef;
+                    userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+                    if (!firebaseUser.getUid().equals(userId)){
                         userRef.child(userId).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if ((snapshot.exists()) && (snapshot.hasChild("fullcontactnumber")) && (snapshot.hasChild("contact"))) {
-                                    assert user != null;
-                                    if (user.getContact().equals(getPosition.getContact_number())) {
-                                        Log.d(TAG, "fullContact: "+ user.getContact().equals(getPosition.getContact_number()));
+                                String contact = user.getContact();
+                                String getPhoneContact = getPosition.getContact_number().replaceAll("\\s|-", "");
 
-                                        holder.inviteText.setVisibility(View.GONE);
+                                showFriendsActivity = new ShowFriendsActivity();
+
+                                if (contact.equals(getPhoneContact)
+                                || showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(getPhoneContact)){
+                                    holder.inviteText.setVisibility(View.GONE);
+
+                                    if (snapshot.hasChild("image")){
+                                        String image = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
+
+                                        Picasso.get().load(image).into(holder.contactProfile);
                                         holder.contactNameFirstAndLastLetter.setVisibility(View.GONE);
-                                        Picasso.get().load(user.getImage()).into(holder.contactProfile);
+                                    } else {
+                                        holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
                                     }
                                 }
                             }
@@ -94,7 +107,6 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
 
             }
         });
-
     }
 
     @Override
@@ -107,6 +119,13 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
         return super.getItemId(position);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+
+    //ViewHolder Class...
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView contactNameFirstAndLastLetter;
         ImageView contactProfile;

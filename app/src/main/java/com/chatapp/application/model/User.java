@@ -5,17 +5,21 @@ public class User {
     private String username;
     private String image;
     private String contact;
-    private String status;
+    private String state;
+    private String time;
+    private String date;
 
     public User() {
     }
 
-    public User(String uid, String username, String image, String contact, String status) {
+    public User(String uid, String username, String image, String contact, String state, String time, String date) {
         this.uid = uid;
         this.username = username;
         this.image = image;
         this.contact = contact;
-        this.status = status;
+        this.state = state;
+        this.time = time;
+        this.date = date;
     }
 
     public String getUid() {
@@ -50,11 +54,27 @@ public class User {
         this.contact = contact;
     }
 
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

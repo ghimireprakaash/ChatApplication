@@ -24,8 +24,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     private DatabaseReference usersRef;
     private String getUserId;
 
-    private List<User> list;
-    private ChatListAdapter.ViewHolder.OnItemClickListener onItemClickListener;
+    private final List<User> list;
+    private final ChatListAdapter.ViewHolder.OnItemClickListener onItemClickListener;
 
 
     public ChatListAdapter(List<User> list, ViewHolder.OnItemClickListener onItemClickListener) {
@@ -53,7 +53,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         usersRef.child(getUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ((snapshot.exists()) && (snapshot.hasChild("image")) && (snapshot.hasChild("username")) && (!getUserId.equals(firebaseUser.getUid()))){
+                if ((snapshot.exists()) && (snapshot.hasChild("image")) && (!getUserId.equals(firebaseUser.getUid()))){
 
                     Picasso.get().load(model.getImage()).into(holder.userProfile);
 
@@ -95,7 +95,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView userProfile;
-        TextView userNameFirstAndLastLetter, userName;
+        TextView userNameFirstAndLastLetter, userName, newMessage;
 
         ChatListAdapter.ViewHolder.OnItemClickListener onItemClickListener;
 
@@ -107,6 +107,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             userProfile = itemView.findViewById(R.id.userProfile);
             userNameFirstAndLastLetter = itemView.findViewById(R.id.userNameFirstAndLastLetter);
             userName = itemView.findViewById(R.id.userName);
+            newMessage = itemView.findViewById(R.id.newMessage);
 
             itemView.setOnClickListener(this);
         }

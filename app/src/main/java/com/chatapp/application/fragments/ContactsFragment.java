@@ -25,14 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ContactListsFragment extends Fragment implements ContactListsAdapter.OnItemClickListener {
+public class ContactsFragment extends Fragment implements ContactListsAdapter.OnItemClickListener {
     private static final String TAG = "ContactListFragment";
 
     RecyclerView recyclerView;
     List<Contacts> contactsList;
     ContactListsAdapter adapter;
-
-    DatabaseReference userRef;
 
     @Nullable
     @Override
@@ -84,10 +82,12 @@ public class ContactListsFragment extends Fragment implements ContactListsAdapte
             String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
+
             Contacts contactInfo = new Contacts();
             contactInfo.setContact_name(contactName);
             contactInfo.setContact_number(contactNumber);
 
+            //Splitting contact name into substring to get first char from first name and last name
             String[] nameParts = contactName.split(" ");
             String firstName = nameParts[0];
             String firstNameChar = firstName.substring(0,1).toUpperCase();

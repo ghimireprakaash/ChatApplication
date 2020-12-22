@@ -125,7 +125,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
 
-    public void OnDatePicker(View view) {
+    private void OnDatePicker() {
         //get instance of calendar
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -245,6 +245,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
     //User Profile Setup
     private void profileSetup() {
+        OnDatePicker();
+
         final String profileName = setupProfileName.getText().toString();
         final String profileDOB = setupProfileDOB.getText().toString();
 
@@ -259,7 +261,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         } else {
             final String getFullPhoneNumber = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber();
 
-            HashMap<String, String> profileMap = new HashMap<>();
+            HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("username", profileName);
             profileMap.put("dob", profileDOB);
