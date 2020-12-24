@@ -8,7 +8,7 @@ MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.g
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f0b94a39da2319083e52005d905f6f02\jetified-ccp-2.4.0\AndroidManifest.xml:2:1-11:12
 MERGED from [com.theartofdev.edmodo:android-image-cropper:2.8.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\757480c9f43fb6e72b7075c514a6d24a\jetified-android-image-cropper-2.8.0\AndroidManifest.xml:2:1-11:12
-MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ab5ee603671e68dfb0fb0481bc213244\jetified-fastscroll-0.2.5\AndroidManifest.xml:2:1-13:12
+MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ce7247bccb64e6b8809ef9f606537e3b\jetified-fastscroll-0.2.5\AndroidManifest.xml:2:1-13:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f65e7d690d0436991c66205f0487ed30\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\1f106be3704685663748f5430a93eceb\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\2fc8f0a9db7b1c32d84745c03cad3c7d\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -18,7 +18,7 @@ MERGED from [com.google.firebase:firebase-analytics:17.6.0] C:\Users\ghimi\.grad
 MERGED from [com.google.firebase:firebase-auth:19.4.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f977c00d5bc6eae6210d620c2e2da33f\jetified-firebase-auth-19.4.0\AndroidManifest.xml:17:1-42:12
 MERGED from [com.google.firebase:firebase-database:19.5.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\57865f2684547697bcf0a2e378da5988\jetified-firebase-database-19.5.0\AndroidManifest.xml:15:1-38:12
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\80b96b8459e39584abd3365a7bf0267b\jetified-firebase-storage-19.2.0\AndroidManifest.xml:15:1-39:12
-MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:2:1-14:12
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:2:1-14:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9b32f1278a4b3f1620db3345b7e4d0b\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\7e380442aa008f02ce976f99cab9e58a\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\a5038f937d1616c689aa6edabbcef8eb\jetified-firebase-auth-interop-19.0.0\AndroidManifest.xml:2:1-10:12
@@ -144,8 +144,8 @@ MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.g
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.2] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\3701e9653f876850c07414763fb9f811\constraintlayout-2.0.2\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\033fa273db51aa87cae83056de67d807\material-1.1.0\AndroidManifest.xml:22:5-20
-MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ab5ee603671e68dfb0fb0481bc213244\jetified-fastscroll-0.2.5\AndroidManifest.xml:11:5-20
-MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ab5ee603671e68dfb0fb0481bc213244\jetified-fastscroll-0.2.5\AndroidManifest.xml:11:5-20
+MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ce7247bccb64e6b8809ef9f606537e3b\jetified-fastscroll-0.2.5\AndroidManifest.xml:11:5-20
+MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ce7247bccb64e6b8809ef9f606537e3b\jetified-fastscroll-0.2.5\AndroidManifest.xml:11:5-20
 MERGED from [com.google.firebase:firebase-analytics:17.6.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\948d8ce02ea20e31088d463568a46772\jetified-firebase-analytics-17.6.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.firebase:firebase-analytics:17.6.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\948d8ce02ea20e31088d463568a46772\jetified-firebase-analytics-17.6.0\AndroidManifest.xml:7:5-20
 MERGED from [com.google.firebase:firebase-auth:19.4.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f977c00d5bc6eae6210d620c2e2da33f\jetified-firebase-auth-19.4.0\AndroidManifest.xml:23:5-40:19
@@ -154,8 +154,8 @@ MERGED from [com.google.firebase:firebase-database:19.5.0] C:\Users\ghimi\.gradl
 MERGED from [com.google.firebase:firebase-database:19.5.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\57865f2684547697bcf0a2e378da5988\jetified-firebase-database-19.5.0\AndroidManifest.xml:28:5-36:19
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\80b96b8459e39584abd3365a7bf0267b\jetified-firebase-storage-19.2.0\AndroidManifest.xml:29:5-37:19
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\80b96b8459e39584abd3365a7bf0267b\jetified-firebase-storage-19.2.0\AndroidManifest.xml:29:5-37:19
-MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:7:5-12:19
-MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:7:5-12:19
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:7:5-12:19
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:7:5-12:19
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\a5038f937d1616c689aa6edabbcef8eb\jetified-firebase-auth-interop-19.0.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\a5038f937d1616c689aa6edabbcef8eb\jetified-firebase-auth-interop-19.0.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\d92a27efcac738b4f280b9ad0c07bda7\jetified-play-services-base-17.1.0\AndroidManifest.xml:22:5-27:19
@@ -276,8 +276,8 @@ MERGED from [com.hbb20:ccp:2.4.0] C:\Users\ghimi\.gradle\caches\transforms-2\fil
 MERGED from [com.hbb20:ccp:2.4.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f0b94a39da2319083e52005d905f6f02\jetified-ccp-2.4.0\AndroidManifest.xml:7:5-9:41
 MERGED from [com.theartofdev.edmodo:android-image-cropper:2.8.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\757480c9f43fb6e72b7075c514a6d24a\jetified-android-image-cropper-2.8.0\AndroidManifest.xml:7:5-9:41
 MERGED from [com.theartofdev.edmodo:android-image-cropper:2.8.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\757480c9f43fb6e72b7075c514a6d24a\jetified-android-image-cropper-2.8.0\AndroidManifest.xml:7:5-9:41
-MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ab5ee603671e68dfb0fb0481bc213244\jetified-fastscroll-0.2.5\AndroidManifest.xml:7:5-9:41
-MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ab5ee603671e68dfb0fb0481bc213244\jetified-fastscroll-0.2.5\AndroidManifest.xml:7:5-9:41
+MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ce7247bccb64e6b8809ef9f606537e3b\jetified-fastscroll-0.2.5\AndroidManifest.xml:7:5-9:41
+MERGED from [com.futuremind.recyclerfastscroll:fastscroll:0.2.5] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ce7247bccb64e6b8809ef9f606537e3b\jetified-fastscroll-0.2.5\AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f65e7d690d0436991c66205f0487ed30\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\f65e7d690d0436991c66205f0487ed30\appcompat-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\1f106be3704685663748f5430a93eceb\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
@@ -296,8 +296,8 @@ MERGED from [com.google.firebase:firebase-database:19.5.0] C:\Users\ghimi\.gradl
 MERGED from [com.google.firebase:firebase-database:19.5.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\57865f2684547697bcf0a2e378da5988\jetified-firebase-database-19.5.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\80b96b8459e39584abd3365a7bf0267b\jetified-firebase-storage-19.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\80b96b8459e39584abd3365a7bf0267b\jetified-firebase-storage-19.2.0\AndroidManifest.xml:20:5-22:41
-MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:5:5-44
-MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:5:5-44
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:5:5-44
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:5:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9b32f1278a4b3f1620db3345b7e4d0b\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\e9b32f1278a4b3f1620db3345b7e4d0b\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\7e380442aa008f02ce976f99cab9e58a\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
@@ -463,13 +463,13 @@ ADDED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\ghimi\.gradle\
 	android:name
 		ADDED from [com.google.firebase:firebase-storage:19.2.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\80b96b8459e39584abd3365a7bf0267b\jetified-firebase-storage-19.2.0\AndroidManifest.xml:34:17-107
 provider#com.squareup.picasso.PicassoProvider
-ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
 	android:authorities
-		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
 	android:exported
-		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
 	android:name
-		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\ebe4ed1c2885458175a9a904a759c29a\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:17.1.0] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\d92a27efcac738b4f280b9ad0c07bda7\jetified-play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
 	android:exported

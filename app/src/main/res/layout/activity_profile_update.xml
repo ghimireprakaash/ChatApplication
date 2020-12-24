@@ -25,7 +25,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                tools:ignore="contentDescription"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="contentDescription"
+                android:onClick="updateProfileImage"/>
 
             <RelativeLayout
                 android:id="@+id/buttonBack"
@@ -78,6 +82,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/profileName"
             android:textSize="16sp"
+            android:inputType="text"
+            android:maxLines="1"
             android:layout_marginTop="20dp"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
@@ -89,6 +95,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/profileDOB"
             android:textSize="16sp"
+            android:maxLines="1"
             android:layout_marginTop="20dp"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"

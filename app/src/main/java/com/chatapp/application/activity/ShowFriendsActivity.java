@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -30,7 +32,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,6 +79,22 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         searchEditText.addTextChangedListener(filter);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        checkOnlineOrOfflineStatus("Offline");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        checkOnlineOrOfflineStatus("Online");
+    }
+
+
+
     //Initialization of fields
     private void init(){
         toolbar = findViewById(R.id.chat_fab_toolbar);
@@ -96,6 +118,34 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     }
 
 
+    @SuppressLint("SimpleDateFormat")
+    private void checkOnlineOrOfflineStatus(String state){
+        String saveCurrentTime, saveCurrentDate;
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentTime;
+        if (android.text.format.DateFormat.is24HourFormat(getApplicationContext())){
+            currentTime = new SimpleDateFormat("HH:mm");
+        }else {
+            currentTime = new SimpleDateFormat("hh:mm a");
+        }
+        saveCurrentTime = currentTime.format(calendar.getTime());
+
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("MMMM dd");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        HashMap<String, Object> userStateMap = new HashMap<>();
+        userStateMap.put("time", saveCurrentTime);
+        userStateMap.put("date", saveCurrentDate);
+        userStateMap.put("state", state);
+
+        userRef.child("Users").child(firebaseUser.getUid()).child("userState").updateChildren(userStateMap);
+    }
+
+
+
     private void retrieveUsers() {
         userRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,12 +156,19 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
                     assert user != null;
                     if (!firebaseUser.getUid().equals(user.getUid())) {
+                        //Retrieving users contact number stored on database
+                        String contact = user.getContact();
+
                         Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                                 null, null, null, null);
                         while (cursor.moveToNext()) {
-                            String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            String contacts = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-                            if (user.getContact().equals(contactNumber)) {
+                            String contactNumber = contacts.replaceAll("\\s|-", "");
+
+                            //And, taking those contact number without country code to compare with phone contacts...
+                            if (((user.getContact().equals(contactNumber)))
+                                    || ((getPhoneNumberWithoutCountryCode(contact).equals(contactNumber)))) {
                                 showContacts.setVisibility(View.VISIBLE);
                                 listUsers.add(user);
                             }
@@ -131,6 +188,22 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         });
     }
 
+    public String getPhoneNumberWithoutCountryCode(String contact){
+        //Creating StringBuilder object
+        StringBuilder reverseNumber = new StringBuilder();
+        //Reversing original contact number that was fetched from the database
+        String reversedContact = new StringBuilder(contact).reverse().toString();
+        reverseNumber.append(reversedContact);
+
+        //From the reversed contact number taking 10digits which removes country code
+        String reverseContactWithoutCode = reversedContact.substring(0, 10);
+
+        //Finally reversing the "reverseContactWithoutCode" which results the actual contact number without country code...
+        String contactWithoutCountryCode = new StringBuilder(reverseContactWithoutCode).reverse().toString();
+        reverseNumber.append(contactWithoutCountryCode);
+
+        return contactWithoutCountryCode;
+    }
 
 
     //called when createNewGroup is clicked
@@ -227,12 +300,10 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     public void OnItemClick(int position) {
         String userId = adapter.getItem(position).getUid();
         String userName = adapter.getItem(position).getUsername();
-        String image = adapter.getItem(position).getImage();
 
         Intent intent = new Intent(ShowFriendsActivity.this, ChatActivity.class);
         intent.putExtra("userId", userId);
         intent.putExtra("username", userName);
-        intent.putExtra("image", image);
         startActivity(intent);
         finish();
     }

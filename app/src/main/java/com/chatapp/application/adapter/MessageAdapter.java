@@ -26,7 +26,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static final int MSG_TYPE_RIGHT = 1;
 
     private Context context;
-    private List<Chat> chat;
+    private final List<Chat> chat;
 
 
     FirebaseUser firebaseUser;
@@ -57,6 +57,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         final Chat model = chat.get(position);
 
         holder.show_message.setText(model.getMessage());
+        holder.messageSentTime.setText(model.getMessageSentTime());
 
         final User userModel = new User();
         userId = model.getReceiver();
@@ -89,12 +90,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView show_message;
         ImageView sender_profile_image;
+        TextView messageSentTime;
 
         public ViewHolder(View itemView){
             super(itemView);
 
             show_message = itemView.findViewById(R.id.show_message);
             sender_profile_image = itemView.findViewById(R.id.sender_profile_image);
+            messageSentTime = itemView.findViewById(R.id.messageSentTime);
         }
     }
 

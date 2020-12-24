@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/contactProfileImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/blank_profile_picture"
@@ -33,7 +34,7 @@
             android:id="@+id/contactName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ContactName"
+            android:text="@string/contactName"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
             android:textColor="@color/colorWhite"
             android:layout_gravity="bottom"
@@ -56,13 +57,25 @@
         android:layout_marginEnd="65dp">
 
         <TextView
+            android:id="@+id/inviteUserTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Invite to ChatApp"
+            android:text="@string/invite_to_chatapp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorWhite"
             android:layout_gravity="center"
             android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/freeMessageTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/free_message"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:visibility="gone"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -70,7 +83,7 @@
         android:id="@+id/contactPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="0987654321"
+        android:text="@string/_0987654321"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorBlack"
         app:layout_constraintTop_toBottomOf="@+id/inviteUserCard"

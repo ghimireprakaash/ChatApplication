@@ -18,29 +18,31 @@
             android:id="@+id/show_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="abcdefgh"
             android:textSize="16sp"
             android:textColor="@color/colorBlack"
             android:maxWidth="200dp"/>
 
         <TextView
-            android:id="@+id/sendTime"
+            android:id="@+id/messageSentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9:00 AM"
+            android:text="@string/sentTime"
             android:textSize="12sp"
             android:layout_marginStart="10dp"
             android:layout_gravity="end|bottom"/>
 
         <androidx.cardview.widget.CardView
-            android:visibility="gone"
             android:id="@+id/imageCard"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:cardCornerRadius="21dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="7dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/sender_profile_image"

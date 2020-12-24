@@ -92,7 +92,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
         setupProfileImage.setPressed(false);
-
         //Image setup via gallery access
         setupProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +99,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 setupProfileImage();
             }
         });
+
+        //open calender so user can pick his/her birth date...
+        OnDatePicker();
 
         //On click button set, it setups the user information
         btnSet.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +127,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
 
 
-    public void OnDatePicker(View view) {
+    private void OnDatePicker() {
         //get instance of calendar
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -259,7 +261,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         } else {
             final String getFullPhoneNumber = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getPhoneNumber();
 
-            HashMap<String, String> profileMap = new HashMap<>();
+            HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
             profileMap.put("username", profileName);
             profileMap.put("dob", profileDOB);

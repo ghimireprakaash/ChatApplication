@@ -11,14 +11,14 @@
         android:id="@+id/noChatHistoryText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="No chat history"
+        android:text="@string/no_chat_history"
         android:textSize="17sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="5dp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
