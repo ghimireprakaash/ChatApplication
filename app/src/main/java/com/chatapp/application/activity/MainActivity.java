@@ -161,12 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
 
-        SimpleDateFormat currentTime;
-        if (android.text.format.DateFormat.is24HourFormat(this)){
-            currentTime = new SimpleDateFormat("HH:mm");
-        }else {
-            currentTime = new SimpleDateFormat("hh:mm a");
-        }
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
         saveCurrentTime = currentTime.format(calendar.getTime());
 
 

@@ -60,7 +60,7 @@
 
     <string name="contactName">ContactName</string>
     <string name="invite_to_chatapp">Invite to ChatApp</string>
-    <string name="free_message">Free Message</string>
+    <string name="send_message">Send Message</string>
     <string name="_0987654321">0987654321</string>
 
     <string name="username">UserName</string>

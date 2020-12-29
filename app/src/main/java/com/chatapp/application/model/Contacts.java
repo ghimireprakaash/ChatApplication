@@ -5,13 +5,16 @@ public class Contacts {
     private String contact_number;
     private String userName_firstLetter_and_lastLetter;
 
+    private String Uid;
+
     public Contacts(){
     }
 
-    public Contacts(String contact_name, String contact_number, String userName_firstLetter_and_lastLetter) {
+    public Contacts(String contact_name, String contact_number, String userName_firstLetter_and_lastLetter, String Uid) {
         this.contact_name = contact_name;
         this.contact_number = contact_number;
         this.userName_firstLetter_and_lastLetter = userName_firstLetter_and_lastLetter;
+        this.Uid = Uid;
     }
 
     public String getContact_name() {
@@ -36,5 +39,13 @@ public class Contacts {
 
     public void setUserName_firstLetter_and_lastLetter(String userName_firstLetter_and_lastLetter) {
         this.userName_firstLetter_and_lastLetter = userName_firstLetter_and_lastLetter;
+    }
+
+    public String getUid() {
+        return Uid;
+    }
+
+    public void setUid(String uid) {
+        Uid = uid;
     }
 }

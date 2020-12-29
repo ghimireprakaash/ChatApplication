@@ -993,6 +993,7 @@ color colorEnabledButton
 color colorLightDark
 color colorLightPurple
 color colorLightWhite
+color colorLowWhite
 color colorOnPressed
 color colorPrimary
 color colorPrimaryDark
@@ -1923,8 +1924,10 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
-drawable info_30
+drawable info
 drawable menu_24
+drawable message_seen
+drawable message_sent
 drawable more
 drawable mtrl_dialog_background
 drawable mtrl_dropdown_arrow
@@ -1952,9 +1955,10 @@ drawable open_camera
 drawable receiver_background
 drawable rounded_image_button_background
 drawable sender_background
+drawable sent
 drawable set_button
-drawable settings_30
-drawable state_change_on_back_button_pressed_profile_update
+drawable settings
+drawable state_change_on_back_button_pressed
 drawable state_pressed_on_circle_image_view
 drawable test_custom_background
 drawable tooltip_frame_dark
@@ -2258,6 +2262,7 @@ id hideable
 id home
 id homeAsUp
 id honorRequest
+id horizontalBar
 id icon
 id icon_group
 id icon_only
@@ -2364,7 +2369,6 @@ id pin
 id position
 id postLayout
 id preferenceDivider
-id profileCard
 id profileContactNumber
 id profileDOB
 id profileImage
@@ -2372,6 +2376,7 @@ id profileImageLayout
 id profileName
 id profileSetupLayout
 id profileUpdateLayout
+id profile_image
 id progressBar
 id progress_circular
 id progress_horizontal
@@ -2416,7 +2421,6 @@ id search_src_text
 id search_voice_btn
 id select_dialog_listview
 id selected
-id sender_profile_image
 id settingsText
 id setupProfileDOB
 id setupProfileImage
@@ -2514,7 +2518,9 @@ id userImage
 id userName
 id userNameFirstAndLastLetter
 id userProfile
+id userProfileNameAsIcon
 id userStatus
+id user_status
 id view_offset_helper
 id visible
 id welcomeTxt
@@ -2813,7 +2819,6 @@ string fastscroll__app_name
 string firebase_database_url
 string firstScreenSecondText
 string firstScreenThirdText
-string free_message
 string gcm_defaultSenderId
 string google_api_key
 string google_app_id
@@ -2880,6 +2885,7 @@ string search_hint
 string search_menu_title
 string secondText1
 string select_country
+string send_message
 string sentTime
 string settings
 string status_bar_notification_info_overflow

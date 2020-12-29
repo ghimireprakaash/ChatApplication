@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.User;
@@ -25,12 +24,15 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
     private DatabaseReference usersRef;
     private String getUserId;
 
+    private final String contactName;
     private List<User> list;
-    private ViewHolder.OnItemClickListener onItemClickListener;
+    private final ViewHolder.OnItemClickListener onItemClickListener;
 
-    public RetrieveUsersAdapter(List<User> list, ViewHolder.OnItemClickListener onItemClickListener) {
+
+    public RetrieveUsersAdapter(List<User> list, ViewHolder.OnItemClickListener onItemClickListener, String contactName) {
         this.list = list;
         this.onItemClickListener = onItemClickListener;
+        this.contactName = contactName;
     }
 
     @NonNull
@@ -44,42 +46,45 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final User model = list.get(position);
 
-        holder.userName.setText(model.getUsername());
+        holder.userName.setText(contactName);
 
         getUserId = model.getUid();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        usersRef.child(getUserId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if ((snapshot.exists()) && (snapshot.hasChild("image")) && (snapshot.hasChild("username")) && (!getUserId.equals(firebaseUser.getUid()))){
 
-                    Picasso.get().load(model.getImage()).into(holder.userProfile);
+        if (!getUserId.equals(firebaseUser.getUid())){
+            usersRef.child(getUserId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if ((snapshot.exists()) && (snapshot.hasChild("image"))){
 
-                } else {
-                    String getUsername = model.getUsername();
-                    String[] nameParts = getUsername.split(" ");
-                    String firstName = nameParts[0];
-                    String firstNameChar = firstName.substring(0, 1).toUpperCase();
+                        Picasso.get().load(model.getImage()).into(holder.userProfile);
 
-                    if (nameParts.length > 1){
-                        String lastName = nameParts[nameParts.length - 1];
-                        String lastNameChar = lastName.substring(0, 1).toUpperCase();
-
-                        String fullNameChar = firstNameChar + lastNameChar;
-
-                        holder.userNameFirstAndLastLetter.setText(fullNameChar);
                     } else {
-                        holder.userNameFirstAndLastLetter.setText(firstNameChar);
+                        String getUsername = contactName;
+                        String[] nameParts = getUsername.split(" ");
+                        String firstName = nameParts[0];
+                        String firstNameChar = firstName.substring(0, 1).toUpperCase();
+
+                        if (nameParts.length > 1){
+                            String lastName = nameParts[nameParts.length - 1];
+                            String lastNameChar = lastName.substring(0, 1).toUpperCase();
+
+                            String fullNameChar = firstNameChar + lastNameChar;
+
+                            holder.userNameFirstAndLastLetter.setText(fullNameChar);
+                        } else {
+                            holder.userNameFirstAndLastLetter.setText(firstNameChar);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override

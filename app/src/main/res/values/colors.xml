@@ -13,7 +13,8 @@
 
     <color name="colorBlack">#302F2F</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorLightWhite">#D2DFDEDE</color>
+    <color name="colorLowWhite">#E8E7E7</color>
+    <color name="colorLightWhite">#D2CFCECE</color>
     <color name="colorDarkWhite">#979696</color>
     <color name="colorLightDark">#EB6C6C6C</color>
 
@@ -28,7 +29,7 @@
 
 
     <!-- shows on background when on pressed is called-->
-    <color name="colorOnPressed">#C1EAE7E7</color>
+    <color name="colorOnPressed">#C1E4E3E3</color>
 
     <!-- Custom Color for Enabled and Disabled button -->
     <color name="colorEnabledButton">#7E57C2</color>

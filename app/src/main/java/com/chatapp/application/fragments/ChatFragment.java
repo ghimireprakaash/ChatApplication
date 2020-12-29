@@ -1,7 +1,10 @@
 package com.chatapp.application.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder.OnItemClickListener {
+    private Context context;
+
     private TextView noChatHistoryText;
     private RecyclerView chatRecyclerView;
     private FloatingActionButton chat_fab;
@@ -39,6 +44,7 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
     private List<User> listUsers;
 
     private List<ChatList> usersList;
+    private String phoneContactName;
 
     private DatabaseReference databaseReference;
     private FirebaseUser currentUser;
@@ -80,6 +86,13 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         getChatWithUsers();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        this.context = context;
     }
 
     private void getChatWithUsers(){
@@ -128,12 +141,32 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
                         for (ChatList list : usersList){
                             assert user != null;
                             if (user.getUid().equals(list.getId())){
+                                String contact = user.getContact();
+
+                                Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                                        null, null, null,null);
+
+                                assert cursor != null;
+                                while (cursor.moveToNext()){
+                                    String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                                    String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                                    String phoneContact = contactNumber.replaceAll("\\s|-", "");
+
+                                    ShowFriendsActivity showFriendsActivity = new ShowFriendsActivity();
+                                    if (contact.equals(phoneContact) || showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(phoneContact)){
+                                        phoneContactName = contactName;
+                                    }
+                                }
+                                cursor.close();
+
+
                                 listUsers.add(user);
                             }
                         }
                     }
 
-                    adapter = new ChatListAdapter(listUsers, ChatFragment.this);
+                    adapter = new ChatListAdapter(listUsers, ChatFragment.this, phoneContactName);
                     chatRecyclerView.setAdapter(adapter);
                 }
             }
@@ -145,51 +178,12 @@ public class ChatFragment extends Fragment implements ChatListAdapter.ViewHolder
         });
     }
 
-//    private void readChats() {
-//        listUsers = new ArrayList<>();
-//
-//        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                listUsers.clear();
-//
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    User user = dataSnapshot.getValue(User.class);
-//
-//                    //Display user with whom chat is going on
-//                    for (String id : usersList){
-//                        assert user != null;
-//                        if (user.getUid().equals(id)){
-//                            if (listUsers.size() != 0){
-//                                for (User user1 : listUsers){
-//                                    if (!user.getUid().equals(user1.getUid())){
-//                                        listUsers.add(user);
-//                                    }
-//                                }
-//                            } else {
-//                                listUsers.add(user);
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                adapter = new RetrieveUsersAdapter(listUsers, ChatFragment.this);
-//                chatRecyclerView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
 
 
     @Override
     public void OnItemClick(int position) {
         String userId = adapter.getItem(position).getUid();
-        String username = adapter.getItem(position).getUsername();
+        String username = phoneContactName;
 
         Intent intent = new Intent(getContext(), ChatActivity.class);
         intent.putExtra("userId", userId);

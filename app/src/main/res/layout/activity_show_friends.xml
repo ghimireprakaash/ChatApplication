@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".activity.ShowFriendsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -46,7 +47,8 @@
                     tools:ignore="Autofill"
                     android:padding="4dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="10"/>
+                    android:layout_weight="10"
+                    android:imeOptions="actionSearch"/>
 
                 <TextView
                     android:id="@+id/clearText"
@@ -99,14 +101,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <TextView
+        android:id="@+id/horizontalBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="10dp"
+        android:background="@color/colorLowWhite"
+        app:layout_constraintTop_toBottomOf="@id/showUsersOnSearch_recyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"/>
+
     <LinearLayout
         android:id="@+id/showContacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/showUsersOnSearch_recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:visibility="gone">
 

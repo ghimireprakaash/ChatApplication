@@ -20,7 +20,6 @@ import com.chatapp.application.R;
 import com.chatapp.application.activity.VisitContactProfile;
 import com.chatapp.application.adapter.ContactListsAdapter;
 import com.chatapp.application.model.Contacts;
-import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

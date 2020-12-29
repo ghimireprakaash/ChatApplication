@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,9 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +46,7 @@ public class ChatActivity extends AppCompatActivity {
     String userProfileName;
 
     MessageAdapter messageAdapter;
-    List<Chat> chatList;
+    List<Chat> messages;
     RecyclerView messageRecycler;
 
     DatabaseReference databaseReference;
@@ -185,12 +186,12 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void retrieveMessages(final String myId, final String correspondingUserId){
-        chatList = new ArrayList<>();
+        messages = new ArrayList<>();
 
         databaseReference.child("Chats").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                chatList.clear();
+                messages.clear();
 
                 if (snapshot.exists()){
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()){
@@ -199,10 +200,10 @@ public class ChatActivity extends AppCompatActivity {
                         assert chat != null;
                         if ((chat.getReceiver().equals(correspondingUserId)) && (chat.getSender().equals(myId))
                                     || (chat.getReceiver().equals(myId)) && (chat.getSender().equals(correspondingUserId))) {
-                            chatList.add(chat);
+                            messages.add(chat);
                         }
 
-                        messageAdapter = new MessageAdapter(ChatActivity.this, chatList);
+                        messageAdapter = new MessageAdapter(ChatActivity.this, messages);
                         messageRecycler.setAdapter(messageAdapter);
                     }
                 }
@@ -216,23 +217,11 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
-    @SuppressLint("SimpleDateFormat")
     private void checkOnlineOrOfflineStatus(String state){
         String saveCurrentTime, saveCurrentDate;
 
-        Calendar calendar = Calendar.getInstance();
-
-        SimpleDateFormat currentTime;
-        if (android.text.format.DateFormat.is24HourFormat(getApplicationContext())){
-            currentTime = new SimpleDateFormat("HH:mm");
-        }else {
-            currentTime = new SimpleDateFormat("hh:mm a");
-        }
-        saveCurrentTime = currentTime.format(calendar.getTime());
-
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("MMMM dd");
-        saveCurrentDate = currentDate.format(calendar.getTime());
+        saveCurrentTime = getCurrentTime();
+        saveCurrentDate = getCurrentDate();
 
         HashMap<String, Object> userStateMap = new HashMap<>();
         userStateMap.put("time", saveCurrentTime);
@@ -240,6 +229,23 @@ public class ChatActivity extends AppCompatActivity {
         userStateMap.put("state", state);
 
         databaseReference.child("Users").child(currentUser.getUid()).child("userState").updateChildren(userStateMap);
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private String getCurrentTime(){
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat getCurrentTime = new SimpleDateFormat("hh:mm a");
+
+        return getCurrentTime.format(calendar.getTime());
+    }
+
+    private String getCurrentDate(){
+        Calendar calendar = Calendar.getInstance();
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat getCurrentDate = new SimpleDateFormat("MMMM dd");
+
+        return getCurrentDate.format(calendar.getTime());
     }
 
     private void checkUserOnlineOrOfflineState(){
@@ -254,7 +260,35 @@ public class ChatActivity extends AppCompatActivity {
                     if (state.equals("Online")){
                         userStatus.setText(state);
                     } else {
-                        userStatus.setText("Last seen "+date+" "+time);
+                        String currentDate = getCurrentDate();
+                        String lastSeen;
+
+                        //Converting time if its in 24 hour format
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat _24HourTimeFormat = new SimpleDateFormat("HH:mm");
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat _12HourTimeFormat = new SimpleDateFormat("hh:mm a");
+                        try {
+                            Date _12HourTime = _12HourTimeFormat.parse(time);
+                            if (currentDate.equals(date)){
+                                if (DateFormat.is24HourFormat(getApplicationContext())){
+                                    assert _12HourTime != null;
+                                    lastSeen = "Last seen today at " + _24HourTimeFormat.format(_12HourTime);
+                                } else {
+                                    lastSeen = "Last seen today at " + time;
+                                }
+                            } else {
+                                if (DateFormat.is24HourFormat(getApplicationContext())){
+                                    assert _12HourTime != null;
+                                    lastSeen = "Last seen " + date + " at " + _24HourTimeFormat.format(_12HourTime);
+                                } else {
+                                    lastSeen = "Last seen " + date + " at " + time;
+                                }
+                            }
+
+                            userStatus.setText(lastSeen);
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                     }
                 } else {
                     userStatus.setText(R.string.offline);

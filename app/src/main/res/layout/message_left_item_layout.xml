@@ -19,7 +19,7 @@
         android:layout_marginBottom="5dp">
 
         <ImageView
-            android:id="@+id/sender_profile_image"
+            android:id="@+id/profile_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/contact_image_view_shape"
@@ -48,14 +48,31 @@
             android:textColor="@color/colorBlack"
             android:maxWidth="200dp"/>
 
-        <TextView
-            android:id="@+id/messageSentTime"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sentTime"
-            android:textSize="12sp"
-            android:layout_marginStart="10dp"
-            android:layout_gravity="bottom|end"/>
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|end"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/messageSentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sentTime"
+                android:textSize="12sp"
+                android:layout_marginStart="10dp"/>
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/sent"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="5dp"
+                tools:ignore="contentDescription"
+                android:visibility="gone"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

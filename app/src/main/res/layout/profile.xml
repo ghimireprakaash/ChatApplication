@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/editOption"
@@ -96,12 +97,13 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/colorLightWhite"/>
+        app:cardBackgroundColor="@color/colorLowWhite"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/settingsText"
@@ -112,7 +114,7 @@
             android:textAlignment="gravity"
             android:gravity="start|center"
             android:padding="20dp"
-            app:drawableStartCompat="@drawable/settings_30"
+            app:drawableStartCompat="@drawable/settings"
             android:drawablePadding="15dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
@@ -142,7 +144,7 @@
             android:textAlignment="gravity"
             android:gravity="start|center"
             android:padding="20dp"
-            app:drawableStartCompat="@drawable/info_30"
+            app:drawableStartCompat="@drawable/info"
             android:drawablePadding="15dp"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"

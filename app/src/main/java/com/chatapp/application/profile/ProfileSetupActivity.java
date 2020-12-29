@@ -247,8 +247,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
     //User Profile Setup
     private void profileSetup() {
-        OnDatePicker();
-
         final String profileName = setupProfileName.getText().toString();
         final String profileDOB = setupProfileDOB.getText().toString();
 

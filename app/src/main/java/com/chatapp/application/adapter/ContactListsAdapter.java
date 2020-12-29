@@ -10,17 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.model.Contacts;
-import com.chatapp.application.model.User;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 import java.util.List;
-import java.util.Objects;
 
 public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapter.ViewHolder>{
     private static final String TAG = "Adapter";
@@ -55,58 +47,6 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
 
         holder.contactUserName.setText(getPosition.getContact_name());
         holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
-
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    final User user = dataSnapshot.getValue(User.class);
-                    assert user != null;
-                    String userId = user.getUid();
-
-                    DatabaseReference userRef;
-                    userRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
-                    if (!firebaseUser.getUid().equals(userId)){
-                        userRef.child(userId).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                String contact = user.getContact();
-                                String getPhoneContact = getPosition.getContact_number().replaceAll("\\s|-", "");
-
-                                showFriendsActivity = new ShowFriendsActivity();
-
-                                if (contact.equals(getPhoneContact)
-                                || showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(getPhoneContact)){
-                                    holder.inviteText.setVisibility(View.GONE);
-
-                                    if (snapshot.hasChild("image")){
-                                        String image = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
-
-                                        Picasso.get().load(image).into(holder.contactProfile);
-                                        holder.contactNameFirstAndLastLetter.setVisibility(View.GONE);
-                                    } else {
-                                        holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     @Override

@@ -26,11 +26,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     private final List<User> list;
     private final ChatListAdapter.ViewHolder.OnItemClickListener onItemClickListener;
+    private final String phoneContactName;
 
-
-    public ChatListAdapter(List<User> list, ViewHolder.OnItemClickListener onItemClickListener) {
+    public ChatListAdapter(List<User> list, ViewHolder.OnItemClickListener onItemClickListener, String phoneContactName) {
         this.list = list;
         this.onItemClickListener = onItemClickListener;
+        this.phoneContactName = phoneContactName;
     }
 
 
@@ -45,7 +46,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     public void onBindViewHolder(@NonNull final ChatListAdapter.ViewHolder holder, int position) {
         final User model = list.get(position);
 
-        holder.userName.setText(model.getUsername());
+        holder.userName.setText(phoneContactName);
 
         getUserId = model.getUid();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

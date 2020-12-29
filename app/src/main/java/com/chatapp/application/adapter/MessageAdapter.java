@@ -25,7 +25,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
 
-    private Context context;
+    private final Context context;
     private final List<Chat> chat;
 
 
@@ -62,15 +62,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         final User userModel = new User();
         userId = model.getReceiver();
         userImageRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        userImageRef.child(userId).addValueEventListener(new ValueEventListener() {
+        userImageRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Picasso.get().load(userModel.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.sender_profile_image);
-//                if ((snapshot.exists()) && (snapshot.hasChild("image"))){
-//
+                if ((snapshot.exists()) && (snapshot.hasChild("image"))){
+                    Picasso.get().load(userModel.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.profile_image);
 //                    Picasso.get().load(userModel.getImage()).into(holder.sender_profile_image);
-//
-//                } else {
+
+                }
+//                else {
 //                    holder.sender_profile_image.setImageResource(R.drawable.blank_profile_picture);
 //                }
             }
@@ -89,14 +89,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView show_message;
-        ImageView sender_profile_image;
+        ImageView profile_image;
         TextView messageSentTime;
 
         public ViewHolder(View itemView){
             super(itemView);
 
             show_message = itemView.findViewById(R.id.show_message);
-            sender_profile_image = itemView.findViewById(R.id.sender_profile_image);
+            profile_image = itemView.findViewById(R.id.profile_image);
             messageSentTime = itemView.findViewById(R.id.messageSentTime);
         }
     }

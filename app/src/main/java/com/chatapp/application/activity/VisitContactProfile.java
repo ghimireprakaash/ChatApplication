@@ -2,11 +2,11 @@ package com.chatapp.application.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.User;
@@ -18,14 +18,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class VisitContactProfile extends AppCompatActivity {
-    private TextView buttonBack, contactName, contactPhoneNumber, inviteUserTxt, freeMessageTxt;
+    private RelativeLayout buttonBack;
+    private TextView contactName, userStatus, contactPhoneNumber, inviteUserTxt, freeMessageTxt;
     private ImageView contactProfileImage;
 
     String contact_name, contact_number;
@@ -49,6 +49,7 @@ public class VisitContactProfile extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttonBack.setPressed(true);
                 finish();
             }
         });
@@ -75,6 +76,7 @@ public class VisitContactProfile extends AppCompatActivity {
         contactProfileImage = findViewById(R.id.contactProfileImage);
 
         contactName = findViewById(R.id.contactName);
+        userStatus = findViewById(R.id.user_status);
         contactPhoneNumber = findViewById(R.id.contactPhoneNumber);
 
         inviteUserTxt = findViewById(R.id.inviteUserTxt);
@@ -87,12 +89,7 @@ public class VisitContactProfile extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
 
-        SimpleDateFormat currentTime;
-        if (android.text.format.DateFormat.is24HourFormat(this)){
-            currentTime = new SimpleDateFormat("HH:mm");
-        }else {
-            currentTime = new SimpleDateFormat("hh:mm a");
-        }
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
         saveCurrentTime = currentTime.format(calendar.getTime());
 
 
@@ -132,11 +129,11 @@ public class VisitContactProfile extends AppCompatActivity {
                    final User user = dataSnapshot.getValue(User.class);
 
                    String userKey = dataSnapshot.getKey();
-                   DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
                    if (!firebaseUser.getUid().equals(userKey)){
                        assert userKey != null;
-                       userRef.child(userKey).addValueEventListener(new ValueEventListener() {
+                       final DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userKey);
+                       userRef.addValueEventListener(new ValueEventListener() {
                            @Override
                            public void onDataChange(@NonNull DataSnapshot snapshot) {
                                assert user != null;
@@ -147,10 +144,31 @@ public class VisitContactProfile extends AppCompatActivity {
                                if (snapshot.exists() && (snapshot.hasChild("contact"))){
                                    if (user.getContact().equals(contactNumber)
                                            ||  showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(contactNumber)){
+                                       inviteUserTxt.setVisibility(View.GONE);
+
+                                       freeMessageTxt.setVisibility(View.VISIBLE);
                                        Picasso.get().load(user.getImage()).placeholder(R.drawable.blank_profile_picture).into(contactProfileImage);
 
-                                       inviteUserTxt.setVisibility(View.GONE);
-                                       freeMessageTxt.setVisibility(View.VISIBLE);
+                                       userRef.child("userState").addListenerForSingleValueEvent(new ValueEventListener() {
+                                           @Override
+                                           public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                               String state = Objects.requireNonNull(snapshot.child("state").getValue()).toString();
+                                               String date = Objects.requireNonNull(snapshot.child("date").getValue()).toString();
+                                               String time = Objects.requireNonNull(snapshot.child("time").getValue()).toString();
+
+                                               if (state.equals("Online")){
+                                                   userStatus.setText(state);
+                                               } else {
+                                                   String offline = "Last seen "+ date +" at "+ time;
+                                                   userStatus.setText(offline);
+                                               }
+                                           }
+
+                                           @Override
+                                           public void onCancelled(@NonNull DatabaseError error) {
+
+                                           }
+                                       });
                                    }
                                }
                            }

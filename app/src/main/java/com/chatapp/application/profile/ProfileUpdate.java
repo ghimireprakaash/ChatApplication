@@ -14,10 +14,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.chatapp.application.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,6 +56,7 @@ public class ProfileUpdate extends AppCompatActivity {
 
     private RelativeLayout buttonBack;
     private ImageView userProfileImage;
+    private TextView userProfileNameAsIcon;
     private EditText updateProfileName, updateProfileDateOfBirth;
 
 
@@ -65,6 +68,7 @@ public class ProfileUpdate extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_profile_update);
 
         userProfileStorageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
@@ -105,7 +109,6 @@ public class ProfileUpdate extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateProfileImage(v);
                 updateProfile();
                 buttonBack.setPressed(true);
                 finish();
@@ -138,6 +141,7 @@ public class ProfileUpdate extends AppCompatActivity {
     private void init() {
         buttonBack = findViewById(R.id.buttonBack);
         userProfileImage = findViewById(R.id.userImage);
+        userProfileNameAsIcon = findViewById(R.id.userProfileNameAsIcon);
         updateProfileName = findViewById(R.id.updateProfileName);
         updateProfileDateOfBirth = findViewById(R.id.updateProfileDateOfBirth);
     }
@@ -260,8 +264,28 @@ public class ProfileUpdate extends AppCompatActivity {
                     updateProfileName.setText(profileName);
                     updateProfileDateOfBirth.setText(userDOB);
                 } else {
+                    userProfileNameAsIcon.setVisibility(View.VISIBLE);
+
                     String profileName = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
                     String userDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
+
+                    String[] nameParts = profileName.split(" ");
+                    String firstName = nameParts[0];
+                    String firstNameChar = firstName.substring(0, 1).toUpperCase();
+
+                    if (nameParts.length > 1){
+                        String lastName = nameParts[nameParts.length - 1];
+                        String lastNameChar = lastName.substring(0, 1).toUpperCase();
+
+                        String fullNameChar = firstNameChar + lastNameChar;
+
+                        //sets user profile image name if image isn't available
+                        userProfileNameAsIcon.setText(fullNameChar);
+                    } else {
+                        //sets user profile image name if user has only first name and not last name
+                        userProfileNameAsIcon.setText(firstNameChar);
+                    }
+
 
                     updateProfileName.setText(profileName);
                     updateProfileDateOfBirth.setText(userDOB);
