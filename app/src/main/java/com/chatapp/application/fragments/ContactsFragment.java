@@ -86,6 +86,7 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
             contactInfo.setContact_name(contactName);
             contactInfo.setContact_number(contactNumber);
 
+
             //Splitting contact name into substring to get first char from first name and last name
             String[] nameParts = contactName.split(" ");
             String firstName = nameParts[0];
@@ -113,11 +114,10 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
             //Now attaching contactInfo to ArrayList object
             contactsList.add(contactInfo);
         }
+        cursor.close();
 
         adapter = new ContactListsAdapter(contactsList, this);
         recyclerView.setAdapter(adapter);
-
-        cursor.close();
     }
 
 

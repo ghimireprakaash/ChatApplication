@@ -1,14 +1,14 @@
 package com.chatapp.application.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Editable;
@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
 import com.chatapp.application.adapter.RetrieveUsersAdapter;
 import com.chatapp.application.adapter.ShowSearchResultAdapter;
@@ -30,10 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,25 +41,29 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
     Toolbar toolbar;
     LinearLayout showContacts;
-    TextView horizontalBar, searchIcon, clearText;
+    TextView horizontalBar, searchIcon, clearText, newGroupCreateOption;
     EditText searchEditText;
     RecyclerView registeredUserRecyclerView, showSearchedUsersRecyclerView;
 
-    CardView newGroupCreateOption;
-
     List<User> listUsers;
-    List<Contacts> listUsersBasedOnSearch, filteredList;
+    List<Contacts> listUsersBasedOnSearch = new ArrayList<>();
+    List<Contacts> filteredList;
 
-    String phoneContactName;
+
     RetrieveUsersAdapter adapter;
     ShowSearchResultAdapter searchAdapter;
     DatabaseReference userRef;
     FirebaseUser firebaseUser;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         setContentView(R.layout.activity_show_friends);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -122,18 +124,38 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         });
     }
 
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Online");
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
 
-        checkOnlineOrOfflineStatus("Offline");
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Offline");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        checkOnlineOrOfflineStatus("Online");
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Online");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Offline");
     }
 
 
@@ -143,12 +165,7 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
         toolbar = findViewById(R.id.chat_fab_toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         searchIcon = findViewById(R.id.searchIcon);
         clearText = findViewById(R.id.clearText);
@@ -162,25 +179,11 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     }
 
 
-    @SuppressLint("SimpleDateFormat")
-    private void checkOnlineOrOfflineStatus(String state){
-        String saveCurrentTime, saveCurrentDate;
-
-        Calendar calendar = Calendar.getInstance();
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-        saveCurrentTime = currentTime.format(calendar.getTime());
-
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("MMMM dd");
-        saveCurrentDate = currentDate.format(calendar.getTime());
-
-        HashMap<String, Object> userStateMap = new HashMap<>();
-        userStateMap.put("time", saveCurrentTime);
-        userStateMap.put("date", saveCurrentDate);
-        userStateMap.put("state", state);
-
-        userRef.child("Users").child(firebaseUser.getUid()).child("userState").updateChildren(userStateMap);
+    //called when createNewGroup is clicked
+    public void createNewGroup(View view) {
+        newGroupCreateOption.setPressed(true);
+        startActivity(new Intent(ShowFriendsActivity.this, NewGroupActivity.class));
+        finish();
     }
 
 
@@ -194,25 +197,24 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
                     User user = dataSnapshot.getValue(User.class);
 
                     assert user != null;
-                    if (!firebaseUser.getUid().equals(user.getUid())) {
-                        //Retrieving users contact number stored on database
-                        String contact = user.getContact();
-
+                    if (!user.getUid().equals(firebaseUser.getUid())){
                         Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                null, null, null, null);
+                                null, null, null,
+                                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
                         while (cursor.moveToNext()) {
-                            String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                             String contacts = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
                             String contactNumber = contacts.replaceAll("\\s|-", "");
 
-                            //And, taking those contact number without country code to compare with phone contacts...
-                            if (((contact.equals(contactNumber)))
-                                    || ((getPhoneNumberWithoutCountryCode(contact).equals(contactNumber)))) {
-                                phoneContactName = contactName;
+                            //Retrieving users contact number stored on database
+                            String contact = user.getContact();
 
+
+                            //And, taking those contact number without country code to compare with phone contacts...
+                            if (((contact.equals(contactNumber))) || ((getPhoneNumberWithoutCountryCode(contact).equals(contactNumber)))) {
                                 horizontalBar.setVisibility(View.VISIBLE);
                                 showContacts.setVisibility(View.VISIBLE);
+
                                 listUsers.add(user);
                             }
                         }
@@ -220,7 +222,7 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
                     }
                 }
 
-                adapter = new RetrieveUsersAdapter(listUsers, ShowFriendsActivity.this, phoneContactName);
+                adapter = new RetrieveUsersAdapter(getApplicationContext(), listUsers, ShowFriendsActivity.this);
                 registeredUserRecyclerView.setAdapter(adapter);
             }
 
@@ -230,6 +232,8 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
             }
         });
     }
+
+
 
     public String getPhoneNumberWithoutCountryCode(String contact){
         //Creating StringBuilder object
@@ -249,22 +253,57 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     }
 
 
-    //called when createNewGroup is clicked
-    public void createNewGroup(View view) {
-        newGroupCreateOption.setPressed(true);
-        newGroupCreateOption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
+
+    private void getUsersForSearch(){
+        Cursor cursor = getApplicationContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                null,null,null,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+" ASC");
+
+        while (cursor.moveToNext()){
+            final String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            final String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+            userRef.child("Users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        User user = dataSnapshot.getValue(User.class);
+
+                        assert user != null;
+                        if (!user.getUid().equals(firebaseUser.getUid())){
+                            String contact = user.getContact();
+                            String phoneContact = contactNumber.replaceAll("\\s|-", "");
+
+                            if (contact.equals(phoneContact) || getPhoneNumberWithoutCountryCode(contact).equals(phoneContact)){
+                                String userId = user.getUid();
+
+                                Contacts contacts = new Contacts();
+                                contacts.setContact_name(contactName);
+                                contacts.setUid(userId);
+
+
+                                listUsersBasedOnSearch.add(contacts);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        cursor.close();
     }
 
+    //Called to filter users
     private void filterUser(String text) {
         filteredList = new ArrayList<>();
 
         for (Contacts name : listUsersBasedOnSearch){
             filteredList.clear();
-            if (name.getContact_name().toLowerCase().contains(text.toLowerCase())){
+            if (text.toLowerCase().contains(name.getContact_name().toLowerCase())){
                 filteredList.add(name);
             }
         }
@@ -303,63 +342,33 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 //        });
     }
 
-    private void getUsersForSearch(){
-        listUsersBasedOnSearch = new ArrayList<>();
+
+
+    //OnItem click for users on contacts
+    @Override
+    public void OnItemClick(int position) {
+        String userId = adapter.getItem(position).getUid();
 
         Cursor cursor = getApplicationContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null,null,null,
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+" ASC");
-
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
         while (cursor.moveToNext()){
-            final String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            final String contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("\\s|-", "");
 
-            userRef.child("Users").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        User user = dataSnapshot.getValue(User.class);
-
-                        if (!user.getUid().equals(firebaseUser.getUid())){
-                            String contact = user.getContact();
-                            String phoneContact = contactNumber.replaceAll("\\s|-", "");
-
-                            if (contact.equals(phoneContact) || getPhoneNumberWithoutCountryCode(contact).equals(phoneContact)){
-                                String userId = user.getUid();
-
-                                Contacts contacts = new Contacts();
-                                contacts.setContact_name(contactName);
-                                contacts.setUid(userId);
-
-
-                                listUsersBasedOnSearch.add(contacts);
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+            String contact = adapter.getItem(position).getContact();
+            if (contact.equals(phoneNumber) || getPhoneNumberWithoutCountryCode(contact).equals(phoneNumber)){
+                Intent intent = new Intent(ShowFriendsActivity.this, ChatActivity.class);
+                intent.putExtra("userId", userId);
+                intent.putExtra("username", contactName);
+                startActivity(intent);
+                finish();
+            }
         }
         cursor.close();
     }
 
-
-    @Override
-    public void OnItemClick(int position) {
-        String userId = adapter.getItem(position).getUid();
-        String userName = phoneContactName;
-
-        Intent intent = new Intent(ShowFriendsActivity.this, ChatActivity.class);
-        intent.putExtra("userId", userId);
-        intent.putExtra("username", userName);
-        startActivity(intent);
-        finish();
-    }
-
+    //OnItem click for search results
     @Override
     public void OnClickItem(int position) {
         String userId = searchAdapter.getItem(position).getUid();

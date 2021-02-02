@@ -48,23 +48,11 @@ public class DialogFragment extends androidx.fragment.app.DialogFragment {
 
 
         dialogEdit = view.findViewById(R.id.dialogEdit);
-        dialogEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Objects.requireNonNull(getDialog()).dismiss();
-            }
-        });
+        dialogEdit.setOnClickListener(view12 -> Objects.requireNonNull(getDialog()).dismiss());
 
 
         dialogYes = view.findViewById(R.id.dialogYes);
-        dialogYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                requestPermission();
-
-            }
-        });
+        dialogYes.setOnClickListener(view1 -> requestPermission());
     }
 
     //get contact permission

@@ -1,40 +1,34 @@
 <resources>
-    <!-- Splash Screen theme. -->
-    <style name="AppTheme.StartStyle"
-        parent="Theme.AppCompat.Light.NoActionBar">
-
+    <!-- Base application theme. -->
+    <!-- For Light or Classic Mode-->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-    </style>
-
-    <style name="AppTheme.Home"
-        parent="Theme.AppCompat.Light.NoActionBar">
-
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-    </style>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
     </style>
 
 
-    <style name="AppTheme.ProfileUpdate"
-        parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="WindowAnimationStyle">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 
-        <item name="colorPrimaryDark">@color/colorWhiteMixedBlue</item>
-
+    <!--For application title-->
+    <style name="AppTheme.Toolbar" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/audiowide_regular</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="TextAppearance.ContactName" parent="TextAppearance.AppCompat.Display4">
         <item name="android:textColor">@color/colorLightPurple</item>
+    </style>
+
+    <style name="TextAppearance.CustomTextStyle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
 </resources>

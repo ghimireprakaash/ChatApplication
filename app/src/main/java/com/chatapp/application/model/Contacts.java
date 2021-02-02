@@ -7,6 +7,9 @@ public class Contacts {
 
     private String Uid;
 
+    private boolean isSelected = false;
+
+
     public Contacts(){
     }
 
@@ -47,5 +50,13 @@ public class Contacts {
 
     public void setUid(String uid) {
         Uid = uid;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

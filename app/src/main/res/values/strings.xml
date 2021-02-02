@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">ChatApp</string>
+    <string name="app_name">Viber Lite</string>
+    <string name="text">Dark Mode</string>
+
 
     <!-- Start Activity string values... -->
     <string name="welcomeText">Welcome</string>
@@ -69,6 +71,12 @@
     <string name="no_chat_history">No chat history</string>
     <string name="offline">Offline</string>
     <string name="new_message">New Message</string>
-    <string name="sentTime">9:00 AM</string>
+    <string name="type_a_message">Type a message…</string>
+
+    <string name="account">Account</string>
+    <string name="appearance">Appearance</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="classic_theme">Classic Theme</string>
+    <string name="dark_theme">Dark Theme</string>
 
 </resources>

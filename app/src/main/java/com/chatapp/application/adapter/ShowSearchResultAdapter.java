@@ -58,6 +58,7 @@ public class ShowSearchResultAdapter extends RecyclerView.Adapter<ShowSearchResu
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
 
+                    assert user != null;
                     if (!user.getUid().equals(firebaseUser.getUid())){
                         Picasso.get().load(user.getImage()).into(holder.userProfile);
                     }
@@ -91,7 +92,6 @@ public class ShowSearchResultAdapter extends RecyclerView.Adapter<ShowSearchResu
 
         public ViewHolder(View itemView, OnItemClickListener onItemClickListener){
             super(itemView);
-
             this.onItemClickListener = onItemClickListener;
 
             userProfile = itemView.findViewById(R.id.contactProfile);

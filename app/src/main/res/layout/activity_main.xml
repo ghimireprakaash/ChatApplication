@@ -17,8 +17,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            app:title="ChatApp"/>
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/AppTheme.Toolbar"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

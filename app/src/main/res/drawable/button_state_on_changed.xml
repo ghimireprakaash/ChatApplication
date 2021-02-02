@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_enabled="true"
-        android:drawable="@drawable/custom_enabled_button"/>
+    <item android:state_enabled="true">
+        <shape android:shape="rectangle">
 
-    <item android:state_enabled="false"
-        android:drawable="@drawable/custom_disabled_button"/>
+            <solid android:color="@color/colorEnabledButton"/>
+            <corners android:radius="25dp"/>
+            <size android:width="180dp"
+                android:height="50dp"/>
+
+        </shape>
+    </item>
+
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+
+            <solid android:color="@color/colorDisabledButton"/>
+            <corners android:radius="25dp"/>
+            <size android:width="180dp"
+                android:height="50dp"/>
+
+        </shape>
+    </item>
 
 </selector>

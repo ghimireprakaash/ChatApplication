@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import com.chatapp.application.activity.AboutActivity;
+import com.chatapp.application.activity.SettingsActivity;
 import com.chatapp.application.profile.ProfileUpdate;
 import com.chatapp.application.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +32,7 @@ public class MoreOptionFragment extends Fragment {
     private TextView camera_icon;
 
     private TextView userProfileName, userProfileContact, userDOB;
+    private TextView settingsText, addContactText, aboutText;
 
 
     //Declaring Firebase Instance
@@ -70,6 +73,9 @@ public class MoreOptionFragment extends Fragment {
         userProfileContact = view.findViewById(R.id.profileContactNumber);
         userDOB = view.findViewById(R.id.profileDOB);
 
+        settingsText = view.findViewById(R.id.settingsText);
+        addContactText = view.findViewById(R.id.addContactText);
+        aboutText = view.findViewById(R.id.aboutText);
 
         editOption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +93,27 @@ public class MoreOptionFragment extends Fragment {
             public void onClick(View v) {
                 Intent startIntent = new Intent(getActivity(), ProfileUpdate.class);
                 startActivity(startIntent);
+            }
+        });
+
+        settingsText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SettingsActivity.class));
+            }
+        });
+
+        addContactText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        aboutText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AboutActivity.class));
             }
         });
     }

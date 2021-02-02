@@ -1,58 +1,40 @@
 package com.chatapp.application.model;
 
 public class Chat {
-    private String username;
-    private String emptyMessageChat;
-
-    private String sender;
-    private String message;
-    private String receiver;
-    private String messageSentTime;
 
     public Chat() {
     }
 
 
-    //When empty message is set
-    public Chat(String username, String emptyMessageChat) {
-        this.username = username;
-        this.emptyMessageChat = emptyMessageChat;
+
+    private String id;
+
+    //Gets ids of user with whom chat is going on
+    public Chat(String id) {
+        this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getId() {
+        return id;
     }
 
-    public String setUsername(String username) {
-        this.username = username;
-        return username;
-    }
-
-    public String getEmptyMessageChat() {
-        return emptyMessageChat;
-    }
-
-    public void setEmptyMessageChat(String emptyMessageChat) {
-        this.emptyMessageChat = emptyMessageChat;
+    public void setId(String id) {
+        this.id = id;
     }
 
 
+    //gets history of chats like sender id, receiver id, messages, and also messageSentTime
+    private String message;
+    private String sender;
+    private String receiver;
+    private String messageSentTime;
 
 
-    //When message is sent, and received
-    public Chat(String sender, String message, String receiver, String messageSentTime) {
-        this.sender = sender;
+    public Chat(String message, String sender, String receiver, String messageSentTime) {
         this.message = message;
+        this.sender = sender;
         this.receiver = receiver;
         this.messageSentTime = messageSentTime;
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
     }
 
     public String getMessage() {
@@ -61,6 +43,14 @@ public class Chat {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
     public String getReceiver() {

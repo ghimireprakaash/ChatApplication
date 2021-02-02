@@ -1,6 +1,8 @@
 package com.chatapp.application.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.Chat;
-import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +20,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder>{
     public static final int MSG_TYPE_LEFT = 0;
@@ -30,14 +35,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
     FirebaseUser firebaseUser;
-    DatabaseReference userImageRef;
+    DatabaseReference chatRef;
 
     String userId;
 
 
-    public MessageAdapter(Context context, List<Chat> chat) {
+    public MessageAdapter(Context context, List<Chat> chat, String userId) {
         this.context = context;
         this.chat = chat;
+        this.userId = userId;
     }
 
     @NonNull
@@ -57,22 +63,51 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         final Chat model = chat.get(position);
 
         holder.show_message.setText(model.getMessage());
-        holder.messageSentTime.setText(model.getMessageSentTime());
+        final String senderId = model.getSender();
+        final String receiverId = model.getReceiver();
 
-        final User userModel = new User();
-        userId = model.getReceiver();
-        userImageRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        userImageRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        chatRef = FirebaseDatabase.getInstance().getReference();
+        chatRef.child("Messages").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    if (senderId.equals(firebaseUser.getUid()) && receiverId.equals(userId)
+                            || senderId.equals(userId) && receiverId.equals(firebaseUser.getUid())){
+                        String messageSentTime = model.getMessageSentTime();
+
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat _24HourTimeFormat = new SimpleDateFormat("HH:mm");
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat _12HourTimeFormat = new SimpleDateFormat("hh:mm a");
+                        try {
+                            Date _12HourTime = _12HourTimeFormat.parse(messageSentTime);
+                            if (DateFormat.is24HourFormat(context)){
+                                assert _12HourTime != null;
+                                holder.messageSentTime.setText(_24HourTimeFormat.format(_12HourTime));
+                            } else {
+                                holder.messageSentTime.setText(messageSentTime);
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        chatRef.child("Users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if ((snapshot.exists()) && (snapshot.hasChild("image"))){
-                    Picasso.get().load(userModel.getImage()).placeholder(R.drawable.blank_profile_picture).into(holder.profile_image);
-//                    Picasso.get().load(userModel.getImage()).into(holder.sender_profile_image);
+                    String image = Objects.requireNonNull(snapshot.child("image").getValue()).toString();
 
+                    Picasso.get().load(image).placeholder(R.drawable.blank_profile_picture).into(holder.profile_image);
                 }
-//                else {
-//                    holder.sender_profile_image.setImageResource(R.drawable.blank_profile_picture);
-//                }
             }
 
             @Override

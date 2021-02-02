@@ -83,70 +83,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/colorWhite"
+        android:background="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/messageBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/messageBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@android:color/transparent"
-                android:hint="Type a message..."
-                android:padding="12dp"
-                android:textSize="16sp"
-                android:inputType="text"
-                tools:ignore="Autofill"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <ImageView
-                    android:id="@+id/emoji_select"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/emoji_select"
-                    android:layout_weight="1"
-                    tools:ignore="contentDescription"/>
-
-                <ImageView
-                    android:id="@+id/gallery_pick"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/gallery_pick"
-                    android:layout_weight="1"
-                    tools:ignore="contentDescription"/>
-
-                <ImageView
-                    android:id="@+id/open_camera"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/open_camera"
-                    android:layout_weight="1"
-                    tools:ignore="contentDescription"/>
-
-                <ImageView
-                    android:id="@+id/more"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/more"
-                    android:layout_weight="1"
-                    tools:ignore="contentDescription"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:hint="@string/type_a_message"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:inputType="text"
+            tools:ignore="Autofill"/>
 
         <ImageButton
             android:id="@+id/buttonMessageSend"
@@ -156,8 +109,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/rounded_image_button_background"
             android:src="@drawable/ic_baseline_send"
-            tools:ignore="contentDescription"
-            android:onClick="onSendButtonClicked"/>
+            tools:ignore="contentDescription"/>
 
     </LinearLayout>
 

@@ -1,5 +1,8 @@
 package com.chatapp.application.adapter;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
+import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.model.User;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,19 +22,17 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdapter.ViewHolder>{
-    private FirebaseUser firebaseUser;
+    Context context;
     private DatabaseReference usersRef;
-    private String getUserId;
 
-    private final String contactName;
-    private List<User> list;
+    private final List<User> list;
     private final ViewHolder.OnItemClickListener onItemClickListener;
 
 
-    public RetrieveUsersAdapter(List<User> list, ViewHolder.OnItemClickListener onItemClickListener, String contactName) {
+    public RetrieveUsersAdapter(Context context, List<User> list, ViewHolder.OnItemClickListener onItemClickListener) {
+        this.context = context;
         this.list = list;
         this.onItemClickListener = onItemClickListener;
-        this.contactName = contactName;
     }
 
     @NonNull
@@ -45,46 +45,58 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final User model = list.get(position);
+        String getUserId = model.getUid();
 
-        holder.userName.setText(contactName);
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(getUserId);
+        String userContactNumber = model.getContact();
 
-        getUserId = model.getUid();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                null,null,null,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
+        while (cursor.moveToNext()) {
+            String phoneContact = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("\\s|-", "");
+            String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 
-        if (!getUserId.equals(firebaseUser.getUid())){
-            usersRef.child(getUserId).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if ((snapshot.exists()) && (snapshot.hasChild("image"))){
+            ShowFriendsActivity showFriendsActivity = new ShowFriendsActivity();
+            if (userContactNumber.equals(phoneContact) || showFriendsActivity.getPhoneNumberWithoutCountryCode(userContactNumber).equals(phoneContact)){
+                //setting username to the placeHolder that we get from the user's phone contact list.s
+                holder.userName.setText(contactName);
 
-                        Picasso.get().load(model.getImage()).into(holder.userProfile);
+                usersRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if ((snapshot.exists()) && (snapshot.hasChild("image"))){
 
-                    } else {
-                        String getUsername = contactName;
-                        String[] nameParts = getUsername.split(" ");
-                        String firstName = nameParts[0];
-                        String firstNameChar = firstName.substring(0, 1).toUpperCase();
+                            Picasso.get().load(model.getImage()).into(holder.userProfile);
 
-                        if (nameParts.length > 1){
-                            String lastName = nameParts[nameParts.length - 1];
-                            String lastNameChar = lastName.substring(0, 1).toUpperCase();
-
-                            String fullNameChar = firstNameChar + lastNameChar;
-
-                            holder.userNameFirstAndLastLetter.setText(fullNameChar);
                         } else {
-                            holder.userNameFirstAndLastLetter.setText(firstNameChar);
+                            //after we get contact names of matched users it is checked if it matches the regex
+                            //And picking first char from first name and last name it is set to the image holder if image is empty in firebase
+                            String[] nameParts = contactName.split(" ");
+                            String firstName = nameParts[0];
+                            String firstNameChar = firstName.substring(0, 1).toUpperCase();
+
+                            if (nameParts.length > 1) {
+                                String lastName = nameParts[nameParts.length - 1];
+                                String lastNameChar = lastName.substring(0, 1).toUpperCase();
+
+                                String fullNameChar = firstNameChar + lastNameChar;
+
+                                holder.userNameFirstAndLastLetter.setText(fullNameChar);
+                            } else {
+                                holder.userNameFirstAndLastLetter.setText(firstNameChar);
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+                    }
+                });
+            }
         }
+        cursor.close();
     }
 
     @Override
@@ -105,7 +117,6 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
 
         public ViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
-
             this.onItemClickListener = onItemClickListener;
 
             userProfile = itemView.findViewById(R.id.contactProfile);

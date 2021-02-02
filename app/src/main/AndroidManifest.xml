@@ -17,9 +17,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name=".notifications.FirebaseService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_SERVICE"/>
+            </intent-filter>
+        </service>
+        <service android:name=".notifications.FirebaseMessaging"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <activity
-            android:name=".activity.StartActivity"
-            android:theme="@style/AppTheme.StartStyle">
+            android:name=".activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,20 +43,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterActivity" />
-        <activity
-            android:name=".activity.OTPActivity"
-            android:theme="@style/AppTheme.Home" />
+        <activity android:name=".activity.OTPActivity"/>
         <activity android:name=".profile.ProfileSetupActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
+
         <activity android:name=".activity.MainActivity" />
-        <activity
-            android:name=".profile.ProfileUpdate"
-            android:theme="@style/AppTheme.ProfileUpdate" />
-        <activity android:name=".activity.VisitContactProfile"/>
+        <activity android:name=".profile.ProfileUpdate"/>
+        <activity android:name=".activity.VisitContactProfile" />
         <activity android:name=".activity.ShowFriendsActivity" />
-        <activity android:name=".activity.ChatActivity"/>
+        <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.NewGroupActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.SettingsActivity" />
     </application>
 
 </manifest>

@@ -1,5 +1,8 @@
 package com.chatapp.application.adapter;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +13,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.model.Contacts;
-import com.google.firebase.auth.FirebaseUser;
+import com.chatapp.application.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import java.util.List;
+import java.util.Objects;
 
 public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapter.ViewHolder>{
     private static final String TAG = "Adapter";
 
+    Context context;
+
     List<Contacts> lists;
     private final OnItemClickListener onItemClickListener;
 
-    DatabaseReference databaseReference;
-    FirebaseUser firebaseUser;
-
-    ShowFriendsActivity showFriendsActivity;
+    DatabaseReference userRef;
 
 
     public ContactListsAdapter(List<Contacts> lists, OnItemClickListener onItemClickListener){
@@ -47,6 +56,36 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
 
         holder.contactUserName.setText(getPosition.getContact_name());
         holder.contactNameFirstAndLastLetter.setText(getPosition.getUserName_firstLetter_and_lastLetter());
+
+
+        String currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    User user = dataSnapshot.getValue(User.class);
+                    assert user != null;
+                    String userId = user.getUid();
+                    if (!userId.equals(currentUser)){
+                        String contact = user.getContact();
+                        String phoneNumber = getPosition.getContact_number().replaceAll("\\s|-", "");
+
+                        ShowFriendsActivity showFriendsActivity = new ShowFriendsActivity();
+                        if (contact.equals(phoneNumber) || showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(phoneNumber)){
+                            String image = user.getImage();
+                            Picasso.get().load(image).placeholder(R.drawable.blank_profile_picture).into(holder.contactProfile);
+                            holder.contactNameFirstAndLastLetter.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -63,6 +102,9 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
     }
+
+
+
 
 
     //ViewHolder Class...

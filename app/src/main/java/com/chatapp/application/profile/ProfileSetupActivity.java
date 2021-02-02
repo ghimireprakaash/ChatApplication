@@ -73,9 +73,14 @@ public class ProfileSetupActivity extends AppCompatActivity {
     private StorageReference filePath;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         setContentView(R.layout.activity_profile_setup);
 
         //Initializing Instance
@@ -93,23 +98,13 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
         setupProfileImage.setPressed(false);
         //Image setup via gallery access
-        setupProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setupProfileImage();
-            }
-        });
+        setupProfileImage.setOnClickListener(view -> setupProfileImage());
 
         //open calender so user can pick his/her birth date...
         OnDatePicker();
 
         //On click button set, it setups the user information
-        btnSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                profileSetup();
-            }
-        });
+        btnSet.setOnClickListener(view -> profileSetup());
     }
 
 
@@ -135,22 +130,16 @@ public class ProfileSetupActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
         //Date Picker
-        setupProfileDOB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileSetupActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                month = month+1;
-                                String date = day+"/"+month+"/"+year;
-                                setupProfileDOB.setText(date);
+        setupProfileDOB.setOnClickListener(view -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileSetupActivity.this,
+                    (datePicker, year, month, day) -> {
+                        month = month+1;
+                        String date = day+"/"+month+"/"+year;
+                        setupProfileDOB.setText(date);
 
-                                setDate(year, month, day);
-                            }
-                        }, year, month, day);
-                datePickerDialog.show();
-            }
+                        setDate(year, month, day);
+                    }, year, month, day);
+            datePickerDialog.show();
         });
     }
 
@@ -198,36 +187,19 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
                 //Uploads the profile to firebase storage
                 filePath = userProfileImagesStorageRef.child(currentUserID + ".jpg");
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (!task.isSuccessful()){
-                            String exception = Objects.requireNonNull(task.getException()).toString();
-                            Toast.makeText(getApplicationContext(), "Error selecting image "+ exception, Toast.LENGTH_LONG).show();
-                        } else {
-                            filePath.getDownloadUrl()
-                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (!(task.isSuccessful())) {
-                                                                //returns error message if uploading image to the firebase database is failed
-                                                                Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
-                                                            }
-                                                        }
-                                                    });
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.d(TAG, "onFailure: " + e.getMessage());
-                                        }
-                                    });
-                        }
+                filePath.putFile(resultUri).addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()){
+                        String exception = Objects.requireNonNull(task.getException()).toString();
+                        Toast.makeText(getApplicationContext(), "Error selecting image "+ exception, Toast.LENGTH_LONG).show();
+                    } else {
+                        filePath.getDownloadUrl()
+                                .addOnSuccessListener(uri -> databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
+                                        .addOnCompleteListener(task1 -> {
+                                            if (!(task1.isSuccessful())) {
+                                                //returns error message if uploading image to the firebase database is failed
+                                                Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task1.getException()).toString(), Toast.LENGTH_LONG).show();
+                                            }
+                                        }));
                     }
                 });
             }
@@ -268,46 +240,18 @@ public class ProfileSetupActivity extends AppCompatActivity {
             profileMap.put("contact", getFullPhoneNumber);
             profileMap.put("search", profileName.toLowerCase());
 
-//            getImageUri();
 
             databaseReference.child("Users").child(currentUserID).setValue(profileMap)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
-                        }
+                    .addOnCompleteListener(task -> {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
                     });
         }
     }
 
 
-    private void getImageUri(){
-        filePath.getDownloadUrl()
-                .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        databaseReference.child("Users").child(currentUserID).child("image").setValue(uri.toString())
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (!(task.isSuccessful())) {
-                                            //returns error message if uploading image to the firebase database is failed
-                                            Toast.makeText(getApplicationContext(), "Error: " + Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG).show();
-                                        }
-                                    }
-                                });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: " + e.getMessage());
-                    }
-                });
-    }
 
     private void retrieveUserInfo() {
         databaseReference.child("Users").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -322,9 +266,10 @@ public class ProfileSetupActivity extends AppCompatActivity {
                     camera_icon.setVisibility(View.GONE);
                     Picasso.get().load(getUserProfileImage).into(setupProfileImage);
 
+                    storeProfileImage(getUserProfileImage);
+
                     setupProfileName.setText(getUserName);
                     setupProfileDOB.setText(getUserDOB);
-
 
                 } else if ((snapshot.exists()) && (snapshot.hasChild("username"))) {
 
@@ -347,6 +292,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
         });
     }
 
+    private void storeProfileImage(String getUserProfileImage) {
+        databaseReference.child("Users").child(currentUserID).child("image").setValue(getUserProfileImage);
+    }
 
 
     @Override

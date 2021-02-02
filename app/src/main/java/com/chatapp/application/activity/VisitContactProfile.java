@@ -1,13 +1,23 @@
 package com.chatapp.application.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
 import com.chatapp.application.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,26 +28,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class VisitContactProfile extends AppCompatActivity {
     private RelativeLayout buttonBack;
-    private TextView contactName, userStatus, contactPhoneNumber, inviteUserTxt, freeMessageTxt;
+    private TextView contactName, userStatus, contactPhoneNumber, inviteUserTxt, sendMessageTxt;
     private ImageView contactProfileImage;
-
-    String contact_name, contact_number;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
     ShowFriendsActivity showFriendsActivity;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
         setContentView(R.layout.activity_visit_contact_profile);
 
 
@@ -46,30 +63,49 @@ public class VisitContactProfile extends AppCompatActivity {
 
         init();
 
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonBack.setPressed(true);
-                finish();
-            }
+        buttonBack.setOnClickListener(v -> {
+            buttonBack.setPressed(true);
+            finish();
         });
 
         getUserProfileInfo();
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        checkOnlineOrOfflineStatus("Offline");
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Offline");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        checkOnlineOrOfflineStatus("Online");
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Online");
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        CheckUserOnlineOfflineState userOnlineOfflineState = new CheckUserOnlineOfflineState(getApplicationContext());
+        userOnlineOfflineState.checkOnlineOrOfflineStatus("Offline");
+    }
+
+
 
     private void init() {
         buttonBack = findViewById(R.id.contactButtonBack);
@@ -80,48 +116,31 @@ public class VisitContactProfile extends AppCompatActivity {
         contactPhoneNumber = findViewById(R.id.contactPhoneNumber);
 
         inviteUserTxt = findViewById(R.id.inviteUserTxt);
-        freeMessageTxt = findViewById(R.id.freeMessageTxt);
+        sendMessageTxt = findViewById(R.id.sendMessageTxt);
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private void checkOnlineOrOfflineStatus(String state){
-        String saveCurrentTime, saveCurrentDate;
 
+
+    private String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
 
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-        saveCurrentTime = currentTime.format(calendar.getTime());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat getCurrentDate = new SimpleDateFormat("MMMM dd");
 
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("MMMM dd");
-        saveCurrentDate = currentDate.format(calendar.getTime());
-
-        HashMap<String, Object> userStateMap = new HashMap<>();
-        userStateMap.put("time", saveCurrentTime);
-        userStateMap.put("date", saveCurrentDate);
-        userStateMap.put("state", state);
-
-        databaseReference.child("Users").child(firebaseUser.getUid()).child("userState").updateChildren(userStateMap);
+        return getCurrentDate.format(calendar.getTime());
     }
-
 
     private void getUserProfileInfo() {
-        contact_name = getIntent().getStringExtra("contact_username");
+        String contact_name = getIntent().getStringExtra("contact_username");
         contactName.setText(contact_name);
 
-        contact_number = getIntent().getStringExtra("contact_number");
+        String contact_number = getIntent().getStringExtra("contact_number");
         contactPhoneNumber.setText(contact_number);
-        contactPhoneNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                contactPhoneNumber.setPressed(true);
-            }
-        });
+        contactPhoneNumber.setOnClickListener(v -> contactPhoneNumber.setPressed(true));
 
-        checkUserAvailability(contact_number);
+        checkUserAvailability(contact_name, contact_number);
     }
 
-    private void checkUserAvailability(final String contact_number){
+    private void checkUserAvailability(final String contact_name, final String contact_number){
         databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -141,35 +160,38 @@ public class VisitContactProfile extends AppCompatActivity {
                                String contactNumber = contact_number.replaceAll("\\s|-", "");
 
                                showFriendsActivity = new ShowFriendsActivity();
-                               if (snapshot.exists() && (snapshot.hasChild("contact"))){
-                                   if (user.getContact().equals(contactNumber)
-                                           ||  showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(contactNumber)){
-                                       inviteUserTxt.setVisibility(View.GONE);
+                               if (user.getContact().equals(contactNumber)
+                                       ||  showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(contactNumber)){
+                                   inviteUserTxt.setVisibility(View.GONE);
 
-                                       freeMessageTxt.setVisibility(View.VISIBLE);
-                                       Picasso.get().load(user.getImage()).placeholder(R.drawable.blank_profile_picture).into(contactProfileImage);
+                                   sendMessageTxt.setVisibility(View.VISIBLE);
+                                   sendMessageTxt.setOnClickListener(v -> {
+                                       sendMessageTxt.setPressed(true);
 
-                                       userRef.child("userState").addListenerForSingleValueEvent(new ValueEventListener() {
-                                           @Override
-                                           public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                               String state = Objects.requireNonNull(snapshot.child("state").getValue()).toString();
-                                               String date = Objects.requireNonNull(snapshot.child("date").getValue()).toString();
-                                               String time = Objects.requireNonNull(snapshot.child("time").getValue()).toString();
+                                       Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                                       intent.putExtra("userId", userKey);
+                                       intent.putExtra("username", contact_name);
 
-                                               if (state.equals("Online")){
-                                                   userStatus.setText(state);
-                                               } else {
-                                                   String offline = "Last seen "+ date +" at "+ time;
-                                                   userStatus.setText(offline);
-                                               }
-                                           }
+                                       startActivity(intent);
+                                   });
 
-                                           @Override
-                                           public void onCancelled(@NonNull DatabaseError error) {
+                                   Picasso.get().load(user.getImage()).placeholder(R.drawable.blank_profile_picture).into(contactProfileImage);
 
-                                           }
-                                       });
-                                   }
+                                   userRef.child("userState").addListenerForSingleValueEvent(new ValueEventListener() {
+                                       @Override
+                                       public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                           String state = Objects.requireNonNull(snapshot.child("state").getValue()).toString();
+                                           String date = Objects.requireNonNull(snapshot.child("date").getValue()).toString();
+                                           String time = Objects.requireNonNull(snapshot.child("time").getValue()).toString();
+
+                                           detectInternetConnectivity(state, date, time);
+                                       }
+
+                                       @Override
+                                       public void onCancelled(@NonNull DatabaseError error) {
+
+                                       }
+                                   });
                                }
                            }
 
@@ -189,20 +211,47 @@ public class VisitContactProfile extends AppCompatActivity {
         });
     }
 
-//    private String getPhoneNumberWithoutCountryCode(String contact){
-//        //Creating StringBuilder object
-//        StringBuilder reverseNumber = new StringBuilder();
-//        //Reversing original contact number that was fetched from the database
-//        String reversedContact = new StringBuilder(contact).reverse().toString();
-//        reverseNumber.append(reversedContact);
-//
-//        //From the reversed contact number taking 10digits which removes country code
-//        String reverseContactWithoutCode = reversedContact.substring(0, 10);
-//
-//        //Finally reversing the "reverseContactWithoutCode" which results the actual contact number without country code...
-//        String contactWithoutCountryCode = new StringBuilder(reverseContactWithoutCode).reverse().toString();
-//        reverseNumber.append(contactWithoutCountryCode);
-//
-//        return contactWithoutCountryCode;
-//    }
+    public void detectInternetConnectivity(String state, String date, String time){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null){
+            if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI || networkInfo.getType() == ConnectivityManager.TYPE_MOBILE){
+                if (state.equals("Online")){
+                    userStatus.setText(state);
+                } else {
+                    String currentDate = getCurrentDate();
+                    String lastSeen;
+
+                    //Converting time if its in 24 hour format
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat _24HourTimeFormat = new SimpleDateFormat("HH:mm");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat _12HourTimeFormat = new SimpleDateFormat("hh:mm a");
+                    try {
+                        Date _12HourTime = _12HourTimeFormat.parse(time);
+                        if (currentDate.equals(date)){
+                            if (DateFormat.is24HourFormat(getApplicationContext())){
+                                assert _12HourTime != null;
+                                lastSeen = "Last seen today at " + _24HourTimeFormat.format(_12HourTime);
+                            } else {
+                                lastSeen = "Last seen today at " + time;
+                            }
+                        } else {
+                            if (DateFormat.is24HourFormat(getApplicationContext())){
+                                assert _12HourTime != null;
+                                lastSeen = "Last seen " + date + " at " + _24HourTimeFormat.format(_12HourTime);
+                            } else {
+                                lastSeen = "Last seen " + date + " at " + time;
+                            }
+                        }
+
+                        userStatus.setText(lastSeen);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+           userStatus.setVisibility(View.GONE);
+        }
+    }
 }

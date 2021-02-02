@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,17 +14,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,11 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
@@ -78,8 +71,6 @@ public class ProfileUpdate extends AppCompatActivity {
 
         init();
 
-        retrieveUserInfo();
-
 
         //get instance of calendar
         Calendar calendar = Calendar.getInstance();
@@ -87,33 +78,33 @@ public class ProfileUpdate extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        updateProfileDateOfBirth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileUpdate.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                                month = month+1;
-                                String date = day+"/"+month+"/"+year;
-                                updateProfileDateOfBirth.setText(date);
+        updateProfileDateOfBirth.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileUpdate.this,
+                    (datePicker, year, month, day) -> {
+                        month = month+1;
+                        String date = day+"/"+month+"/"+year;
+                        updateProfileDateOfBirth.setText(date);
 
-                                setDate(year, month, day);
-                            }
-                        }, year, month, day);
-                datePickerDialog.show();
-            }
+                        setDate(year, month, day);
+                    }, year, month, day);
+            datePickerDialog.show();
         });
 
 
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateProfile();
-                buttonBack.setPressed(true);
-                finish();
-            }
+
+        buttonBack.setOnClickListener(v -> {
+            //Updates profile...
+            updateProfile();
+            buttonBack.setPressed(true);
+            finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //Updates profile...
+        updateProfile();
     }
 
     private void setDate(int year, int month, int day){
@@ -122,18 +113,30 @@ public class ProfileUpdate extends AppCompatActivity {
         this.day = day;
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        retrieveUserInfo();
+        CheckUserOnlineOfflineState checkUserOnlineOfflineState = new CheckUserOnlineOfflineState(this);
+        checkUserOnlineOfflineState.checkOnlineOrOfflineStatus("Online");
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
 
-        checkOnlineOrOfflineStatus("Offline");
+        CheckUserOnlineOfflineState checkUserOnlineOfflineState = new CheckUserOnlineOfflineState(this);
+        checkUserOnlineOfflineState.checkOnlineOrOfflineStatus("Offline");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        checkOnlineOrOfflineStatus("Online");
+        CheckUserOnlineOfflineState checkUserOnlineOfflineState = new CheckUserOnlineOfflineState(this);
+        checkUserOnlineOfflineState.checkOnlineOrOfflineStatus("Online");
     }
 
 
@@ -147,110 +150,6 @@ public class ProfileUpdate extends AppCompatActivity {
     }
 
 
-
-    //Setup profile image if profile was not added on first time profile setup
-    public void updateProfileImage(View view) {
-        CropImage.startPickImageActivity(ProfileUpdate.this);
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK){
-            Uri imageUri = CropImage.getPickImageResultUri(this, data);
-
-            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)){
-                uri = imageUri;
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PICK);
-            }else {
-                startImageCrop(imageUri);
-            }
-        }
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
-            if (resultCode == RESULT_OK){
-                assert result != null;
-                Uri resultUri = result.getUri();
-
-                //setting image uri to user profile image view
-                userProfileImage.setImageURI(resultUri);
-
-                final StorageReference filePath = userProfileStorageRef.child(currentUserID + ".jpg");
-                filePath.putFile(resultUri)
-                        .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                if (!task.isSuccessful()){
-
-                                    String message = Objects.requireNonNull(task.getException()).getMessage();
-                                    Toast.makeText(getApplicationContext(), "Error uploading "+message, Toast.LENGTH_LONG).show();
-
-                                }else {
-                                    filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            Log.d(TAG, "onSuccess: downloadUrl: "+uri.toString());
-
-                                            databaseReference.child("Users").child(currentUserID).child("image")
-                                                    .setValue(uri.toString())
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.d(TAG, "onFailure: "+e.getMessage());
-                                                    Toast.makeText(getApplicationContext(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        }
-                                    })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.d(TAG, "onFailure: "+e.getMessage());
-                                                    Toast.makeText(getApplicationContext(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-
-                                }
-                            }
-                        });
-            }
-        }
-    }
-
-    private void startImageCrop(Uri imageUri) {
-        CropImage.activity(imageUri)
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setAspectRatio(1,1)
-                .setMultiTouchEnabled(true)
-                .start(this);
-    }
-
-
-    private void updateProfile(){
-        String profileName = updateProfileName.getText().toString();
-        String profileDOB = updateProfileDateOfBirth.getText().toString();
-
-        if (TextUtils.isEmpty(profileName)){
-            updateProfileName.setError("Can't be left empty");
-            updateProfileName.requestFocus();
-        } else if (TextUtils.isEmpty(profileDOB)){
-            updateProfileDateOfBirth.setError("Can't be left empty");
-            updateProfileDateOfBirth.requestFocus();
-        } else {
-            HashMap<String, Object> updateProfileMap = new HashMap<>();
-            updateProfileMap.put("username", profileName);
-            updateProfileMap.put("dob", profileDOB);
-            updateProfileMap.put("search", profileName.toLowerCase());
-
-            databaseReference.child("Users").child(currentUserID).updateChildren(updateProfileMap);
-        }
-    }
-
     private void retrieveUserInfo(){
         databaseReference.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -261,6 +160,8 @@ public class ProfileUpdate extends AppCompatActivity {
                     String userDOB = Objects.requireNonNull(snapshot.child("dob").getValue()).toString();
 
                     Picasso.get().load(profileImage).into(userProfileImage);
+                    userProfileNameAsIcon.setVisibility(View.GONE);
+
                     updateProfileName.setText(profileName);
                     updateProfileDateOfBirth.setText(userDOB);
                 } else {
@@ -300,29 +201,90 @@ public class ProfileUpdate extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private void checkOnlineOrOfflineStatus(String state){
-        String saveCurrentTime, saveCurrentDate;
 
-        Calendar calendar = Calendar.getInstance();
+    //Setup profile image if profile was not added on first time profile setup
+    public void updateProfileImage(View view) {
+        CropImage.startPickImageActivity(ProfileUpdate.this);
+    }
 
-        SimpleDateFormat currentTime;
-        if (android.text.format.DateFormat.is24HourFormat(this)){
-            currentTime = new SimpleDateFormat("HH:mm");
-        }else {
-            currentTime = new SimpleDateFormat("hh:mm a");
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == RESULT_OK){
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+
+            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)){
+                uri = imageUri;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PICK);
+            }else {
+                startImageCrop(imageUri);
+            }
         }
-        saveCurrentTime = currentTime.format(calendar.getTime());
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK){
+                assert result != null;
+                Uri resultUri = result.getUri();
+
+                //setting image uri to user profile image view
+                userProfileImage.setImageURI(resultUri);
+
+                final StorageReference filePath = userProfileStorageRef.child(currentUserID + ".jpg");
+                filePath.putFile(resultUri)
+                        .addOnCompleteListener(task -> {
+                            if (!task.isSuccessful()){
+
+                                String message = Objects.requireNonNull(task.getException()).getMessage();
+                                Toast.makeText(getApplicationContext(), "Error uploading "+message, Toast.LENGTH_LONG).show();
+
+                            }else {
+                                filePath.getDownloadUrl().addOnSuccessListener(uri -> {
+                                    Log.d(TAG, "onSuccess: downloadUrl: "+uri.toString());
+
+                                    databaseReference.child("Users").child(currentUserID).child("image")
+                                            .setValue(uri.toString())
+                                            .addOnFailureListener(e -> {
+                                                Log.d(TAG, "onFailure: "+e.getMessage());
+                                                Toast.makeText(getApplicationContext(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            });
+                                });
+                            }
+                        });
+            }
+        }
+    }
+
+    private void startImageCrop(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1,1)
+                .setMultiTouchEnabled(true)
+                .start(this);
+    }
 
 
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("MMMM dd");
-        saveCurrentDate = currentDate.format(calendar.getTime());
+    private void updateProfile(){
+        String profileName = updateProfileName.getText().toString();
+        String profileDOB = updateProfileDateOfBirth.getText().toString();
 
-        HashMap<String, Object> userStateMap = new HashMap<>();
-        userStateMap.put("time", saveCurrentTime);
-        userStateMap.put("date", saveCurrentDate);
-        userStateMap.put("state", state);
+        if (TextUtils.isEmpty(profileName)){
+            updateProfileName.setError("Can't be left empty");
+            updateProfileName.requestFocus();
+        } else if (TextUtils.isEmpty(profileDOB)){
+            updateProfileDateOfBirth.setError("Can't be left empty");
+            updateProfileDateOfBirth.requestFocus();
+        } else {
+            HashMap<String, Object> updateProfileMap = new HashMap<>();
+            updateProfileMap.put("username", profileName);
+            updateProfileMap.put("dob", profileDOB);
+            updateProfileMap.put("search", profileName.toLowerCase());
 
-        databaseReference.child("Users").child(currentUserID).child("userState").updateChildren(userStateMap);
+            databaseReference.child("Users").child(currentUserID).updateChildren(updateProfileMap);
+        }
     }
 }
