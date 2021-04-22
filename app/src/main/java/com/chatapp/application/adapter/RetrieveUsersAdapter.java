@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.model.User;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -111,8 +112,8 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView userProfile;
-        TextView userNameFirstAndLastLetter, userName, inviteText;
-
+        TextView userNameFirstAndLastLetter, userName;
+        MaterialCardView inviteCard;
         OnItemClickListener onItemClickListener;
 
         public ViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
@@ -122,8 +123,8 @@ public class RetrieveUsersAdapter extends RecyclerView.Adapter<RetrieveUsersAdap
             userProfile = itemView.findViewById(R.id.contactProfile);
             userNameFirstAndLastLetter = itemView.findViewById(R.id.contactNameFirstAndLastLetter);
             userName = itemView.findViewById(R.id.contactUserName);
-            inviteText = itemView.findViewById(R.id.inviteText);
-            inviteText.setVisibility(View.GONE);
+            inviteCard = itemView.findViewById(R.id.inviteCard);
+            inviteCard.setVisibility(View.GONE);
 
             itemView.setOnClickListener(this);
         }

@@ -14,6 +14,7 @@ import com.chatapp.application.R;
 import com.chatapp.application.activity.ShowFriendsActivity;
 import com.chatapp.application.model.Contacts;
 import com.chatapp.application.model.User;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -111,8 +112,8 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView contactNameFirstAndLastLetter;
         ImageView contactProfile;
-        TextView contactUserName, inviteText;
-
+        TextView contactUserName;
+        MaterialCardView contactMaterialCardLayout, inviteCard;
         OnItemClickListener onItemClickListener;
 
         public ViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
@@ -123,10 +124,11 @@ public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapte
             contactNameFirstAndLastLetter = itemView.findViewById(R.id.contactNameFirstAndLastLetter);
             contactProfile = itemView.findViewById(R.id.contactProfile);
             contactUserName = itemView.findViewById(R.id.contactUserName);
-            inviteText = itemView.findViewById(R.id.inviteText);
+            inviteCard = itemView.findViewById(R.id.inviteCard);
+            contactMaterialCardLayout = itemView.findViewById(R.id.contactMaterialCardLayout);
 
 
-            itemView.setOnClickListener(this);
+            contactMaterialCardLayout.setOnClickListener(this);
         }
 
         @Override

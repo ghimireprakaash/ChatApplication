@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context=".activity.ChatActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorWhite"
+        android:background="?attr/backgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,16 +21,23 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <ImageView
+                android:id="@+id/buttonBack"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back"
+                android:layout_gravity="center"
+                android:padding="15dp"
+                tools:ignore="ContentDescription"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?attr/backgroundColor"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp">
 
                 <TextView
                     android:id="@+id/userName"
@@ -37,13 +45,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/username"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/colorBlack" />
+                    android:textColor="?attr/textColor"/>
 
                 <TextView
                     android:id="@+id/userStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="?attr/textColor"/>
 
             </LinearLayout>
 
@@ -51,11 +60,21 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView
+        android:id="@+id/appBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="0.7dp"
+        android:background="@color/colorLightWhite"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorWhite"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        android:background="?attr/backgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/appBarDivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"/>
@@ -83,7 +102,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@android:color/background_light"
+        android:background="?attr/backgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -96,6 +115,8 @@
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
             android:hint="@string/type_a_message"
+            android:textColorHint="?attr/textColorHint"
+            android:textColor="?attr/textColor"
             android:padding="12dp"
             android:textSize="16sp"
             android:inputType="text"

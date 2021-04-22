@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context=".activity.AboutActivity">
 
     <TextView
@@ -28,7 +29,7 @@
         android:padding="7dp"
         android:fontFamily="sans-serif-black"
         android:textSize="16sp"
-        android:textColor="@color/colorBlack"
+        android:textColor="?attr/textColor"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toBottomOf="@+id/appName"
         app:layout_constraintStart_toStartOf="parent"

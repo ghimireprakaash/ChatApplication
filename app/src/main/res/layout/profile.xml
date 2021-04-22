@@ -1,149 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/editOption"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/editOption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/edit_24"
-            android:layout_gravity="end"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/profileImageLayout"
-            android:layout_width="120dp"
-            android:layout_height="115dp"
-            app:cardCornerRadius="46dp"
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/state_pressed_on_circle_image_view"
-                    android:scaleType="centerCrop"
-                    android:layout_centerInParent="true"
-                    android:contentDescription="@string/user_profile"/>
-
-                <TextView
-                    android:id="@+id/camera_icon"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/camera"
-                    android:layout_centerInParent="true"
-                    android:visibility="visible"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
-
-            <TextView
-                android:id="@+id/profileName"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.3"
-                android:textSize="18sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/colorBlack"
-                android:padding="3dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/profileContactNumber"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:padding="3dp"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/profileDOB"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:padding="3dp"
-                android:gravity="center"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
+        android:src="@drawable/edit_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        tools:ignore="ContentDescription"/>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/colorLowWhite"/>
+        android:id="@+id/profileImageLayout"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        app:cardCornerRadius="46dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/editOption"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <LinearLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/state_pressed_on_circle_image_view"
+                android:scaleType="centerCrop"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/user_profile"/>
+
+            <TextView
+                android:id="@+id/camera_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/camera"
+                android:layout_centerInParent="true"
+                android:visibility="visible"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/profileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/profileImageLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="?attr/textColor"
+        android:padding="3dp"/>
+
+    <TextView
+        android:id="@+id/profileContactNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/profileName"
+        app:layout_constraintStart_toStartOf="@id/profileName"
+        app:layout_constraintEnd_toEndOf="@id/profileName"
+        android:textSize="14sp"
+        android:textColor="?attr/textColor"
+        android:padding="3dp"/>
+
+    <TextView
+        android:id="@+id/profileDOB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/profileContactNumber"
+        app:layout_constraintStart_toStartOf="@id/profileName"
+        app:layout_constraintEnd_toEndOf="@id/profileName"
+        app:layout_constraintBottom_toTopOf="@+id/profileDivider"
+        android:textSize="14sp"
+        android:textColor="?attr/textColor"
+        android:padding="3dp"/>
+
+    <TextView
+        android:id="@+id/profileDivider"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_height="8dp"
+        android:background="?attr/backgroundColorContact"
+        app:layout_constraintTop_toBottomOf="@+id/profileDOB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="3dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/settingsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/profileDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/settingsText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/settings"
             android:textSize="16sp"
+            android:textColor="?attr/textColorHint"
             android:textAlignment="gravity"
             android:gravity="start|center"
             android:padding="20dp"
             app:drawableStartCompat="@drawable/settings"
             android:drawablePadding="15dp"
-            android:background="@drawable/card_background_state"/>
+            android:background="?attr/backgroundColor"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/aboutCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/settingsCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/addContactText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/addContacts"
-            android:textSize="16sp"
-            android:textAlignment="gravity"
-            android:gravity="start|center"
-            android:padding="20dp"
-            app:drawableStartCompat="@drawable/ic_baseline_person_add"
-            android:drawablePadding="15dp"
-            android:background="@drawable/card_background_state"/>
-
-        <TextView
-            android:id="@+id/aboutText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/about"
             android:textSize="16sp"
+            android:textColor="?attr/textColorHint"
             android:textAlignment="gravity"
             android:gravity="start|center"
             android:padding="20dp"
             app:drawableStartCompat="@drawable/info"
             android:drawablePadding="15dp"
-            android:background="@drawable/card_background_state"/>
+            android:background="?attr/backgroundColor"/>
 
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

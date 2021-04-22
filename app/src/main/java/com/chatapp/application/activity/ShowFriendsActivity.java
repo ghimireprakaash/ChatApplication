@@ -3,7 +3,6 @@ package com.chatapp.application.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -16,14 +15,17 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
+import com.chatapp.application.SharedPref;
 import com.chatapp.application.adapter.RetrieveUsersAdapter;
 import com.chatapp.application.adapter.ShowSearchResultAdapter;
 import com.chatapp.application.model.Contacts;
 import com.chatapp.application.model.User;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,15 +35,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUsersAdapter.ViewHolder.OnItemClickListener,
         ShowSearchResultAdapter.ViewHolder.OnItemClickListener {
     private static final String TAG = "ShowFriendsActivity";
 
-    Toolbar toolbar;
+    ImageView buttonBack;
     LinearLayout showContacts;
-    TextView horizontalBar, searchIcon, clearText, newGroupCreateOption;
+    TextView horizontalBar, searchIcon, clearText;
+    MaterialCardView newGroupCreateOptionCard;
     EditText searchEditText;
     RecyclerView registeredUserRecyclerView, showSearchedUsersRecyclerView;
 
@@ -56,13 +58,23 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
     FirebaseUser firebaseUser;
 
 
+    private SharedPref sharedPreferences;
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()){
+            setTheme(R.style.AppTheme_DarkMode);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        } else {
+            setTheme(R.style.AppTheme);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         setContentView(R.layout.activity_show_friends);
 
@@ -72,6 +84,8 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
         init();
 
+
+        buttonBack.setOnClickListener(v -> finish());
 
         registeredUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         listUsers = new ArrayList<>();
@@ -162,15 +176,11 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
     //Initialization of fields
     private void init(){
-        toolbar = findViewById(R.id.chat_fab_toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
-
+        buttonBack = findViewById(R.id.buttonBack);
         searchIcon = findViewById(R.id.searchIcon);
         clearText = findViewById(R.id.clearText);
         searchEditText = findViewById(R.id.searchEditText);
-        newGroupCreateOption = findViewById(R.id.createNewGroupCardOption);
+        newGroupCreateOptionCard = findViewById(R.id.newGroupCreateOptionCard);
         horizontalBar = findViewById(R.id.horizontalBar);
         showContacts = findViewById(R.id.showContacts);
 
@@ -181,7 +191,7 @@ public class ShowFriendsActivity extends AppCompatActivity implements RetrieveUs
 
     //called when createNewGroup is clicked
     public void createNewGroup(View view) {
-        newGroupCreateOption.setPressed(true);
+        newGroupCreateOptionCard.setPressed(true);
         startActivity(new Intent(ShowFriendsActivity.this, NewGroupActivity.class));
         finish();
     }

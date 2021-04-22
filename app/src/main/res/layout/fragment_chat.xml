@@ -13,6 +13,7 @@
         android:text="@string/no_chat_history"
         android:textSize="17sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?attr/textColor"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,8 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/chat_fab"
@@ -38,8 +38,6 @@
         app:fabSize="normal"
         app:backgroundTint="@color/colorPurple"
         android:src="@drawable/chat_24"
-        android:clickable="true"
-        android:focusable="true"
         tools:ignore="ContentDescription"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

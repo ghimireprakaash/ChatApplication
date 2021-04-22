@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
+import com.chatapp.application.SharedPref;
 import com.chatapp.application.fragments.ChatFragment;
 import com.chatapp.application.fragments.ContactsFragment;
 import com.chatapp.application.fragments.MoreOptionFragment;
@@ -36,13 +37,24 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseUser currentUser;
 
+    private SharedPref sharedPreferences;
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()) {
+            setTheme(R.style.AppTheme_DarkMode);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        } else {
+            setTheme(R.style.AppTheme);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         setContentView(R.layout.activity_main);
 

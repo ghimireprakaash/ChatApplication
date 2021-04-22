@@ -2,24 +2,30 @@ package com.chatapp.application.activity;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
-import java.util.Objects;
+import com.chatapp.application.SharedPref;
+import com.google.android.material.card.MaterialCardView;
 
 public class SettingsActivity extends AppCompatActivity {
+    ImageView buttonBack;
     Toolbar settingsToolbar;
-    TextView accountLayout, appearanceLayout;
+    MaterialCardView accountLayout, appearanceLayout;
 
     //Child items for accountLayout, and appearanceLayout
     LinearLayout accountChildLayout, appearanceChildLayout;
     TextView deleteAccountTxt, classicThemeTxt, darkThemeTxt;
 
+    private SharedPref sharedPreferences;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -27,8 +33,17 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()){
+            setTheme(R.style.AppTheme_DarkMode);
+
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        } else {
+            setTheme(R.style.AppTheme);
+
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         setContentView(R.layout.activity_settings);
 
@@ -37,13 +52,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         settingsToolbar = findViewById(R.id.settingsToolbar);
         setSupportActionBar(settingsToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        settingsToolbar.setNavigationOnClickListener(v -> finish());
+        buttonBack.setOnClickListener(v -> finish());
 
 
         //OnClickEvents on Views
         accountLayout.setOnClickListener(v -> {
-            accountLayout.setPressed(true);
             if (accountChildLayout.getVisibility() == View.GONE) {
                 accountChildLayout.setVisibility(View.VISIBLE);
             } else {
@@ -52,7 +65,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         appearanceLayout.setOnClickListener(v -> {
-            appearanceLayout.setPressed(true);
             if (appearanceChildLayout.getVisibility() == View.GONE) {
                 appearanceChildLayout.setVisibility(View.VISIBLE);
             } else {
@@ -62,6 +74,8 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void init(){
+        buttonBack = findViewById(R.id.buttonBack);
+
         accountLayout = findViewById(R.id.accountLayout);
         accountChildLayout = findViewById(R.id.accountChildLayout);
         deleteAccountTxt = findViewById(R.id.deleteAccountTxt);
@@ -106,15 +120,30 @@ public class SettingsActivity extends AppCompatActivity {
         userOnlineOfflineState.checkOnlineOrOfflineStatus("Offline");
     }
 
+
+
+
     public void deleteAccount(View view) {
         deleteAccountTxt.setPressed(true);
     }
 
     public void setLightTheme(View view) {
         classicThemeTxt.setPressed(true);
+
+        sharedPreferences.saveNightModeState(false);
+        applyTheme();
     }
 
     public void setDarkTheme(View view) {
         darkThemeTxt.setPressed(true);
+
+        sharedPreferences.saveNightModeState(true);
+        applyTheme();
+    }
+
+    private void applyTheme() {
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

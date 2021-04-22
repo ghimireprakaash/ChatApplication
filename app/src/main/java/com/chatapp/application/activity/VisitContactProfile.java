@@ -16,10 +16,11 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
+import com.chatapp.application.SharedPref;
 import com.chatapp.application.model.User;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,32 +29,41 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class VisitContactProfile extends AppCompatActivity {
     private RelativeLayout buttonBack;
     private TextView contactName, userStatus, contactPhoneNumber, inviteUserTxt, sendMessageTxt;
     private ImageView contactProfileImage;
+    private MaterialCardView contactPhoneNumberCard;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
     ShowFriendsActivity showFriendsActivity;
 
+    private SharedPref sharedPreferences;
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()){
+            setTheme(R.style.AppTheme_DarkMode);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        } else {
+            setTheme(R.style.AppTheme);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         setContentView(R.layout.activity_visit_contact_profile);
 
@@ -114,6 +124,7 @@ public class VisitContactProfile extends AppCompatActivity {
         contactName = findViewById(R.id.contactName);
         userStatus = findViewById(R.id.user_status);
         contactPhoneNumber = findViewById(R.id.contactPhoneNumber);
+        contactPhoneNumberCard = findViewById(R.id.contactPhoneNumberCard);
 
         inviteUserTxt = findViewById(R.id.inviteUserTxt);
         sendMessageTxt = findViewById(R.id.sendMessageTxt);
@@ -135,7 +146,7 @@ public class VisitContactProfile extends AppCompatActivity {
 
         String contact_number = getIntent().getStringExtra("contact_number");
         contactPhoneNumber.setText(contact_number);
-        contactPhoneNumber.setOnClickListener(v -> contactPhoneNumber.setPressed(true));
+        contactPhoneNumberCard.setOnClickListener(v -> {});
 
         checkUserAvailability(contact_name, contact_number);
     }

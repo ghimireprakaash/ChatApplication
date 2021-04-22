@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.net.Uri;
 import android.os.Build;
-
 import androidx.annotation.RequiresApi;
 
 public class OreoAndAboveNotifications extends ContextWrapper {

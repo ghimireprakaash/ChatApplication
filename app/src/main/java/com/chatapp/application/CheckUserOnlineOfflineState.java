@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CheckUserOnlineOfflineState {
     Context context;
@@ -35,7 +36,7 @@ public class CheckUserOnlineOfflineState {
         userStateMap.put("date", saveCurrentDate);
         userStateMap.put("state", state);
 
-        String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String currentUser = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("Users").child(currentUser).child("userState").updateChildren(userStateMap);
     }

@@ -244,13 +244,13 @@
 125        </service>
 126
 127        <provider
-127-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+127-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\67c40dde318d23cc254118221a66132a\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
 128            android:name="com.squareup.picasso.PicassoProvider"
-128-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+128-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\67c40dde318d23cc254118221a66132a\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
 129            android:authorities="com.chatapp.application.com.squareup.picasso"
-129-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+129-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\67c40dde318d23cc254118221a66132a\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
 130            android:exported="false" />
-130-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\73788167b35b4eedb54894fd4565f93a\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+130-->[com.squareup.picasso:picasso:2.71828] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\67c40dde318d23cc254118221a66132a\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
 131
 132        <receiver
 132-->[com.google.firebase:firebase-iid:21.0.1] C:\Users\ghimi\.gradle\caches\transforms-2\files-2.1\4731913f03f7683f726aee188e977eaf\jetified-firebase-iid-21.0.1\AndroidManifest.xml:37:9-44:20

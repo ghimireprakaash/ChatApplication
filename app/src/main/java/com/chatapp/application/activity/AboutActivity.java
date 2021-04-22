@@ -9,18 +9,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
+import com.chatapp.application.SharedPref;
 
 public class AboutActivity extends AppCompatActivity {
     TextView appName, aboutApp;
     ImageView aboutImage;
+
+    private SharedPref sharedPreferences;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()) {
+            setTheme(R.style.AppTheme_DarkMode);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        } else {
+            setTheme(R.style.AppTheme);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         setContentView(R.layout.activity_about);
 

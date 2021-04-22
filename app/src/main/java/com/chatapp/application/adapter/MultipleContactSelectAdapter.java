@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.chatapp.application.R;
 import com.chatapp.application.model.Contacts;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -87,17 +88,14 @@ public class MultipleContactSelectAdapter extends RecyclerView.Adapter<MultipleC
         });
 
 
-        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getPosition.setSelected(!getPosition.isSelected());
-                if (getPosition.isSelected()){
-                    holder.contactSelected.setVisibility(View.VISIBLE);
-                    addSelectedContacts();
-                } else {
-                    holder.contactSelected.setVisibility(View.INVISIBLE);
-                    removeSelectedContacts();
-                }
+        holder.contactMaterialCardLayout.setOnClickListener(v -> {
+            getPosition.setSelected(!getPosition.isSelected());
+            if (getPosition.isSelected()){
+                holder.contactSelected.setVisibility(View.VISIBLE);
+                addSelectedContacts();
+            } else {
+                holder.contactSelected.setVisibility(View.INVISIBLE);
+                removeSelectedContacts();
             }
         });
     }
@@ -128,21 +126,21 @@ public class MultipleContactSelectAdapter extends RecyclerView.Adapter<MultipleC
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ConstraintLayout constraintLayout;
         ImageView userProfile, contactSelected;
-        TextView userNameFirstAndLastLetter, contactName, inviteText;
+        TextView userNameFirstAndLastLetter, contactName;
+        MaterialCardView contactMaterialCardLayout, inviteCard;
 
 
         public ViewHolder(View itemView){
             super(itemView);
 
-            constraintLayout = itemView.findViewById(R.id.constraintLayout);
+            contactMaterialCardLayout = itemView.findViewById(R.id.contactMaterialCardLayout);
             userProfile = itemView.findViewById(R.id.contactProfile);
             contactSelected = itemView.findViewById(R.id.contactSelected);
             userNameFirstAndLastLetter = itemView.findViewById(R.id.contactNameFirstAndLastLetter);
             contactName = itemView.findViewById(R.id.contactUserName);
-            inviteText = itemView.findViewById(R.id.inviteText);
-            inviteText.setVisibility(View.GONE);
+            inviteCard = itemView.findViewById(R.id.inviteCard);
+            inviteCard.setVisibility(View.GONE);
 
             itemView.setOnClickListener(this);
         }

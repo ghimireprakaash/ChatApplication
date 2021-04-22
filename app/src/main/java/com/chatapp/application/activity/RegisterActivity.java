@@ -41,25 +41,21 @@ public class RegisterActivity extends AppCompatActivity {
         //Attach CarrierNumber editText to CCP
         ccp.registerCarrierNumberEditText(editTextCarrierNumber);
 
-        continueBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phoneNumber = editTextCarrierNumber.getText().toString().trim();
+        continueBtn.setOnClickListener(v -> {
+            String phoneNumber = editTextCarrierNumber.getText().toString().trim();
 
-                if (phoneNumber.length() < 10 || phoneNumber.length() > 14 || phoneNumber.matches(regex)){
+            if (phoneNumber.length() < 10 || phoneNumber.length() > 14 || phoneNumber.matches(regex)){
 
-                    editTextCarrierNumber.setError("Valid phone number is required.");
+                editTextCarrierNumber.setError("Valid phone number is required.");
 
-                } else {
-                    //Initializing constructor of Bundle class
-                    bundle = new Bundle();
-                    bundle.putString("fullPhoneNumber", ccp.getFormattedFullNumber());
+            } else {
+                //Initializing constructor of Bundle class
+                bundle = new Bundle();
+                bundle.putString("fullPhoneNumber", ccp.getFormattedFullNumber());
 
-                    final DialogFragment dialogFragment = new DialogFragment();
-                    dialogFragment.setArguments(bundle);
-                    dialogFragment.show(getSupportFragmentManager(), "Dialog Fragment");
-
-                }
+                final DialogFragment dialogFragment = new DialogFragment();
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(getSupportFragmentManager(), "Dialog Fragment");
             }
         });
     }
@@ -96,16 +92,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     //OnCountry selected
     public void OnCountryCodePicker(View view) {
-        ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
-            @Override
-            public void onCountrySelected() {
+        ccp.setOnCountryChangeListener(() -> {
 
-                ccp.getSelectedCountryName();
-                ccp.getSelectedCountryCodeWithPlus();
-                ccp.setNumberAutoFormattingEnabled(false);
+            updateCountryCode(ccp);
 
-                updateCountryCode(ccp);
-            }
+            ccp.getSelectedCountryName();
+            ccp.getSelectedCountryCodeWithPlus();
         });
     }
 

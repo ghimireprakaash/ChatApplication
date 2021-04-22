@@ -29,7 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +44,6 @@ public class ChatFragment extends Fragment implements ChatsAdapter.ViewHolder.On
     private DatabaseReference databaseReference;
     private FirebaseUser currentUser;
 
-    private String username;
 
     @Nullable
     @Override
@@ -93,13 +91,14 @@ public class ChatFragment extends Fragment implements ChatsAdapter.ViewHolder.On
                     noChatHistoryText.setVisibility(View.VISIBLE);
                 } else {
                     noChatHistoryText.setVisibility(View.GONE);
-                    chatListRecyclerView.setVisibility(View.VISIBLE);
 
                     Chat chats = snapshot.getValue(Chat.class);
                     usersChatList.add(0, chats);
-                    chatsAdapter.notifyItemInserted(0);
 
-                    chatListRecyclerView.smoothScrollToPosition(0);
+                    chatsAdapter = new ChatsAdapter(getContext(), usersChatList, ChatFragment.this);
+                    chatListRecyclerView.setAdapter(chatsAdapter);
+                    chatsAdapter.notifyItemInserted(0);
+                    chatsAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -130,37 +129,40 @@ public class ChatFragment extends Fragment implements ChatsAdapter.ViewHolder.On
     public void OnClickItem(int position) {
         String userId = chatsAdapter.getItem(position).getId();
 
-//        Intent intent = new Intent(getContext(), ChatActivity.class);
-//        intent.putExtra("userId", userId);
+        Intent intent = new Intent(getContext(), ChatActivity.class);
+        intent.putExtra("userId", userId);
 
-//        databaseReference.child("Users").child(userId).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String contact = Objects.requireNonNull(snapshot.child("contact").getValue()).toString();
-//
-//                Cursor cursor = Objects.requireNonNull(getContext()).getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-//                        null,null,null,
-//                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
-//                while (cursor.moveToNext()){
-//                    String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-//                    String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("\\s|-", "");
-//
-//                    ShowFriendsActivity showFriendsActivity = new ShowFriendsActivity();
-//                    if (contact.equals(phoneNumber) || showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(phoneNumber)){
-//                        intent.putExtra("username", contactName);
-//                    } else {
-//                        String username = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
-//                        intent.putExtra("username", username);
-//                    }
-//                    startActivity(intent);
-//                }
-//                cursor.close();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        databaseReference.child("Users").child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String contact = Objects.requireNonNull(snapshot.child("contact").getValue()).toString();
+
+                Cursor cursor = Objects.requireNonNull(getContext()).getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        null,null,null,
+                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
+                while (cursor.moveToNext()){
+                    String contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                    String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("\\s|-", "");
+
+                    ShowFriendsActivity showFriendsActivity = new ShowFriendsActivity();
+                    if (contact.equals(phoneNumber) || showFriendsActivity.getPhoneNumberWithoutCountryCode(contact).equals(phoneNumber)){
+                        intent.putExtra("username", contactName);
+                    } else {
+                        String username = Objects.requireNonNull(snapshot.child("username").getValue()).toString();
+                        intent.putExtra("username", username);
+                    }
+                }
+                cursor.close();
+
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

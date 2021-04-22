@@ -3,7 +3,6 @@ package com.chatapp.application.activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.database.Cursor;
@@ -12,9 +11,9 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
+import com.chatapp.application.SharedPref;
 import com.chatapp.application.adapter.MultipleContactSelectAdapter;
 import com.chatapp.application.model.Contacts;
 import com.chatapp.application.model.User;
@@ -27,11 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class NewGroupActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    ImageView createNewGroupBtn;
+    ImageView buttonBack, createNewGroupBtn;
     RecyclerView contactsRecyclerView, selectedContactsRecyclerView;
 
     List<Contacts> friendsContactList;
@@ -43,28 +40,35 @@ public class NewGroupActivity extends AppCompatActivity {
     DatabaseReference friendsRef;
 
 
+    private SharedPref sharedPreferences;
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()){
+            setTheme(R.style.AppTheme_DarkMode);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        } else {
+            setTheme(R.style.AppTheme);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
 
         setContentView(R.layout.activity_new_group);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
 
         init();
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         friendsRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        getContacts();
-        buildContactsRecyclerView();
+//        getContacts();
+//        buildContactsRecyclerView();
 
         createNewGroupBtn.setOnClickListener(v -> {
         });
@@ -105,6 +109,9 @@ public class NewGroupActivity extends AppCompatActivity {
     }
 
     private void init(){
+        buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(v -> finish());
+
         createNewGroupBtn = findViewById(R.id.createNewGroupBtn);
     }
 

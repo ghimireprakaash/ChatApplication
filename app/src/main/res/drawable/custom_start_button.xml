@@ -5,7 +5,7 @@
 
             <solid android:color="@color/colorPurpleOnPressed"/>
             <corners android:radius="25dp"/>
-            <size android:width="210dp"
+            <size android:width="180dp"
                 android:height="50dp"/>
 
         </shape>
@@ -16,7 +16,7 @@
 
             <solid android:color="@color/colorPurple"/>
             <corners android:radius="25dp"/>
-            <size android:width="210dp"
+            <size android:width="180dp"
                 android:height="50dp"/>
 
         </shape>

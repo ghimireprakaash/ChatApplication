@@ -107,6 +107,7 @@ attr autoSizeTextType
 attr autoTransition
 attr background
 attr backgroundColor
+attr backgroundColorContact
 attr backgroundInsetBottom
 attr backgroundInsetEnd
 attr backgroundInsetStart
@@ -864,7 +865,10 @@ attr textAppearanceSearchResultTitle
 attr textAppearanceSmallPopupMenu
 attr textAppearanceSubtitle1
 attr textAppearanceSubtitle2
+attr textColor
 attr textColorAlertDialogListItem
+attr textColorContact
+attr textColorHint
 attr textColorSearchUrl
 attr textEndPadding
 attr textInputStyle
@@ -1642,7 +1646,6 @@ drawable contact_image_view_shape
 drawable crop_image_menu_flip
 drawable crop_image_menu_rotate_left
 drawable crop_image_menu_rotate_right
-drawable custom_bg_invite_text
 drawable custom_bg_profile_update
 drawable custom_start_button
 drawable design_bottom_navigation_item_background
@@ -2049,8 +2052,8 @@ id VIETNAMESE
 id VOICEMAIL
 id VOIP
 id aboutApp
+id aboutCard
 id aboutImage
-id aboutText
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -2109,7 +2112,6 @@ id actions
 id activateText
 id activity_chooser_view_content
 id add
-id addContactText
 id adjust_height
 id adjust_width
 id alertTitle
@@ -2119,6 +2121,7 @@ id always
 id animateToEnd
 id animateToStart
 id appBar
+id appBarDivider
 id appName
 id appearanceChildLayout
 id appearanceLayout
@@ -2154,7 +2157,6 @@ id chains
 id chat
 id chatListRecyclerView
 id chat_fab
-id chat_fab_toolbar
 id checkbox
 id checked
 id chip
@@ -2167,12 +2169,13 @@ id clip_horizontal
 id clip_vertical
 id collapseActionView
 id confirm_button
-id constraintLayout
 id contact
 id contactButtonBack
+id contactMaterialCardLayout
 id contactName
 id contactNameFirstAndLastLetter
 id contactPhoneNumber
+id contactPhoneNumberCard
 id contactProfile
 id contactProfileCard
 id contactProfileImage
@@ -2194,7 +2197,6 @@ id countryCode
 id countryCodeHolder
 id countryCodePicker
 id createNewGroupBtn
-id createNewGroupCardOption
 id cropImageView
 id crop_image_menu_crop
 id crop_image_menu_flip
@@ -2290,7 +2292,7 @@ id img_clear_query
 id img_dismiss
 id info
 id invisible
-id inviteText
+id inviteCard
 id inviteUserCard
 id inviteUserTxt
 id italic
@@ -2350,6 +2352,7 @@ id mtrl_picker_title_text
 id multiply
 id navigation_header_container
 id never
+id newGroupCreateOptionCard
 id newMessage
 id noChatHistoryText
 id noScroll
@@ -2383,6 +2386,7 @@ id postLayout
 id preferenceDivider
 id profileContactNumber
 id profileDOB
+id profileDivider
 id profileImage
 id profileImageLayout
 id profileName
@@ -2407,6 +2411,7 @@ id rlClickConsumer
 id rl_holder
 id rl_query_holder
 id rl_title
+id rootLayout
 id rounded
 id save_non_transition_alpha
 id save_overlay_view
@@ -2438,7 +2443,7 @@ id selectedContactProfile
 id selectedContactsRecyclerView
 id sendMessageTxt
 id settingsAppBar
-id settingsText
+id settingsCard
 id settingsToolbar
 id setupProfileDOB
 id setupProfileImage
@@ -2853,6 +2858,7 @@ string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
+string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string invite
@@ -2933,6 +2939,7 @@ style Animation_AppCompat_Tooltip
 style Animation_Design_BottomSheetDialog
 style Animation_MaterialComponents_BottomSheetDialog
 style AppTheme
+style AppTheme_DarkMode
 style AppTheme_Toolbar
 style Base_AlertDialog_AppCompat
 style Base_AlertDialog_AppCompat_Light
@@ -3605,7 +3612,6 @@ style Widget_MaterialComponents_Toolbar_Primary
 style Widget_MaterialComponents_Toolbar_PrimarySurface
 style Widget_MaterialComponents_Toolbar_Surface
 style Widget_Support_CoordinatorLayout
-style WindowAnimationStyle
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth
@@ -3726,6 +3732,7 @@ styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
+styleable dt backgroundColor backgroundColorContact textColor textColorContact textColorHint
 styleable fastscroll__fastScroller fastscroll__bubbleColor fastscroll__bubbleTextAppearance fastscroll__handleColor
 xml standalone_badge
 xml standalone_badge_gravity_bottom_end

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
+import com.chatapp.application.SharedPref;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,11 +58,22 @@ public class ProfileUpdate extends AppCompatActivity {
     DatabaseReference databaseReference;
     String currentUserID;
 
+    private SharedPref sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()){
+            setTheme(R.style.AppTheme_DarkMode);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        } else {
+            setTheme(R.style.AppTheme);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
         setContentView(R.layout.activity_profile_update);
 
         userProfileStorageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");

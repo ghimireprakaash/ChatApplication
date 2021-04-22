@@ -6,38 +6,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ContactsFragment">
 
-    <TextView
-        android:id="@+id/contactText"
+    <LinearLayout
+        android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/contacts"
-        android:textAllCaps="true"
-        android:textSize="14sp"
-        android:background="@color/colorPrimary"
+        android:background="?attr/backgroundColor"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:paddingTop="10dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="0dp"/>
-
-    <TextView
-        android:id="@+id/all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="All"
-        android:textSize="14sp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="10dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/contactText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/contacts"
+            android:textAllCaps="true"
+            android:textSize="14sp"
+            android:textColor="?attr/textColor"
+            android:padding="10dp"/>
+
+        <TextView
+            android:id="@+id/all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:textSize="14sp"
+            android:textColor="?attr/textColor"
+            android:padding="10dp"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/contactRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/contactText"
+        app:layout_constraintTop_toBottomOf="@+id/rootLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

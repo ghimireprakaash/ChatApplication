@@ -7,13 +7,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:windowAnimationStyle">@style/WindowAnimationStyle</item>
+        <item name="backgroundColor">@color/colorWhite</item>
+        <item name="textColor">@color/colorDark</item>
+        <item name="backgroundColorContact">@color/colorLowWhite</item>
+        <item name="textColorContact">@color/colorLightPurple</item>
+        <item name="textColorHint">@android:color/darker_gray</item>
     </style>
 
+    <style name="AppTheme.DarkMode" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorDark</item>
+        <item name="colorPrimaryDark">@color/colorDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
-    <style name="WindowAnimationStyle">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+        <item name="backgroundColor">@color/colorDark</item>
+        <item name="textColor">@color/colorWhite</item>
+        <item name="backgroundColorContact">@color/colorLightDark</item>
+        <item name="textColorContact">@color/colorWhite</item>
+        <item name="textColorHint">@android:color/darker_gray</item>
     </style>
 
     <!--For application title-->

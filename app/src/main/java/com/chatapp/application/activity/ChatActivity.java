@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
@@ -17,10 +16,12 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.chatapp.application.CheckUserOnlineOfflineState;
 import com.chatapp.application.R;
+import com.chatapp.application.SharedPref;
 import com.chatapp.application.adapter.MessageAdapter;
 import com.chatapp.application.model.Chat;
 import com.chatapp.application.model.User;
@@ -53,7 +54,7 @@ import retrofit2.Callback;
 public class ChatActivity extends AppCompatActivity {
     private static final String TAG = "ChatActivity";
 
-    private Toolbar toolbar;
+    private ImageView buttonBack;
     private TextView userName, userStatus;
     private EditText message;
     ImageButton buttonMessageSend;
@@ -73,6 +74,8 @@ public class ChatActivity extends AppCompatActivity {
     APIService apiService;
     boolean notify = false;
 
+    private SharedPref sharedPreferences;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -80,9 +83,15 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
+        sharedPreferences = new SharedPref(this);
+        if (sharedPreferences.loadNightMode()) {
+            setTheme(R.style.AppTheme_DarkMode);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.black));
+        } else {
+            setTheme(R.style.AppTheme);
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         setContentView(R.layout.activity_chat);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -91,10 +100,7 @@ public class ChatActivity extends AppCompatActivity {
         init();
 
 
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(v -> finish());
+        buttonBack.setOnClickListener(v -> finish());
 
         //Get userId and userProfileName with the help of intent
         userId = getIntent().getStringExtra("userId");
@@ -110,7 +116,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
         //create api service
-        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
+        apiService = Client.getRetrofit("https://fcm.googleapis.com").create(APIService.class);
 
 
 
@@ -125,7 +131,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void init() {
-        toolbar = findViewById(R.id.toolbar);
+        buttonBack = findViewById(R.id.buttonBack);
         userName = findViewById(R.id.userName);
         userStatus = findViewById(R.id.userStatus);
         message = findViewById(R.id.messageBox);

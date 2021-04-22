@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,8 @@ import java.util.Objects;
 public class ContactsFragment extends Fragment implements ContactListsAdapter.OnItemClickListener {
     private static final String TAG = "ContactListFragment";
 
+    LinearLayout rootLayout;
+
     RecyclerView recyclerView;
     List<Contacts> contactsList;
     ContactListsAdapter adapter;
@@ -38,6 +42,8 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
         Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
 
         View view = inflater.inflate(R.layout.fragment_contact_lists, container, false);
+
+        rootLayout = view.findViewById(R.id.rootLayout);
 
         //Initializing recyclerView with id of RecyclerView of its xml
         recyclerView = view.findViewById(R.id.contactRecyclerView);
@@ -51,6 +57,7 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
                 == PackageManager.PERMISSION_GRANTED){
             getContacts();
         }else {
+            rootLayout.setVisibility(View.GONE);
             requestPermissions(new String[]{android.Manifest.permission.READ_CONTACTS}, 1);
         }
 
@@ -71,6 +78,7 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
     }
 
     private void getContacts() {
+        rootLayout.setVisibility(View.VISIBLE);
         contactsList = new ArrayList<>();
         Cursor cursor = Objects.requireNonNull(getContext()).getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,

@@ -78,5 +78,7 @@
     <string name="delete_account">Delete Account</string>
     <string name="classic_theme">Classic Theme</string>
     <string name="dark_theme">Dark Theme</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

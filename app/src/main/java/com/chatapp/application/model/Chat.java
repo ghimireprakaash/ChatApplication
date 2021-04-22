@@ -1,10 +1,8 @@
 package com.chatapp.application.model;
 
 public class Chat {
-
     public Chat() {
     }
-
 
 
     private String id;
@@ -21,6 +19,13 @@ public class Chat {
     public void setId(String id) {
         this.id = id;
     }
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------//
+
+
 
 
     //gets history of chats like sender id, receiver id, messages, and also messageSentTime
