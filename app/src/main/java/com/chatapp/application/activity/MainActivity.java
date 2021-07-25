@@ -17,7 +17,6 @@ import com.chatapp.application.SharedPref;
 import com.chatapp.application.fragments.ChatFragment;
 import com.chatapp.application.fragments.ContactsFragment;
 import com.chatapp.application.fragments.MoreOptionFragment;
-import com.chatapp.application.notifications.Token;
 import com.chatapp.application.profile.ProfileSetupActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -72,15 +70,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null){
             bottomNavigationView.setSelectedItemId(R.id.chat);
         }
-
-
-        //updating token
-        updateToken(FirebaseInstanceId.getInstance().getToken());
-    }
-
-    private void updateToken(String token){
-        Token token1 = new Token(token);
-        databaseReference.child("Tokens").child(currentUser.getUid()).setValue(token1);
     }
 
 

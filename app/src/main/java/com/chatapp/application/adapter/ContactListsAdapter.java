@@ -28,8 +28,6 @@ import java.util.Objects;
 public class ContactListsAdapter extends RecyclerView.Adapter<ContactListsAdapter.ViewHolder>{
     private static final String TAG = "Adapter";
 
-    Context context;
-
     List<Contacts> lists;
     private final OnItemClickListener onItemClickListener;
 

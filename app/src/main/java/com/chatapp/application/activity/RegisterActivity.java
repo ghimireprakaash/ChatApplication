@@ -16,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
     String regex = "^[0-9]{10,14}$";
 
     CountryCodePicker ccp;
-    EditText countryCode, editTextCarrierNumber;
+    EditText countryCode_EditText, editTextCarrierNumber;
     Button continueBtn;
 
     Bundle bundle;
@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void init(){
         ccp = findViewById(R.id.countryCodePicker);
-        countryCode = findViewById(R.id.countryCode);
+        countryCode_EditText = findViewById(R.id.countryCode_EditText);
         editTextCarrierNumber = findViewById(R.id.phNumberEditText);
         continueBtn = findViewById(R.id.continueButton);
     }
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void updateCountryCode(CountryCodePicker ccp){
         String code = ccp.getSelectedCountryCode();
-        countryCode.setText(code);
+        countryCode_EditText.setText(code);
     }
 
 

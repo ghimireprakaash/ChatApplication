@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,17 +16,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.chatapp.application.R;
 import com.chatapp.application.activity.MainActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -43,6 +39,7 @@ import java.util.Objects;
 
 public class ProfileSetupActivity extends AppCompatActivity {
     private final String TAG = "ProfileSetupActivity";
+    private static final int REQUEST_CODE = 1;
 
     private static final int GALLERY_PICK = 1;
     Uri uri;
@@ -63,14 +60,15 @@ public class ProfileSetupActivity extends AppCompatActivity {
     //Declaring Firebase instances
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    private StorageReference userProfileImagesStorageRef;
+    private StorageReference filePath;
 
     //declaring current user id variable
     private String currentUserID;
 
+    //Retrieve Image uri if available
+    private String imageUri;
 
-    //Firebase storage
-    private StorageReference userProfileImagesStorageRef;
-    private StorageReference filePath;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -98,7 +96,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
 
         setupProfileImage.setPressed(false);
         //Image setup via gallery access
-        setupProfileImage.setOnClickListener(view -> setupProfileImage());
+        setupProfileImage.setOnClickListener(view ->
+                CropImage.startPickImageActivity(ProfileSetupActivity.this));
 
         //open calender so user can pick his/her birth date...
         OnDatePicker();
@@ -106,7 +105,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
         //On click button set, it setups the user information
         btnSet.setOnClickListener(view -> profileSetup());
     }
-
 
 
     // Initializing fields
@@ -118,40 +116,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
         setupProfileDOB = findViewById(R.id.setupProfileDOB);
 
         btnSet = findViewById(R.id.buttonSet);
-    }
-
-
-
-    private void OnDatePicker() {
-        //get instance of calendar
-        Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        //Date Picker
-        setupProfileDOB.setOnClickListener(view -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileSetupActivity.this,
-                    (datePicker, year, month, day) -> {
-                        month = month+1;
-                        String date = day+"/"+month+"/"+year;
-                        setupProfileDOB.setText(date);
-
-                        setDate(year, month, day);
-                    }, year, month, day);
-            datePickerDialog.show();
-        });
-    }
-
-    //set date so on second call remains on the same date that was picked on first call
-    private void setDate(int year, int month, int day){
-        this.year = year;
-        this.month = month;
-        this.day = day;
-    }
-
-    private void setupProfileImage() {
-        CropImage.startPickImageActivity(ProfileSetupActivity.this);
     }
 
 
@@ -206,7 +170,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
         }
     }
 
-
     private void startImageCrop(Uri imageUri) {
         CropImage.activity(imageUri)
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -215,6 +178,35 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 .start(this);
     }
 
+
+
+    private void OnDatePicker() {
+        //get instance of calendar
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        //Date Picker
+        setupProfileDOB.setOnClickListener(view -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileSetupActivity.this,
+                    (datePicker, year, month, day) -> {
+                        month = month+1;
+                        String date = day+"/"+month+"/"+year;
+                        setupProfileDOB.setText(date);
+
+                        setDate(year, month, day);
+                    }, year, month, day);
+            datePickerDialog.show();
+        });
+    }
+
+    //set date so on second call remains on the same date that was picked on first call
+    private void setDate(int year, int month, int day){
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
 
 
     //User Profile Setup
@@ -239,6 +231,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
             profileMap.put("dob", profileDOB);
             profileMap.put("contact", getFullPhoneNumber);
             profileMap.put("search", profileName.toLowerCase());
+            if (getImageUri() != null) {
+                profileMap.put("image", getImageUri());
+            }
 
 
             databaseReference.child("Users").child(currentUserID).setValue(profileMap)
@@ -252,7 +247,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
     }
 
 
-
+    // Retrieve User Info if available
     private void retrieveUserInfo() {
         databaseReference.child("Users").child(currentUserID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -266,7 +261,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
                     camera_icon.setVisibility(View.GONE);
                     Picasso.get().load(getUserProfileImage).into(setupProfileImage);
 
-                    storeProfileImage(getUserProfileImage);
+                    //Storing Image url
+                    setImageUri(getUserProfileImage);
 
                     setupProfileName.setText(getUserName);
                     setupProfileDOB.setText(getUserDOB);
@@ -292,8 +288,35 @@ public class ProfileSetupActivity extends AppCompatActivity {
         });
     }
 
-    private void storeProfileImage(String getUserProfileImage) {
-        databaseReference.child("Users").child(currentUserID).child("image").setValue(getUserProfileImage);
+    void setImageUri(String imageUri){
+        this.imageUri = imageUri;
+    }
+
+    String getImageUri(){
+        return imageUri;
+    }
+
+
+    //get contact permission
+    public void requestPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[] {Manifest.permission.READ_CONTACTS}, REQUEST_CODE);
+
+        }
+    }
+
+    //get the result of permissions on run time
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_CODE &&
+                grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            retrieveUserInfo();
+        }
     }
 
 
@@ -301,6 +324,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        retrieveUserInfo();
+        requestPermission();
     }
 }

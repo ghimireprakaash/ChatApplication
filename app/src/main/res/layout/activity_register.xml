@@ -70,7 +70,7 @@
             android:layout_margin="10dp"/>
 
         <EditText
-            android:id="@+id/countryCode"
+            android:id="@+id/countryCode_EditText"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:textColor="@android:color/tertiary_text_dark"

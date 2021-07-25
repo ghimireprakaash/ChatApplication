@@ -28,15 +28,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/AppTheme" >
-        <service
-            android:name="com.chatapp.application.notifications.FirebaseService"
-            android:enabled="true"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_SERVICE" />
-            </intent-filter>
-        </service>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" >
+
+        <!-- <service -->
+        <!-- android:name=".notifications.FirebaseService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.INSTANCE_ID_SERVICE"/> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
         <service
             android:name="com.chatapp.application.notifications.FirebaseMessaging"
             android:enabled="true"
@@ -68,13 +70,52 @@
         <activity android:name="com.chatapp.application.activity.AboutActivity" />
         <activity android:name="com.chatapp.application.activity.SettingsActivity" />
         <activity
-            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleTask"
-            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="firebase.auth"
+                    android:path="/"
+                    android:scheme="genericidp" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="firebase.auth"
+                    android:path="/"
+                    android:scheme="recaptcha" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="com.google.firebase.auth.api.fallback.service.FirebaseAuthFallbackService"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.firebase.auth.api.gms.service.START" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
         <service
             android:name="com.google.firebase.components.ComponentDiscoveryService"
             android:directBootAware="true"
@@ -92,9 +133,6 @@
                 android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
-                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
-                android:value="com.google.firebase.components.ComponentRegistrar" />
-            <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
@@ -103,14 +141,16 @@
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
-            <!--
-                This registrar is not defined in the dynamic-module-support sdk itself to allow non-firebase
-                clients to use it as well, by defining this registrar in their own core/common library.
-            -->
-            <meta-data
-                android:name="com.google.firebase.components:com.google.firebase.dynamicloading.DynamicLoadingRegistrar"
-                android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
+
+        <receiver
+            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </receiver>
         <!--
              FirebaseMessagingService performs security checks at runtime,
              but set to not exported to explicitly avoid allowing another app to call it.
@@ -128,15 +168,6 @@
             android:name="com.squareup.picasso.PicassoProvider"
             android:authorities="com.chatapp.application.com.squareup.picasso"
             android:exported="false" />
-
-        <receiver
-            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name="com.google.android.gms.common.api.GoogleApiActivity"

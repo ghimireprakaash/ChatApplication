@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +38,7 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
 
         View view = inflater.inflate(R.layout.fragment_contact_lists, container, false);
 
@@ -53,7 +52,7 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
         recyclerView.setLayoutManager(layoutManager);
 
         // checkPermission if permission was not granted
-        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()), android.Manifest.permission.READ_CONTACTS)
+        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.READ_CONTACTS)
                 == PackageManager.PERMISSION_GRANTED){
             getContacts();
         }else {
@@ -80,7 +79,7 @@ public class ContactsFragment extends Fragment implements ContactListsAdapter.On
     private void getContacts() {
         rootLayout.setVisibility(View.VISIBLE);
         contactsList = new ArrayList<>();
-        Cursor cursor = Objects.requireNonNull(getContext()).getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+        Cursor cursor = requireContext().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null, null, null,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
 
