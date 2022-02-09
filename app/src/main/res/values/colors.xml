@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#9D63F3</color>
+
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDark">#000000</color>
+
+    <color name="colorBlack">#302F2F</color>
+
+    <color name="colorLowWhite">#E1E1E1</color>
+    <!-- Used in contact_image_view_shape-->
+    <color name="colorLightWhite">#D2CFCECE</color>
+
+    <!--Used in bottom_nav_items-->
+    <color name="colorLightDark">#EB6C6C6C</color>
+
+    <!-- Used in profile update activity for back button -->
+    <color name="colorBackButtonBg">#7EFBFAFA</color>
+
+
+    <color name="colorLightPurple">#9D63F3</color>
+    <color name="colorPurple">#7E57C2</color>
+    <!--  onPressed have ripple effect-->
+    <color name="colorPurpleOnPressed">#6C46AF</color>
+
+
+    <!-- shows on background when on pressed is called-->
+    <color name="colorOnPressed">#C1EAE8E8</color>
+
+    <!-- color pressed state for send and invite card for visit profile activity-->
+    <color name="send_invite_color_onPressed">#6C46AF</color>
+
+    <!-- Custom Color for Enabled and Disabled button -->
+    <color name="colorEnabledButton">#7E57C2</color>
+    <color name="colorDisabledButton">#DA977CC6</color>
+
+    <!-- color for sender and receiver text fields -->
+    <color name="colorSenderBackground">#90CAF9</color>
+    <color name="colorReceiverBackground">#D7CCCCCC</color>
+</resources>

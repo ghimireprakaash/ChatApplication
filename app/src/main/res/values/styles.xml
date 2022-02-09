@@ -1,0 +1,45 @@
+<resources>
+    <!-- Base application theme. -->
+    <!-- For Light or Classic Mode-->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="backgroundColor">@color/colorWhite</item>
+        <item name="textColor">@color/colorDark</item>
+        <item name="backgroundColorContact">@color/colorLowWhite</item>
+        <item name="textColorContact">@color/colorLightPurple</item>
+        <item name="textColorHint">@android:color/darker_gray</item>
+    </style>
+
+    <style name="AppTheme.DarkMode" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorDark</item>
+        <item name="colorPrimaryDark">@color/colorDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="backgroundColor">@color/colorDark</item>
+        <item name="textColor">@color/colorWhite</item>
+        <item name="backgroundColorContact">@color/colorLightDark</item>
+        <item name="textColorContact">@color/colorWhite</item>
+        <item name="textColorHint">@android:color/darker_gray</item>
+    </style>
+
+    <!--For application title-->
+    <style name="AppTheme.Toolbar" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/audiowide_regular</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="TextAppearance.ContactName" parent="TextAppearance.AppCompat.Display4">
+        <item name="android:textColor">@color/colorLightPurple</item>
+    </style>
+
+    <style name="TextAppearance.CustomTextStyle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+</resources>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".activity.SettingsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/settingsAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/backgroundColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:src="@drawable/ic_baseline_arrow_back"
+                android:background="?attr/backgroundColor"
+                tools:ignore="ContentDescription"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/settingsToolbar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:title="@string/settings"
+                app:titleTextAppearance="@style/TextAppearance.CustomTextStyle"
+                app:titleTextColor="?attr/textColor"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/accountLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/backgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/settingsAppBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawableStartCompat="@drawable/account"
+            android:drawablePadding="20dp"
+            android:text="@string/account"
+            android:textSize="17sp"
+            android:textColor="?attr/textColor"
+            android:gravity="center_vertical"
+            android:padding="20dp"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/accountChildLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="?attr/backgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/accountLayout"
+        app:layout_constraintStart_toStartOf="@+id/accountLayout"
+        app:layout_constraintEnd_toEndOf="@+id/accountLayout"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/deleteAccountTxt"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/theme_bg_state"
+            android:text="@string/delete_account"
+            android:textSize="12sp"
+            android:textColor="@color/colorLightPurple"
+            android:gravity="center"
+            android:onClick="deleteAccount"/>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/appearanceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/backgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/accountChildLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:drawableStartCompat="@drawable/appearance"
+            android:drawablePadding="20dp"
+            android:text="@string/appearance"
+            android:textSize="17sp"
+            android:textColor="?attr/textColor"
+            android:gravity="center_vertical"
+            android:padding="20dp"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:id="@+id/appearanceChildLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:background="?attr/backgroundColor"
+        app:layout_constraintTop_toBottomOf="@+id/appearanceLayout"
+        app:layout_constraintStart_toStartOf="@id/appearanceLayout"
+        app:layout_constraintEnd_toEndOf="@id/appearanceLayout"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/classicThemeTxt"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/theme_bg_state"
+            android:text="@string/classic_theme"
+            android:textSize="12sp"
+            android:textColor="@color/colorLightPurple"
+            android:gravity="center"
+            android:onClick="setLightTheme"
+            android:layout_marginEnd="15dp"/>
+
+        <TextView
+            android:id="@+id/darkThemeTxt"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:background="@drawable/theme_bg_state"
+            android:text="@string/dark_theme"
+            android:textSize="12sp"
+            android:textColor="@color/colorLightPurple"
+            android:gravity="center"
+            android:onClick="setDarkTheme"
+            android:layout_marginStart="15dp"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
